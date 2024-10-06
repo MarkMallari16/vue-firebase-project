@@ -3,7 +3,9 @@
 <template>
   <div className="navbar bg-base-100 lg:px-20">
     <div class="flex-1">
-      <a className="btn btn-ghost text-xl uppercase">Budget Tracker</a>
+      <router-link to="/" className="btn btn-ghost text-xl uppercase"
+        >Budget Tracker</router-link
+      >
     </div>
 
     <div class="flex gap-4">
