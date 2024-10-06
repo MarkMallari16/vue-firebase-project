@@ -31,6 +31,7 @@ const register = (event) => {
 
 const signInWithGoogle = () => {
   const provider = new GoogleAuthProvider();
+
   signInWithPopup(getAuth(), provider)
     .then((result) => {
       console.log(result.user);
@@ -40,11 +41,12 @@ const signInWithGoogle = () => {
       console.error(error.message);
     });
 };
+
 </script>
 <template>
   <Navbar />
   <div class="grid min-h-screen place-items-center">
-    <div class="w-full lg:w-1/3 bg-base-200 p-8 rounded-lg">
+    <div class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-700 p-8 rounded-lg">
       <form @submit="register">
         <h1 class="text-2xl">Sign in</h1>
         <div class="mt-2">
