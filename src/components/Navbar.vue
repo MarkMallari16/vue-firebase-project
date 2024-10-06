@@ -3,7 +3,7 @@
 <template>
   <div className="navbar bg-base-100 lg:px-20">
     <div class="flex-1">
-      <a className="btn btn-ghost text-xl uppercase">My Own Website</a>
+      <a className="btn btn-ghost text-xl uppercase">Budget Tracker</a>
     </div>
 
     <div class="flex gap-4">

@@ -30,13 +30,13 @@ const { signInWithGoogle } = useAuth();
 </script>
 <template>
   <Navbar />
-  <div class="grid min-h-screen place-items-center">
+  <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
     <div
-      class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-700 p-8 rounded-lg"
+      class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-300 p-10"
     >
       <form @submit.prevent="register">
         <div class="mb-4">
-          <h1 class="text-2xl text-primary font-bold">Sign in</h1>
+          <h1 class="text-2xl font-bold">Sign in</h1>
           <p class="text-gray-400">Create your account</p>
         </div>
         <div class="mt-2">
@@ -74,7 +74,7 @@ const { signInWithGoogle } = useAuth();
           </button>
           <button
             type="button"
-            class="btn btn-outline text-center w-full"
+            class="btn btn-ghost text-center w-full"
             @click="signInWithGoogle"
           >
             <img :src="GoogleLogo" alt="Google Logo" class="w-4 h-4" />
