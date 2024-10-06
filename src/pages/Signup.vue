@@ -1,13 +1,10 @@
 <script setup>
 import { ref } from "vue";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
 import Navbar from "@/components/Navbar.vue";
+import { useAuth } from "@/composables/auth";
+import GoogleLogo from "../assets/google.png";
 
 const router = useRouter();
 const email = ref("");
@@ -29,26 +26,19 @@ const register = (event) => {
     });
 };
 
-const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-
-  signInWithPopup(getAuth(), provider)
-    .then((result) => {
-      console.log(result.user);
-      router.push("/home");
-    })
-    .catch((error) => {
-      console.error(error.message);
-    });
-};
-
+const { signInWithGoogle } = useAuth();
 </script>
 <template>
   <Navbar />
   <div class="grid min-h-screen place-items-center">
-    <div class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-700 p-8 rounded-lg">
-      <form @submit="register">
-        <h1 class="text-2xl">Sign in</h1>
+    <div
+      class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-700 p-8 rounded-lg"
+    >
+      <form @submit.prevent="register">
+        <div class="mb-4">
+          <h1 class="text-2xl text-primary font-bold">Sign in</h1>
+          <p class="text-gray-400">Create your account</p>
+        </div>
         <div class="mt-2">
           <div>
             <label for="email">Email</label>
@@ -82,7 +72,14 @@ const signInWithGoogle = () => {
           >
             Sign in
           </button>
-          <button type="button" class="btn btn-outline text-center w-full" @click="signInWithGoogle">Sign in with Google</button>
+          <button
+            type="button"
+            class="btn btn-outline text-center w-full"
+            @click="signInWithGoogle"
+          >
+            <img :src="GoogleLogo" alt="Google Logo" class="w-4 h-4" />
+            Sign in with Google
+          </button>
         </div>
       </form>
     </div>

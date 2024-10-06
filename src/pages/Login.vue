@@ -1,13 +1,10 @@
 <script setup>
 import { ref } from "vue";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
 import Navbar from "@/components/Navbar.vue";
+import { useAuth } from "@/composables/auth";
+import GoogleLogo from "../assets/google.png";
 
 const router = useRouter();
 const email = ref("");
@@ -45,25 +42,19 @@ const login = (event) => {
     });
 };
 
-const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-
-  signInWithPopup(getAuth(), provider)
-    .then((result) => {
-      console.log(result.user);
-      router.push("/home");
-    })
-    .catch((error) => {
-      console.error(error.message);
-    });
-};
+const { signInWithGoogle } = useAuth();
 </script>
 <template>
   <Navbar />
   <div class="grid min-h-screen place-items-center">
-    <div class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-700 p-8 rounded-lg">
-      <form @submit="login">
-        <h1 class="text-2xl">Log in</h1>
+    <div
+      class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-700 p-8 rounded-lg"
+    >
+      <form @submit.prevent="login">
+        <div class="mb-4">
+          <h1 class="text-2xl text-primary font-bold">Log in</h1>
+          <p class="text-gray-400">Log into your account</p>
+        </div>
         <div class="mt-2">
           <div>
             <label for="email">Email</label>
@@ -90,10 +81,19 @@ const signInWithGoogle = () => {
           <p v-if="errorMessage" class="mt-2 text-red-500">{{ errorMessage }}</p>
         </div>
         <div class="mt-6">
-          <button class="btn btn-primary text-center w-full mb-3" @click="login">
+          <button
+            type="submit"
+            class="btn btn-primary text-center w-full mb-3"
+            @click="login"
+          >
             Log in
           </button>
-          <button class="btn btn-outline text-center w-full" @click="signInWithGoogle">
+          <button
+            type="button"
+            class="btn btn-outline text-center w-full"
+            @click="signInWithGoogle"
+          >
+            <img :src="GoogleLogo" alt="Google Logo" class="w-4 h-4" />
             Log in with Google
           </button>
         </div>
