@@ -1,6 +1,11 @@
 <script setup>
 import { ref } from "vue";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { useRouter } from "vue-router";
 import Navbar from "@/components/Navbar.vue";
 
@@ -24,7 +29,17 @@ const register = (event) => {
     });
 };
 
-const signInWithGoogle = () => {};
+const signInWithGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(getAuth(), provider)
+    .then((result) => {
+      console.log(result.user);
+      router.push("/home");
+    })
+    .catch((error) => {
+      console.error(error.message);
+    });
+};
 </script>
 <template>
   <Navbar />
@@ -65,7 +80,7 @@ const signInWithGoogle = () => {};
           >
             Sign in
           </button>
-          <button class="btn btn-outline text-center w-full">Sign in with Google</button>
+          <button type="button" class="btn btn-outline text-center w-full" @click="signInWithGoogle">Sign in with Google</button>
         </div>
       </form>
     </div>

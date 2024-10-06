@@ -3,7 +3,7 @@ import Home from '@/pages/Home.vue';
 import Login from '@/pages/Login.vue';
 import Signup from '@/pages/Signup.vue';
 import Guest from '@/pages/Guest.vue';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 const routes = [
     {
         path: '/',
@@ -34,14 +34,27 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
-router.beforeEach((to, from, next) => {
+
+const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const removeListener = onAuthStateChanged(
+            getAuth(),
+            (user) => {
+                removeListener();
+                resolve(user);
+            },
+            reject
+        )
+    })
+}
+router.beforeEach(async (to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
-        if (getAuth().currentUser) {
+        if (await getCurrentUser()) {
             next();
         } else {
             next("/");
         }
-    }else{
+    } else {
         next()
     }
 });
