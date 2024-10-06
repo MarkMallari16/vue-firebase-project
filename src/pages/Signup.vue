@@ -3,8 +3,7 @@ import { ref } from "vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
 import Navbar from "@/components/Navbar.vue";
-import { useAuth } from "@/composables/auth";
-import GoogleLogo from "../assets/google.png";
+import GoogleButton from "@/components/GoogleButton.vue";
 
 const router = useRouter();
 const email = ref("");
@@ -26,14 +25,11 @@ const register = (event) => {
     });
 };
 
-const { signInWithGoogle } = useAuth();
 </script>
 <template>
   <Navbar />
   <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
-    <div
-      class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-300 p-10"
-    >
+    <div class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-300 p-10">
       <form @submit.prevent="register">
         <div class="mb-4">
           <h1 class="text-2xl font-bold">Sign in</h1>
@@ -72,14 +68,7 @@ const { signInWithGoogle } = useAuth();
           >
             Sign in
           </button>
-          <button
-            type="button"
-            class="btn btn-ghost text-center w-full"
-            @click="signInWithGoogle"
-          >
-            <img :src="GoogleLogo" alt="Google Logo" class="w-4 h-4" />
-            Sign in with Google
-          </button>
+          <GoogleButton />
         </div>
       </form>
     </div>
