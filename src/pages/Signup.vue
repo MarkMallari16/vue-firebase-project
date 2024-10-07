@@ -19,12 +19,19 @@ const register = (event) => {
       router.push("/home");
     })
     .catch((error) => {
-      if (error.code === "auth/invalid-email") {
-        errorMessage.value = "Invalid email address.";
+      switch (error.code) {
+        case "auth/invalid-email":
+          errorMessage.value = "Invalid email address.";
+          break;
+        case "auth/email-already-in-use":
+          errorMessage.value = "The email address is already in use by another account.";
+          break;
+        case "auth/weak-password":
+          errorMessage.value = "The password must be 6 characters long or more.";
+          break;
       }
     });
 };
-
 </script>
 <template>
   <Navbar />

@@ -40,8 +40,6 @@ const login = (event) => {
       }
     });
 };
-
-
 </script>
 <template>
   <Navbar />
