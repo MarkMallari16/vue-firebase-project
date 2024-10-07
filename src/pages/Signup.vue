@@ -77,6 +77,9 @@ const register = (event) => {
           </button>
           <GoogleButton />
         </div>
+        <div class="mt-2 text-center text-gray-800">
+          <router-link to="/login">Already have an account? Log in here. </router-link>
+        </div>
       </form>
     </div>
   </div>

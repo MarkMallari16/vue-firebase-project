@@ -85,6 +85,9 @@ const login = (event) => {
           </button>
           <GoogleButton />
         </div>
+        <div class="mt-2 text-center text-gray-800">
+          <router-link to="/signup"> Don't have an account? Sign up here.</router-link>
+        </div>
       </form>
     </div>
   </div>
