@@ -40,10 +40,40 @@ const handleSignOut = () => {
     <div className="drawer">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        <h1 class="text-3xl font-bold">Welcome Back, {{ user.email }}!</h1>
-        <p class="text-lg text-gray-600 mt-1">
-          Here’s what’s happening with your account today.
-        </p>
+        <div class="flex flex-col lg:flex-row justify-between items-center gap-10">
+          <div>
+            <h1 class="text-3xl font-bold">Welcome Back, {{ user.email }}!</h1>
+            <p class="text-lg text-gray-600 mt-1">
+              Here’s what’s happening with your account today.
+            </p>
+          </div>
+
+          <div class="w-full relative">
+            <input type="text" class=" input input-bordered pl-12 w-1/2" placeholder="Search..." />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-5 absolute inset-4"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+
+          <div class="avatar hidden lg:block">
+            <div class="w-12 rounded-full">
+              <img
+                src="https://img.freepik.com/free-photo/confident-handsome-guy-posing-against-white-wall_176420-32936.jpg?t=st=1728397042~exp=1728400642~hmac=54456643792c2d462774d84d3590a6698c8fa43a44f76e8404dc74a594e3e02e&w=900"
+                alt="avatar"
+              />
+            </div>
+          </div>
+        </div>
+
         <label htmlFor="my-drawer" className="mt-2 btn btn-primary drawer-button"
           >Open drawer</label
         >
@@ -54,7 +84,7 @@ const handleSignOut = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="size-6"
+              class="size-10"
             >
               <path
                 d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 0 1-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004ZM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 0 1-.921.42Z"
@@ -73,7 +103,7 @@ const handleSignOut = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="size-6"
+              class="size-10"
             >
               <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
               <path
@@ -93,7 +123,7 @@ const handleSignOut = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="size-6"
+              class="size-10"
             >
               <path
                 d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 0 0 7.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 0 0 4.902-5.652l-1.3-1.299a1.875 1.875 0 0 0-1.325-.549H5.223Z"

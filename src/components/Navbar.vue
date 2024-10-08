@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div className="navbar bg-base-100 lg:px-20">
+  <div className="navbar  lg:px-20">
     <div class="flex-1">
       <router-link to="/" className="btn btn-ghost text-xl uppercase"
         >Budget Tracker</router-link

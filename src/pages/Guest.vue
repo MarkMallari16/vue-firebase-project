@@ -3,8 +3,8 @@ import Hero from "@/components/Hero.vue";
 import Navbar from "@/components/Navbar.vue";
 </script>
 <template>
-  <Navbar />
-  <div class="lg:px-20">
+  <div class="bg-gradient-to-t from-white to-base-200">
+    <Navbar />
     <Hero />
   </div>
 </template>
