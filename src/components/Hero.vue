@@ -9,7 +9,7 @@ import HeroImage from "../assets/hero-image-2.png";
       <div class="text-center">
         <h1 class="text-6xl lg:text-7xl font-black">Track Your Budget Effortlessly!</h1>
         <p class="mt-4 text-lg">
-          Take Control of Your Finances" or "Track Your Budget Effortlessly
+          Stay on top of your finances with ease.
         </p>
         <div class="mt-4 flex justify-center gap-2">
           <router-link to="/signup" class="font-medium btn btn-primary"
