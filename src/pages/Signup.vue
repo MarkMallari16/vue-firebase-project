@@ -34,53 +34,55 @@ const register = (event) => {
 };
 </script>
 <template>
-  <Navbar />
-  <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
-    <div class="w-full lg:w-1/3 bg-base-200 ring-1 ring-inset ring-gray-300 p-10">
-      <form @submit.prevent="register">
-        <div class="mb-4">
-          <h1 class="text-2xl font-bold">Sign in</h1>
-          <p class="text-gray-400">Create your account</p>
-        </div>
-        <div class="mt-2">
+  <div class="bg-base-200">
+    <Navbar />
+    <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
+      <div class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 p-10">
+        <form @submit.prevent="register">
+          <div class="mb-4">
+            <h1 class="text-2xl font-bold">Sign in</h1>
+            <p class="text-gray-400">Create your account</p>
+          </div>
+          <div class="mt-2">
+            <div>
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="mt-1 block input input-bordered w-full"
+                placeholder="Enter your email"
+                v-model="email"
+                required
+              />
+            </div>
+            <div class="mt-4">
+              <label for="email">Password</label>
+              <input
+                type="password"
+                class="mt-1 block input input-bordered w-full"
+                placeholder="Enter your password"
+                v-model="password"
+                required
+              />
+            </div>
+          </div>
           <div>
-            <label for="email">Email</label>
-            <input
-              type="email"
-              class="mt-1 block input input-bordered w-full"
-              placeholder="Enter your email"
-              v-model="email"
-              required
-            />
+            <p v-if="errorMessage" class="mt-2 text-red-500">{{ errorMessage }}</p>
           </div>
-          <div class="mt-4">
-            <label for="email">Password</label>
-            <input
-              type="password"
-              class="mt-1 block input input-bordered w-full"
-              placeholder="Enter your password"
-              v-model="password"
-              required
-            />
+          <div class="mt-6">
+            <button
+              type="submit"
+              class="btn btn-primary text-center w-full mb-3"
+              @click="register"
+            >
+              Sign in
+            </button>
+            <GoogleButton />
           </div>
-        </div>
-        <div>
-          <p v-if="errorMessage" class="mt-2 text-red-500">{{ errorMessage }}</p>
-        </div>
-        <div class="mt-6">
-          <button
-            type="submit"
-            class="btn btn-primary text-center w-full mb-3"
-            @click="register"
-          >
-            Sign in
-          </button>
-          <GoogleButton />
-        </div>
-        <div class="mt-2 text-center text-gray-800">
-          <router-link to="/login">Already have an account? Log in here. </router-link>
-        </div>
-      </form>
+          <div class="mt-2 text-center text-gray-800">
+            <router-link to="/login">Already have an account? Log in here. </router-link>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>

@@ -36,7 +36,7 @@ const handleSignOut = () => {
 </script>
 
 <template>
-  <div class="pt-10 px-8 lg:px-20">
+  <div class="pt-4 px-8 lg:px-20">
     <div className="drawer">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
@@ -54,7 +54,7 @@ const handleSignOut = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="size-5 absolute inset-4"
+              class="size-5 absolute left-4 top-4"
             >
               <path
                 fill-rule="evenodd"
@@ -74,9 +74,6 @@ const handleSignOut = () => {
           </div>
         </div>
 
-        <label htmlFor="my-drawer" className="mt-2 btn btn-primary drawer-button"
-          >Open drawer</label
-        >
 
         <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-5">
           <div class="bg-base-200 rounded-sm p-10 ring-1 ring-inset ring-base-300">
@@ -156,9 +153,15 @@ const handleSignOut = () => {
           <li><a>Settings</a></li>
         </ul>
       </div>
+      
     </div>
+    
+  
     <div>
       <button class="btn btn-error mt-4" @click="handleSignOut">logout</button>
     </div>
+    <label htmlFor="my-drawer" className="mt-2 btn btn-primary drawer-button"
+    >Open drawer</label
+  >
   </div>
 </template>
