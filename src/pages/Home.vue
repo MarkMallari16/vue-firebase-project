@@ -36,20 +36,24 @@ const handleSignOut = () => {
 </script>
 
 <template>
-  <div class="pt-4 px-8 lg:px-20">
+  <div class="min-h-screen pt-4 px-8 lg:px-20 bg-base-200">
     <div className="drawer">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         <div class="flex flex-col lg:flex-row justify-between items-center gap-10">
           <div>
-            <h1 class="text-3xl font-bold">Welcome Back, {{ user.email }}!</h1>
+            <h1 class="text-2xl font-bold">Welcome Back, {{ user.email }}!</h1>
             <p class="text-lg text-gray-600 mt-1">
               Here’s what’s happening with your account today.
             </p>
           </div>
 
           <div class="w-full relative">
-            <input type="text" class=" input input-bordered pl-12 w-1/2" placeholder="Search..." />
+            <input
+              type="text"
+              class="input input-bordered pl-12 w-1/2"
+              placeholder="Search..."
+            />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -64,19 +68,33 @@ const handleSignOut = () => {
             </svg>
           </div>
 
-          <div class="avatar hidden lg:block">
-            <div class="w-12 rounded-full">
-              <img
-                src="https://img.freepik.com/free-photo/confident-handsome-guy-posing-against-white-wall_176420-32936.jpg?t=st=1728397042~exp=1728400642~hmac=54456643792c2d462774d84d3590a6698c8fa43a44f76e8404dc74a594e3e02e&w=900"
-                alt="avatar"
-              />
+          <div className="dropdown">
+            <div tabIndex="{0}" role="button" className="btn m-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
             </div>
+            <ul
+              tabIndex="{0}"
+              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 overflow-hidden p-2 shadow"
+            >
+              <li><button @click="handleSignOut">Logout</button></li>
+              <li><a>Item 2</a></li>
+            </ul>
           </div>
         </div>
 
-
         <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <div class="bg-base-200 rounded-sm p-10 ring-1 ring-inset ring-base-300">
+          <div class="rounded-sm p-10 ring-1 ring-inset ring-base-300 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -95,7 +113,7 @@ const handleSignOut = () => {
 
             <h2 class="text-2xl">Income: <span class="font-bold">20040</span></h2>
           </div>
-          <div class="bg-base-200 rounded-sm p-10 ring-1 ring-inset ring-base-300">
+          <div class="rounded-sm p-10 ring-1 ring-inset ring-base-300 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -115,7 +133,7 @@ const handleSignOut = () => {
 
             <h2 class="text-2xl">Expenses: <span class="font-bold">2000</span></h2>
           </div>
-          <div class="bg-base-200 rounded-sm p-10 ring-1 ring-inset ring-base-300">
+          <div class="rounded-sm p-10 ring-1 ring-inset ring-base-300 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -153,15 +171,10 @@ const handleSignOut = () => {
           <li><a>Settings</a></li>
         </ul>
       </div>
-      
     </div>
-    
-  
-    <div>
-      <button class="btn btn-error mt-4" @click="handleSignOut">logout</button>
-    </div>
+
     <label htmlFor="my-drawer" className="mt-2 btn btn-primary drawer-button"
-    >Open drawer</label
-  >
+      >Open drawer</label
+    >
   </div>
 </template>
