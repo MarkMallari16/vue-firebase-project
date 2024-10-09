@@ -12,15 +12,15 @@ const handleOpen = () => {
 
 <template>
   <div
-    className="navbar pt-4 lg:pt-6 lg:px-20 flex flex-col lg:flex-row lg:justify-between lg:items-center "
+    className="navbar pt-4 lg:pt-6 lg:px-20  lg:flex-row flex-col justify-between lg:items-center "
   >
     <div>
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between w-full">
         <router-link to="/" className="btn btn-ghost text-xl uppercase "
           >Budget Tracker</router-link
         >
 
-        <button class="block lg:hidden" @click="handleOpen">
+        <button class="flex lg:hidden" @click="handleOpen">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
