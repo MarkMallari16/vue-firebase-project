@@ -69,7 +69,7 @@ const handleSignOut = () => {
           </div>
 
           <div className="dropdown">
-            <div tabIndex="{0}" role="button" className="btn m-1">
+            <div tabIndex="{0}" role="button" className="btn m-1 bg-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -85,10 +85,10 @@ const handleSignOut = () => {
             </div>
             <ul
               tabIndex="{0}"
-              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 overflow-hidden p-2 shadow"
+              className="dropdown-content menu bg-white rounded-box z-[1] w-32 overflow-hidden p-2 shadow "
             >
               <li><button @click="handleSignOut">Logout</button></li>
-              <li><a>Item 2</a></li>
+             
             </ul>
           </div>
         </div>

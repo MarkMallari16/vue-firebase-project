@@ -45,7 +45,9 @@ const login = (event) => {
   <div class="bg-base-200">
     <Navbar />
     <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
-      <div class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 rounded-md p-10">
+      <div
+        class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 rounded-md p-10"
+      >
         <form @submit.prevent="login">
           <div class="mb-4">
             <h1 class="text-2xl font-bold">Log in</h1>

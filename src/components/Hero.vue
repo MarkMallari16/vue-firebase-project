@@ -3,7 +3,7 @@ import HeroImage from "../assets/hero-image-2.png";
 </script>
 <template>
   <div>
-    <div class="mx-8 min-h-screen flex justify-center items-center gap-10 bg-no-repeat">
+    <div class="pt-10 px-8 min-h-screen flex justify-center items-center gap-10 bg-no-repeat">
       <div class="text-center">
         <div className="flex justify-center avatar-group mb-2 -space-x-6 rtl:space-x-reverse">
           <div className="avatar">
