@@ -13,10 +13,10 @@ const handleOpen = () => {
 <template>
  <nav class="lg:px-10 pt-2">
   <div
-  class=" navbar lg:flex-row flex-col items-start justify-between lg:items-center" :class="isOpen ? 'bg-base-300 ' : 'bg-none'"
+  class=" navbar lg:flex-row flex-col items-start justify-between lg:items-center" 
 >
   <div class="flex justify-between w-full lg:w-auto">
-    <router-link to="/" class="btn btn-ghost text-xl uppercase "
+    <router-link to="/" class="btn btn-ghost text-2xl lg:text-xl uppercase "
         >Budget Tracker</router-link
       >
     <button class="flex lg:hidden bg-base-300 rounded-md p-2" @click="handleOpen">
@@ -50,7 +50,7 @@ const handleOpen = () => {
   </div>
   <div
     :class="
-      isOpen ? ' w-full  lg:w-auto flex flex-col lg:flex-row items-center gap-5 lg:gap-4' : 'hidden '
+      isOpen ? ' w-full lg:w-auto flex flex-col lg:flex-row items-center gap-5 pt-20 lg:pt-0 lg:gap-4' : 'hidden '
     "
   >
     <router-link to="/login" class="text-gray-600 hover:text-primary transition-colors"
