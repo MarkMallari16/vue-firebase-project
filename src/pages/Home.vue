@@ -2,6 +2,7 @@
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import DashboardBarChart from "@/components/DashboardBarChart.vue";
 
 const router = useRouter();
 const isLoggedIn = ref(false);
@@ -37,21 +38,21 @@ const handleSignOut = () => {
 
 <template>
   <div class="min-h-screen pt-4 px-8 lg:px-20 bg-base-200">
-    <div className="drawer">
-      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
-        <div class="flex flex-col lg:flex-row justify-between items-center gap-10">
+    <div class="drawer">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <!--Top-->
+        <div
+          class="flex flex-col lg:flex-row justify-between items-center gap-10 bg-white px-6 py-4 rounded-lg"
+        >
           <div>
-            <h1 class="text-2xl font-bold">Welcome Back, {{ user.email }}!</h1>
-            <p class="text-lg text-gray-600 mt-1">
-              Here’s what’s happening with your account today.
-            </p>
+            <h1 class="text-2xl font-bold">Dashboard</h1>
           </div>
 
           <div class="w-full relative">
             <input
               type="text"
-              class="input input-bordered pl-12 w-1/2"
+              class="input input-bordered pl-12 w-full"
               placeholder="Search..."
             />
             <svg
@@ -68,32 +69,47 @@ const handleSignOut = () => {
             </svg>
           </div>
 
-          <div className="dropdown">
-            <div tabIndex="{0}" role="button" className="btn m-1 bg-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="size-6"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </div>
-            <ul
-              tabIndex="{0}"
-              className="dropdown-content menu bg-white rounded-box z-[1] w-32 overflow-hidden p-2 shadow "
+          <div class="flex items-center gap-5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-6"
             >
-              <li><button @click="handleSignOut">Logout</button></li>
-            </ul>
+              <path
+                fill-rule="evenodd"
+                d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            <div class="dropdown">
+              <div tabIndex="{0}" role="button" class="btn m-1 bg-white">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabIndex="{0}"
+                class="dropdown-content menu bg-white rounded-box z-[1] w-32 overflow-hidden p-2 shadow"
+              >
+                <li><button @click="handleSignOut">Logout</button></li>
+              </ul>
+            </div>
           </div>
         </div>
-
-        <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <div class="rounded-sm p-8 ring-1 ring-inset ring-base-300 bg-white">
+        <!--Overview-->
+        <div class="mt-4 grid grid-cols-1 lg:grid-cols-4 gap-5">
+          <div class="rounded-lg p-8 ring-1 ring-inset ring-base-300 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -110,7 +126,8 @@ const handleSignOut = () => {
               />
             </svg>
 
-            <h2 class="text-2xl">Income: <span class="font-bold">20040</span></h2>
+            <h2 class="mt-2 text-lg uppercase text-gray-700">Income</h2>
+            <h1 class="text-4xl font-bold">20040</h1>
 
             <div class="flex items-center gap-2 pt-4 text-green-500 font-medium">
               <svg
@@ -129,7 +146,7 @@ const handleSignOut = () => {
               <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
             </div>
           </div>
-          <div class="rounded-sm p-8 ring-1 ring-inset ring-base-300 bg-white">
+          <div class="rounded-lg p-8 ring-1 ring-inset ring-base-300 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -147,7 +164,8 @@ const handleSignOut = () => {
               />
             </svg>
 
-            <h2 class="text-2xl">Expenses: <span class="font-bold">2000</span></h2>
+            <h2 class="mt-2 text-lg uppercase text-gray-700">Expense</h2>
+            <h1 class="text-4xl font-bold">20040</h1>
 
             <div class="flex items-center gap-2 pt-4 text-green-500 font-medium">
               <svg
@@ -166,7 +184,7 @@ const handleSignOut = () => {
               <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
             </div>
           </div>
-          <div class="rounded-sm p-8 ring-1 ring-inset ring-base-300 bg-white">
+          <div class="rounded-lg p-8 ring-1 ring-inset ring-base-300 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -183,9 +201,8 @@ const handleSignOut = () => {
               />
             </svg>
 
-            <h2 class="text-2xl">
-              Remaining Budget: <span class="font-bold">2000</span>
-            </h2>
+            <h2 class="mt-2 text-lg uppercase text-gray-700">Remaining budget</h2>
+            <h1 class="text-4xl font-bold">20040</h1>
 
             <div class="flex items-center gap-2 pt-4 text-red-500 font-medium">
               <svg
@@ -204,15 +221,51 @@ const handleSignOut = () => {
               <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
             </div>
           </div>
+          <div class="rounded-lg p-8 ring-1 ring-inset ring-base-300 bg-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-10"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+
+            <h2 class="mt-2 text-lg uppercase text-gray-700">Total Savings</h2>
+            <h1 class="text-4xl font-bold">20040</h1>
+
+            <div class="flex items-center gap-2 pt-4 text-green-500 font-medium">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M15.22 6.268a.75.75 0 0 1 .968-.431l5.942 2.28a.75.75 0 0 1 .431.97l-2.28 5.94a.75.75 0 1 1-1.4-.537l1.63-4.251-1.086.484a11.2 11.2 0 0 0-5.45 5.173.75.75 0 0 1-1.199.19L9 12.312l-6.22 6.22a.75.75 0 0 1-1.06-1.061l6.75-6.75a.75.75 0 0 1 1.06 0l3.606 3.606a12.695 12.695 0 0 1 5.68-4.974l1.086-.483-4.251-1.632a.75.75 0 0 1-.432-.97Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+
+              <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
+            </div>
+          </div>
         </div>
+        <!--Chart-->
       </div>
-      <div className="drawer-side">
+
+      <div class="drawer-side">
         <label
           htmlFor="my-drawer"
           aria-label="close sidebar"
-          className="drawer-overlay"
+          class="drawer-overlay"
         ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+        <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           <li><a>Dashboard </a></li>
           <li><a>Income Tracking</a></li>
           <li><a>Expense Tracking</a></li>
@@ -223,8 +276,15 @@ const handleSignOut = () => {
       </div>
     </div>
 
-    <label htmlFor="my-drawer" className="mt-2 btn btn-primary drawer-button"
-      >Open drawer</label
-    >
+    <div class="flex gap-5">
+      <div class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300">
+        <h2 class="text-2xl pb-8 font-bold">History</h2>
+        <DashboardBarChart />
+      </div>
+      <div class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300">
+        <h2 class="text-2xl pb-8 font-bold">History</h2>
+        <DashboardBarChart />
+      </div>
+    </div>
   </div>
 </template>
