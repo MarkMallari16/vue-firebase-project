@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import DashboardBarChart from "@/components/DashboardBarChart.vue";
-
+import DashboardOverviewCard from "@/components/DashboardOverviewCard.vue";
 const router = useRouter();
 const isLoggedIn = ref(false);
 
@@ -146,6 +146,7 @@ const handleSignOut = () => {
               <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
             </div>
           </div>
+         
           <div class="rounded-lg p-8 ring-1 ring-inset ring-base-300 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -276,7 +277,7 @@ const handleSignOut = () => {
       </div>
     </div>
 
-    <div class="flex gap-5">
+    <div class="flex flex-wrap lg:flex-nowrap gap-5">
       <div class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300">
         <h2 class="text-2xl pb-8 font-bold">History</h2>
         <DashboardBarChart />

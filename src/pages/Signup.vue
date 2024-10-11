@@ -34,10 +34,11 @@ const register = (event) => {
 };
 </script>
 <template>
-  <div class="bg-base-200">
-    <Navbar />
+  <div class="bg-base-300">
+   
     <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
       <div class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 p-10">
+        <h2 class="text-3xl font-bold mb-6 uppercase">Expense Tracker</h2>
         <form @submit.prevent="register">
           <div class="mb-4">
             <h1 class="text-2xl font-bold">Sign in</h1>
