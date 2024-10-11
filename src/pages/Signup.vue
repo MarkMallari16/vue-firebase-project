@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
-import Navbar from "@/components/Navbar.vue";
 import GoogleButton from "@/components/GoogleButton.vue";
 
 const router = useRouter();

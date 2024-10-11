@@ -11,7 +11,7 @@ const handleOpen = () => {
 </script>
 
 <template>
- <nav class="lg:px-10 pt-2">
+ <nav >
   <div
   class=" navbar lg:flex-row flex-col items-start justify-between lg:items-center" 
 >

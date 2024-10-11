@@ -48,7 +48,7 @@ import HeroImage from "../assets/hero-image-2.png";
           <img
             :src="HeroImage"
             alt="Budget Tracker Image"
-            class="w-1/2 object-cover rounded-md"
+            class="w-1/2 object-cover rounded-md shadow-black"
           />
         </div>
       </div>
