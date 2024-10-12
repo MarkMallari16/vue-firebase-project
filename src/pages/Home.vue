@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import DashboardBarChart from "@/components/DashboardBarChart.vue";
+import DashboardLineChart from "@/components/DashboardLineChart.vue";
 import DashboardOverviewCard from "@/components/DashboardOverviewCard.vue";
 const router = useRouter();
 const isLoggedIn = ref(false);
@@ -37,10 +38,25 @@ const handleSignOut = () => {
 </script>
 
 <template>
-  <div class="min-h-screen pt-4 px-8 lg:px-20 bg-base-200">
-    <div class="drawer">
-      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content">
+  <div class="min-h-screen pt-2 bg-base-200">
+    <div class="grid grid-cols-[1fr_4fr] gap-4">
+      <!--sidebar-->
+      <div class="bg-white w-full p-5 rounded-lg ring-1 ring-inset ring-base-300">
+        <div class="flex gap-5">
+          <div className="avatar">
+            <div className=" w-14 rounded-full ">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              />
+            </div>
+          </div>
+         <div>
+          <h3 class="font-medium text-lg">{{user.email}}</h3>
+          <span class="text-sm text-green-500">Online</span>
+         </div>
+        </div>
+      </div>
+      <div class="w-full">
         <!--Top-->
         <div
           class="flex flex-col lg:flex-row justify-between items-center gap-10 bg-white px-6 py-4 rounded-lg"
@@ -146,7 +162,7 @@ const handleSignOut = () => {
               <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
             </div>
           </div>
-         
+
           <div class="rounded-lg p-8 ring-1 ring-inset ring-base-300 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -258,33 +274,21 @@ const handleSignOut = () => {
           </div>
         </div>
         <!--Chart-->
-      </div>
 
-      <div class="drawer-side">
-        <label
-          htmlFor="my-drawer"
-          aria-label="close sidebar"
-          class="drawer-overlay"
-        ></label>
-        <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          <li><a>Dashboard </a></li>
-          <li><a>Income Tracking</a></li>
-          <li><a>Expense Tracking</a></li>
-          <li><a>Budget Overview</a></li>
-          <li><a>Reports/Charts</a></li>
-          <li><a>Settings</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="flex flex-wrap lg:flex-nowrap gap-5">
-      <div class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300">
-        <h2 class="text-2xl pb-8 font-bold">History</h2>
-        <DashboardBarChart />
-      </div>
-      <div class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300">
-        <h2 class="text-2xl pb-8 font-bold">History</h2>
-        <DashboardBarChart />
+        <div class="flex flex-wrap lg:flex-nowrap gap-5">
+          <div
+            class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300"
+          >
+            <h2 class="text-2xl pb-8 font-bold">History</h2>
+            <DashboardBarChart />
+          </div>
+          <div
+            class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300"
+          >
+            <h2 class="text-2xl pb-8 font-bold">Budget Spending History</h2>
+            <DashboardLineChart />
+          </div>
+        </div>
       </div>
     </div>
   </div>
