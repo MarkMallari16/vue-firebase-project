@@ -42,6 +42,9 @@ const handleSignOut = () => {
     <div class="grid grid-cols-[1fr_4fr] gap-4">
       <!--sidebar-->
       <div class="bg-white w-full p-5 rounded-lg ring-1 ring-inset ring-base-300">
+        <div class="mb-6">
+          <h1 class="text-2xl font-bold">Dashboard</h1>
+        </div>
         <div class="flex gap-5">
           <div className="avatar">
             <div className=" w-12 h-12 rounded-full ">
@@ -62,10 +65,6 @@ const handleSignOut = () => {
         <div
           class="flex flex-col lg:flex-row justify-between items-center gap-10 bg-white px-6 py-4 rounded-lg"
         >
-          <div>
-            <h1 class="text-2xl font-bold">Dashboard</h1>
-          </div>
-
           <div class="w-full relative">
             <input
               type="text"
@@ -279,13 +278,13 @@ const handleSignOut = () => {
           <div
             class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300"
           >
-            <h2 class="text-2xl pb-8 font-bold">History</h2>
+            <h2 class="text-xl font-bold">History</h2>
             <DashboardBarChart />
           </div>
           <div
             class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300"
           >
-            <h2 class="text-2xl pb-8 font-bold">Budget Spending History</h2>
+            <h2 class="text-xl  font-bold">Budget Spending History</h2>
             <DashboardLineChart />
           </div>
         </div>
