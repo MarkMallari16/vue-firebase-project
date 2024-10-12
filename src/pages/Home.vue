@@ -44,19 +44,20 @@ const handleSignOut = () => {
       <div class="bg-white w-full p-5 rounded-lg ring-1 ring-inset ring-base-300">
         <div class="flex gap-5">
           <div className="avatar">
-            <div className=" w-14 rounded-full ">
+            <div className=" w-12 h-12 rounded-full ">
               <img
                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
               />
             </div>
           </div>
          <div>
-          <h3 class="font-medium text-lg">{{user.email}}</h3>
-          <span class="text-sm text-green-500">Online</span>
+          <h3 class="font-medium text-md">{{user.email}}</h3>
+          <span class="text-xs text-green-500 font-medium">Online</span>
          </div>
         </div>
       </div>
-      <div class="w-full">
+      <!--content-->
+      <div class="w-full pe-2">
         <!--Top-->
         <div
           class="flex flex-col lg:flex-row justify-between items-center gap-10 bg-white px-6 py-4 rounded-lg"
@@ -99,7 +100,7 @@ const handleSignOut = () => {
               />
             </svg>
 
-            <div class="dropdown">
+           <!-- <div class="dropdown">
               <div tabIndex="{0}" role="button" class="btn m-1 bg-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +121,7 @@ const handleSignOut = () => {
               >
                 <li><button @click="handleSignOut">Logout</button></li>
               </ul>
-            </div>
+            </div>-->
           </div>
         </div>
         <!--Overview-->
@@ -274,7 +275,6 @@ const handleSignOut = () => {
           </div>
         </div>
         <!--Chart-->
-
         <div class="flex flex-wrap lg:flex-nowrap gap-5">
           <div
             class="mt-4 bg-white p-10 w-full rounded-lg ring-1 ring-inset ring-base-300"
