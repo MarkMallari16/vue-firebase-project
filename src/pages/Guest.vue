@@ -1,9 +1,7 @@
 <script setup>
 import Hero from "@/components/Hero.vue";
 import Navbar from "@/components/Navbar.vue";
-import { ref } from "vue";
 
-const count = ref(0);
 </script>
 <template>
   <div class="bg-gradient-to-tr from-base-300 to-base-white">
@@ -77,10 +75,8 @@ const count = ref(0);
               </p>
             </div>
           </div>
-          
         </div>
       </div>
-      <button class="mt-2 btn btn-primary" @click="count++">Click me {{count}}</button>
     </div>
   </div>
 </template>
