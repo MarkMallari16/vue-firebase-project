@@ -1,7 +1,6 @@
 <script setup>
 import Hero from "@/components/Hero.vue";
 import Navbar from "@/components/Navbar.vue";
-
 </script>
 <template>
   <div class="bg-gradient-to-tr from-base-300 to-base-white">
@@ -74,6 +73,30 @@ import Navbar from "@/components/Navbar.vue";
                 Set budget limits for each category to help control your monthly spending.
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class=" to-white py-20">
+        <div class="text-center">
+          <h2 class="text-4xl font-bold">Choose your plan</h2>
+          <p class="text-lg text-gray-600">
+            Get the tools you need to manage your budget effectively.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 rounded-xl mt-10">
+          <div class="bg-white p-5">
+            <h3 class="text-2xl font-semibold mb-4">Free</h3>
+            <p class="text-lg mb-6">Perfect for getting started with budgeting.</p>
+          </div>
+          <div class="bg-white p-5">
+            <h3 class="text-2xl font-semibold mb-4">Tama lang</h3>
+            <p class="text-lg mb-6">Perfect for getting started with budgeting.</p>
+          </div>
+          <div class="bg-white p-5">
+            <h3 class="text-2xl font-semibold mb-4">Free</h3>
+            <p class="text-lg mb-6">Perfect for getting started with budgeting.</p>
           </div>
         </div>
       </div>

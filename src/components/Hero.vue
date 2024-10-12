@@ -34,7 +34,7 @@ import HeroImage from "../assets/hero-image-2.png";
           </div>
         </div>
         <h1 class="text-6xl lg:text-9xl break-words font-black">Track Your Budget Effortlessly!</h1>
-        <p class="mt-4 text-lg">Stay on top of your finances with ease.</p>
+        <p class="mt-4 text-lg text-gray-800">Stay on top of your finances. Enjoy managing them with ease.</p>
         <div class="mt-4 flex justify-center gap-2">
           <router-link to="/signup" class="font-medium btn btn-primary"
             >Get Started for Free</router-link
@@ -48,7 +48,7 @@ import HeroImage from "../assets/hero-image-2.png";
           <img
             :src="HeroImage"
             alt="Budget Tracker Image"
-            class="w-1/2 object-cover rounded-md shadow-black"
+            class="object-cover rounded-md shadow-black"
           />
         </div>
       </div>
