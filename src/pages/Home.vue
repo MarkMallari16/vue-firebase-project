@@ -67,6 +67,16 @@ const handleSignOut = () => {
       </div>
 
       <div class="flex items-center gap-5">
+        <div class="flex gap-2 items-center">
+          <div className="avatar">
+            <div className=" w-10 h-10 rounded-full ">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              />
+            </div>
+          </div>
+          <h3 class="font-medium text-md">{{ user.email }}</h3>
+        </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -123,21 +133,79 @@ const handleSignOut = () => {
     </div>
     <div class="grid grid-cols-[1fr_4fr] gap-3">
       <!--sidebar-->
-      <div class="bg-white w-full p-5 rounded-lg ring-1 ring-inset ring-base-300">
-        <div class="mb-6">
-          <h1 class="text-2xl font-bold">Dashboard</h1>
-        </div>
-        <div class="flex gap-5">
-          <div className="avatar">
-            <div className=" w-12 h-12 rounded-full ">
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+      <div
+        class="bg-white w-full px-5 py-8 rounded-lg ring-1 ring-inset ring-base-300 h-full"
+      >
+        <div>
+          <div
+            class="flex gap-4 items-center px-2 py-3 bg-base-300 hover:bg-base-300 rounded-lg cursor-pointer mb-3"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
               />
-            </div>
+            </svg>
+
+            <h2 class="font-medium">Dashboard</h2>
           </div>
-          <div>
-            <h3 class="font-medium text-md">{{ user.email }}</h3>
-            <span class="text-xs text-green-500 font-medium">Online</span>
+
+          <div
+            class="flex gap-4 items-center px-2 py-3 hover:bg-base-300 rounded-lg cursor-pointer mb-3"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18v18H3zM8 7h8v2H8zM8 11h8v2H8zM8 15h8v2H8z" />
+          </svg>
+
+            <h2 class="font-medium">Transaction</h2>
+          </div>
+
+          <div
+            class="flex gap-4 items-center px-2 py-3 hover:bg-base-300 rounded-lg cursor-pointer mb-3"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 6h15M3 12h18M4.5 18h15" />
+          </svg>
+            <h2 class="font-medium">Budget Overview</h2>
+          </div>
+
+          <div
+            class="flex gap-4 items-center px-2 py-3 hover:bg-base-300 rounded-lg cursor-pointer mb-3"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 6h15M3 12h18M4.5 18h15" />
+          </svg>
+
+            <h2 class="font-medium">Categories</h2>
+          </div>
+
+          <div
+            class="flex gap-4 items-center px-2 py-3 hover:bg-base-300 rounded-lg cursor-pointer mb-3"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+              />
+            </svg>
+
+            <h2 class="font-medium">Dashboard</h2>
           </div>
         </div>
       </div>
