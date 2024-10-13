@@ -77,7 +77,7 @@ import Navbar from "@/components/Navbar.vue";
         </div>
       </div>
 
-      <div class=" to-white py-20">
+      <div class="to-white py-20">
         <div class="text-center">
           <h2 class="text-4xl font-bold">Choose your plan</h2>
           <p class="text-lg text-gray-600">
@@ -85,18 +85,37 @@ import Navbar from "@/components/Navbar.vue";
           </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 rounded-xl mt-10">
-          <div class="bg-white p-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 rounded-xl mt-6">
+          <div class="bg-white p-10 ring-1 ring-inset ring-gray-300 rounded-lg">
             <h3 class="text-2xl font-semibold mb-4">Free</h3>
             <p class="text-lg mb-6">Perfect for getting started with budgeting.</p>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>Advanced budgeting tools</li>
+              <li>Track unlimited accounts</li>
+              <li>Priority email support</li>
+            </ul>
           </div>
-          <div class="bg-white p-5">
+          <div class="bg-white p-10 ring-1 ring-inset ring-primary rounded-lg">
             <h3 class="text-2xl font-semibold mb-4">Tama lang</h3>
             <p class="text-lg mb-6">Perfect for getting started with budgeting.</p>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>Track income and expenses</li>
+              <li>Set basic monthly budgets</li>
+              <li>Manual expense tracking</li>
+              <li>Email support</li>
+            </ul>
           </div>
-          <div class="bg-white p-5">
-            <h3 class="text-2xl font-semibold mb-4">Free</h3>
-            <p class="text-lg mb-6">Perfect for getting started with budgeting.</p>
+          <div class="bg-white p-10 ring-1 ring-inset ring-gray-300 rounded-lg">
+            <h3 class="text-2xl font-semibold mb-4">Pro</h3>
+            <p class="text-lg mb-6">Advanced budgeting features for power users.</p>
+
+            <ul class="list-disc pl-5 space-y-2">
+              <li>Automatic bank sync</li>
+              <li>Track multiple accounts</li>
+              <li>Custom category creation</li>
+              <li>Spending reports and insights</li>
+              <li>Priority email support</li>
+            </ul>
           </div>
         </div>
       </div>
