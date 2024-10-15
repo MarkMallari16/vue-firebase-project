@@ -33,7 +33,7 @@ const register = (event) => {
 };
 </script>
 <template>
-  <div class="bg-base-300">
+  <div class="bg-base-200">
    
     <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
       <div class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 p-10">
