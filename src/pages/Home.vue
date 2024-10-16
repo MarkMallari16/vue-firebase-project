@@ -38,6 +38,7 @@ const handleSignOut = () => {
 </script>
 
 <template>
+  
   <div class="min-h-screen pt-2 bg-base-200">
     <!--Top-->
     <div
@@ -131,6 +132,7 @@ const handleSignOut = () => {
        </div>-->
       </div>
     </div>
+
     <div class="grid grid-cols-[1fr_4fr] gap-3">
       <!--sidebar-->
       <div
