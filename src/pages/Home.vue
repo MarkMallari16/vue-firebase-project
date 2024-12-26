@@ -46,7 +46,7 @@ const handleSignOut = () => {
       class="flex flex-col lg:flex-row justify-between items-center gap-10 bg-white px-4 ring-1 ring-inset ring-gray-300 py-4 mb-2 rounded-lg"
     >
       <div>
-        <h1 class="text-3xl font-bold uppercase">Budget Tracker</h1>
+        <h1 class="text-2xl font-bold uppercase">Budget Tracker</h1>
       </div>
       <div class="w-1/2 relative">
         <input
@@ -77,7 +77,7 @@ const handleSignOut = () => {
               />
             </div>
           </div>
-          <h3 class="font-medium text-md">{{ user.email }}</h3>
+          <!-- <h3 class="font-medium text-md">{{ user.email }}</h3> -->
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
