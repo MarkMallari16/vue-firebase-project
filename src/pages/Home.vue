@@ -109,28 +109,7 @@ const handleSignOut = () => {
             />
           </svg>
         </button>
-        <!-- <div class="dropdown">
-         <div tabIndex="{0}" role="button" class="btn m-1 bg-white">
-           <svg
-             xmlns="http://www.w3.org/2000/svg"
-             viewBox="0 0 24 24"
-             fill="currentColor"
-             class="size-6"
-           >
-             <path
-               fill-rule="evenodd"
-               d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
-               clip-rule="evenodd"
-             />
-           </svg>
-         </div>
-         <ul
-           tabIndex="{0}"
-           class="dropdown-content menu bg-white rounded-box z-[1] w-32 overflow-hidden p-2 shadow"
-         >
-           <li><button @click="handleSignOut">Logout</button></li>
-         </ul>
-       </div>-->
+        
       </div>
     </div>
 
