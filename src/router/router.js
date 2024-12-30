@@ -4,6 +4,7 @@ import Login from '@/pages/Login.vue';
 import Signup from '@/pages/Signup.vue';
 import Guest from '@/pages/Guest.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 const routes = [
     {
         path: '/',
