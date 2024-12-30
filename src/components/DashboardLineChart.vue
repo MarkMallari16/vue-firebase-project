@@ -42,6 +42,7 @@ const chartOptions = ref({
   },
 })
 </script>
+
 <template>
   <Line :data="chartData" :options="chartOptions" />
 </template>

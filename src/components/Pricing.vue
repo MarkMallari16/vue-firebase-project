@@ -44,6 +44,7 @@
           <li>Spending reports and insights</li>
           <li>Priority email support</li>
         </ul>
+
       </div>
     </div>
   </div>
