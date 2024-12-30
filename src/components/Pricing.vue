@@ -19,7 +19,7 @@
           <li>Priority email support</li>
         </ul>
       </div>
-      <div class="bg-white p-10 ring-1 ring-inset ring-primary rounded-lg">
+      <div class="bg-white p-10 ring-2 ring-inset ring-primary rounded-lg">
         <div class="text-center">
           <h3 class="text-2xl font-bold mb-2 uppercase">Basic Plan</h3>
           <p class="text-lg mb-8">Perfect for getting started with budgeting.</p>
