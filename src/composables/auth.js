@@ -1,6 +1,7 @@
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+
 export function useAuth() {
     const user = ref(null);
     const router = useRouter();
