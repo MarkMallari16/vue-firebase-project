@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-base-300">
-    <footer className="footer text-base-content p-10">
+  <div class="bg-base-content text-base-200 rounded-sm">
+    <footer className="footer  p-10">
       <aside>
         <h1 class="text-2xl uppercase font-medium">Budget Tracker</h1>
         <p>Plan smart, spend wise.</p>
