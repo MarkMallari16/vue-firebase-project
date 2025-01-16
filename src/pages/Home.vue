@@ -2,8 +2,6 @@
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import DashboardBarChart from "@/components/DashboardBarChart.vue";
-import DashboardLineChart from "@/components/DashboardLineChart.vue";
 import DashboardOverview from "@/components/DashboardOverview.vue";
 import DashboardChart from "@/components/DashboardChart.vue";
 
