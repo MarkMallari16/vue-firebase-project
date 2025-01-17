@@ -35,6 +35,10 @@ const handleSignOut = () => {
       console.error(error.message);
     });
 };
+
+const goToTransactionsLink = () => {
+  router.push("/transactions");
+};
 </script>
 
 <template>
@@ -140,6 +144,7 @@ const handleSignOut = () => {
           <!--Transactions-->
           <button
             class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
+            @click="goToTransactionsLink"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

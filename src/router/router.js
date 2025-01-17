@@ -4,6 +4,7 @@ import Login from '@/pages/Login.vue';
 import Signup from '@/pages/Signup.vue';
 import Guest from '@/pages/Guest.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import Transactions from '@/pages/Transactions.vue';
 
 const routes = [
     {
@@ -28,6 +29,11 @@ const routes = [
         path: '/signup',
         name: 'Signup',
         component: Signup
+    },
+    {
+        path: '/transactions',
+        name: 'Transactions',
+        component: Transactions
     }
 ]
 
