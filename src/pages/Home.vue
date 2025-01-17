@@ -116,8 +116,8 @@ const handleSignOut = () => {
         class="bg-white w-full px-5 py-8 rounded-md ring-1 ring-inset ring-base-300 h-full"
       >
         <div>
-          <div
-            class="flex gap-4 items-center px-4 py-3 bg-base-300 hover:bg-base-300 rounded-md cursor-pointer mb-3"
+          <button
+            class="flex gap-4 items-center px-4 py-3 bg-base-300 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -135,11 +135,11 @@ const handleSignOut = () => {
             </svg>
 
             <h2 class="font-medium">Dashboard</h2>
-          </div>
+          </button>
 
           <!--Transactions-->
-          <div
-            class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3"
+          <button
+            class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -152,35 +152,15 @@ const handleSignOut = () => {
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                d="M3 3h18v18H3zM8 7h8v2H8zM8 11h8v2H8zM8 15h8v2H8z"
+                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
               />
             </svg>
 
             <h2 class="font-medium">Transaction</h2>
-          </div>
+          </button>
 
-          <div
-            class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M4.5 6h15M3 12h18M4.5 18h15"
-              />
-            </svg>
-            <h2 class="font-medium">Budget Overview</h2>
-          </div>
-
-          <div
-            class="flex gap-4 items-center mt-8 px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3"
+          <button
+            class="flex gap-4 items-center mt-8 px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -203,10 +183,10 @@ const handleSignOut = () => {
             </svg>
 
             <h2 class="font-medium">Categories</h2>
-          </div>
+          </button>
 
-          <div
-            class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3"
+          <button
+            class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -219,7 +199,7 @@ const handleSignOut = () => {
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12M6 12h12" />
             </svg>
             <h2 class="font-medium">Goals</h2>
-          </div>
+          </button>
 
           <!-- Settings -->
           <div
