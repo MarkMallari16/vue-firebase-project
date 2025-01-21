@@ -28,12 +28,10 @@ const chartOptions = ref({
       display: true,
       position: "top",
     },
-    
   },
-  
 });
 </script>
 
 <template>
-    <Bar :data="chartData" :options="chartOptions" />
+  <Bar :data="chartData" :options="chartOptions" />
 </template>

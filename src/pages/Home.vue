@@ -118,9 +118,7 @@ const goToTransactionsLink = () => {
 
     <div class="grid grid-cols-[1fr_4fr] gap-3 min-h-screen">
       <!--sidebar-->
-      <div
-        class="bg-white w-full px-5 py-8 rounded-md ring-1 ring-inset ring-base-300 h-screen"
-      >
+      <div class="bg-white w-full px-5 py-8 rounded-md ring-1 ring-inset ring-base-300">
         <div>
           <button
             class="flex gap-4 items-center px-4 py-3 bg-base-300 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
