@@ -4,6 +4,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import DashboardOverview from "@/components/DashboardOverview.vue";
 import DashboardChart from "@/components/DashboardChart.vue";
+import Logo from "../assets/budget.png";
 
 const router = useRouter();
 const isLoggedIn = ref(false);
@@ -47,8 +48,9 @@ const goToTransactionsLink = () => {
     <div
       class="flex flex-col lg:flex-row justify-between items-center gap-10 bg-white px-4 ring-1 ring-inset ring-gray-300 py-4 mb-2 rounded-md"
     >
-      <div>
-        <h1 class="text-2xl font-medium uppercase">Budget Tracker</h1>
+      <div class="flex items-center gap-3">
+        <img :src="Logo" alt="Budget Picture" class="w-10 h-10" />
+        <h2 class="hidden lg:block text-2xl font-medium uppercase">Budget Tracker</h2>
       </div>
       <div class="w-1/2 relative">
         <input
@@ -114,10 +116,10 @@ const goToTransactionsLink = () => {
       </div>
     </div>
 
-    <div class="grid grid-cols-[1fr_4fr] gap-3">
+    <div class="grid grid-cols-[1fr_4fr] gap-3 min-h-screen">
       <!--sidebar-->
       <div
-        class="bg-white w-full px-5 py-8 rounded-md ring-1 ring-inset ring-base-300 h-full"
+        class="bg-white w-full px-5 py-8 rounded-md ring-1 ring-inset ring-base-300 h-screen"
       >
         <div>
           <button
