@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 import { db } from "../collection/firebase";
 import GoogleButton from "@/components/GoogleButton.vue";
 import { doc, setDoc } from "firebase/firestore";
+import Logo from "../assets/budget.png";
 
 const router = useRouter();
 const email = ref("");
@@ -62,7 +63,10 @@ const login = async (event) => {
       <div
         class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 rounded-md p-10"
       >
-        <h2 class="text-3xl font-bold mb-6 uppercase">Bugdet Tracker</h2>
+        <div class="flex items-center gap-2 mb-6">
+          <img :src="Logo" alt="Logo" class="w-10 h-10" />
+          <h2 class="text-3xl font-bold uppercase">Bugdet Tracker</h2>
+        </div>
         <form @submit.prevent="login">
           <div class="mb-4">
             <h1 class="text-2xl font-bold">Log in</h1>
