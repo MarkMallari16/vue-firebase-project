@@ -9,6 +9,7 @@ const transactions = ref([]);
 
 onMounted(async () => {
   const query = await getDocs(collection(db, "transactions"));
+  console.log(query);
   transactions.value = query.docs.map((doc) => doc.data());
 
   console.log(transactions.value);
