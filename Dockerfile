@@ -7,6 +7,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 FROM nginx:1.23
 
 COPY --from=build-stage /app/dist /usr/share/nginx/html
