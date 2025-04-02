@@ -6,7 +6,7 @@ import DashboardSidebar from "@/components/DashboardSidebar.vue";
 </script>
 
 <template>
-  <div class="min-h-screen pt-2 bg-base-200 px-2">
+  <div class="pt-2 bg-base-200 px-2">
     <!--Top-->
     <DashboardNav />
 

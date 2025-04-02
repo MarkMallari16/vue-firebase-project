@@ -7,10 +7,18 @@ import Footer from "@/components/Footer.vue";
 </script>
 <template>
   <div class="">
-    <div class="lg:px-10 pt-2">
-      <Navbar />
-      <Hero />
-      <Pricing />
+    <div>
+      <div class="lg:px-10 pt-2">
+        <div>
+          <Navbar />
+        </div>
+        <div>
+          <Hero />
+        </div>
+        <div>
+          <Pricing />
+        </div>
+      </div>
       <Footer />
     </div>
   </div>
