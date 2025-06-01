@@ -5,7 +5,8 @@ import Signup from '@/pages/Signup.vue';
 import Guest from '@/pages/Guest.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Transactions from '@/pages/Transactions.vue';
-
+import Categories from '@/pages/Categories.vue';
+import Goals from '@/pages/Goals.vue';
 const routes = [
     {
         path: '/',
@@ -34,6 +35,16 @@ const routes = [
         path: '/transactions',
         name: 'Transactions',
         component: Transactions
+    },
+    {
+        path: '/categories',
+        name: 'Categories',
+        component: Categories
+    },
+    {
+        path: '/goals',
+        name: 'Goals',
+        component: Goals
     }
 ]
 

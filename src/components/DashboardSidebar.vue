@@ -3,12 +3,20 @@ import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
+
 const goToDashboardLink = () => {
   router.push("/home");
 };
 const goToTransactionsLink = () => {
   router.push("/transactions");
 };
+const goToCategoriesLink = () => {
+  router.push("/categories");
+};
+const goToGoalsLink = () => {
+  router.push("/goals");
+};
+
 const isActive = (path) => route.path === path;
 </script>
 
@@ -97,10 +105,29 @@ const isActive = (path) => route.path === path;
         </svg>
         <h2 class="font-medium">Transaction</h2>
       </button>
-
+      <!--Categories-->
       <button
         class="flex gap-4 items-center mt-8 px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
+        @click="goToCategoriesLink"
+        :class="{
+          'bg-base-300': isActive('/categories'),
+          'hover:bg-base-300': !isActive('/categories'),
+        }"
       >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="size-6"
+          v-if="isActive('/categories')"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M5.25 2.25a3 3 0 0 0-3 3v4.318a3 3 0 0 0 .879 2.121l9.58 9.581c.92.92 2.39 1.186 3.548.428a18.849 18.849 0 0 0 5.441-5.44c.758-1.16.492-2.629-.428-3.548l-9.58-9.581a3 3 0 0 0-2.122-.879H5.25ZM6.375 7.5a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -108,6 +135,7 @@ const isActive = (path) => route.path === path;
           stroke-width="1.5"
           stroke="currentColor"
           class="size-6"
+          v-else
         >
           <path
             stroke-linecap="round"
@@ -122,6 +150,11 @@ const isActive = (path) => route.path === path;
 
       <button
         class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
+        @click="goToGoalsLink"
+        :class="{
+          'bg-base-300': isActive('/goals'),
+          'hover:bg-base-300': !isActive('/goals'),
+        }"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -133,6 +166,7 @@ const isActive = (path) => route.path === path;
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12M6 12h12" />
         </svg>
+
         <h2 class="font-medium">Goals</h2>
       </button>
 
