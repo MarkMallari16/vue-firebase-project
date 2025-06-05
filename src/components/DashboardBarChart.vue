@@ -10,12 +10,12 @@ const chartData = ref({
   datasets: [
     {
       label: "Income",
-      backgroundColor: "#22c55e",
+      backgroundColor: "oklch(70.7% 0.165 254.624)",
       data: [5000, 4000, 6000, 7000, 8000],
     },
     {
       label: "Expense",
-      backgroundColor: "#ef4444",
+      backgroundColor: "oklch(70.4% 0.191 22.216)",
       data: [3000, 2000, 4000, 5000, 6000],
     },
   ],

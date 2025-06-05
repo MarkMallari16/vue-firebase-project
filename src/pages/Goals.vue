@@ -3,11 +3,13 @@ import DashboardNav from "@/components/DashboardNav.vue";
 import DashboardSidebar from "@/components/DashboardSidebar.vue";
 </script>
 <template>
-  <div class="min-h-screen pt-2 bg-base-200 px-2">
-    <DashboardNav />
+  <div class="min-h-screen">
     <div class="grid grid-cols-[1fr_4fr] gap-3">
-      <DashboardSidebar />
+      <div>
+        <DashboardSidebar />
+      </div>
       <div class="mt-2 ms-5">
+        <DashboardNav />
         <h1 class="text-2xl font-bold">Goals</h1>
         <p>All categories</p>
         <div class="mt-3">
