@@ -11,8 +11,8 @@ import { ref } from "vue";
       </p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 rounded-xl mt-6">
-      <div class="p-10 ring-1 ring-inset ring-gray-300 rounded-lg">
+    <div class="flex justify-center gap-8 flex-wrap mt-6">
+      <div class="p-10 ring-1 ring-inset ring-gray-300 rounded-lg w-96">
         <div class="text-center">
           <h3 class="text-2xl font-bold">Free</h3>
           <h1 class="text-5xl font-medium mt-2 mb-4">
@@ -27,8 +27,8 @@ import { ref } from "vue";
         </ul>
       </div>
 
-      <div class="relative p-10 ring-2 ring-inset ring-primary rounded-lg">
-        <div class="absolute -top-3 left-40 lg:left-60">
+      <div class="relative p-10 ring-2 ring-inset ring-primary rounded-lg w-96">
+        <div class="absolute -top-3 left-36">
           <span class="badge badge-neutral rounded-full">Most Popular</span>
         </div>
         <div class="text-center">
@@ -46,7 +46,7 @@ import { ref } from "vue";
         </ul>
       </div>
 
-      <div class="p-10 ring-1 ring-inset ring-gray-300 rounded-lg">
+      <div class="p-10 ring-1 ring-inset ring-gray-300 rounded-lg w-96">
         <div class="text-center">
           <h3 class="text-2xl font-bold mb-2">Pro</h3>
           <h1 class="text-5xl font-medium mt-2 mb-4">

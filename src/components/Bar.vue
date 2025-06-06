@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <div class="bg-black text-white mt-20 p-20">
-    <div class="flex justify-around">
+    <div class="flex justify-around flex-wrap">
       <div class="text-center">
         <h1 class="text-6xl font-bold">50K+</h1>
         <p class="text-gray-300">Active Users</p>

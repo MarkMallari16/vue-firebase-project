@@ -69,8 +69,8 @@ const handleOpen = () => {
           >Features</router-link
         >
         <router-link to="/login" :class="linkStyles">Pricing</router-link>
-        <router-link to="/login" :class="linkStyles">About Us</router-link>
-        <router-link to="/login" :class="linkStyles">Contact Us</router-link>
+        <router-link to="/login" :class="linkStyles">About</router-link>
+        <router-link to="/login" :class="linkStyles">Contact</router-link>
       </div>
 
       <div
