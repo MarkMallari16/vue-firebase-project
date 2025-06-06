@@ -1,6 +1,6 @@
 <template>
   <div class="bg-base-content text-base-200 rounded-sm">
-    <footer className="footer  p-10">
+    <footer className="footer p-10">
       <aside>
         <div class="flex items-center gap-2">
           <svg
@@ -14,9 +14,9 @@
             />
           </svg>
 
-          <h1 class="text-2xl uppercase font-medium">Budget Tracker</h1>
+          <h1 class="text-2xl uppercase font-black">Budget Tracker</h1>
         </div>
-        <p>Plan smart, spend wise.</p>
+        <p class="text-gray-300">Plan smart, spend wise.</p>
       </aside>
       <nav>
         <h6 className="footer-title">Services</h6>
