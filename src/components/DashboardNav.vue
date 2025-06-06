@@ -35,7 +35,15 @@ const handleSignOut = () => {
     });
 };
 
-console.log(user);
+const showModal = () => {
+  const modal = document.getElementById("add_transaction");
+
+  if (modal) {
+    modal.showModal();
+  } else {
+    console.error("Modal element not found");
+  }
+};
 </script>
 <template>
   <!--Top-->
@@ -88,7 +96,7 @@ console.log(user);
         </svg>
       </div>
       <div>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" @click="showModal">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -107,6 +115,20 @@ console.log(user);
           Add Transaction
         </button>
       </div>
+
+      <!--Modal-->
+      <dialog id="add_transaction" class="modal">
+        <div class="modal-box">
+          <h3 class="text-lg font-bold">Hello!</h3>
+          <p class="py-4">Press ESC key or click the button below to close</p>
+          <div class="modal-action">
+            <form method="dialog">
+              <!-- if there is a button in form, it will close the modal -->
+              <button class="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
       <!-- <div class="flex gap-2 items-center">
         <div className="avatar">
           <div className=" w-10 h-10 rounded-full ">

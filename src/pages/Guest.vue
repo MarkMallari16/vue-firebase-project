@@ -2,7 +2,7 @@
 import Hero from "@/components/Hero.vue";
 import Navbar from "@/components/Navbar.vue";
 import Pricing from "@/components/Pricing.vue";
-
+import Bar from "@/components/Bar.vue";
 import Footer from "@/components/Footer.vue";
 </script>
 <template>
@@ -14,6 +14,9 @@ import Footer from "@/components/Footer.vue";
         </div>
         <div>
           <Hero />
+        </div>
+        <div>
+          <Bar />
         </div>
         <div>
           <Pricing />

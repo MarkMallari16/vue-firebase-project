@@ -3,12 +3,14 @@ import HeroImage from "../assets/hero-image-2.png";
 </script>
 <template>
   <div>
-    <div class="pt-10 px-8 lg:min-h-screen flex justify-center items-center gap-10 bg-no-repeat">
+    <div
+      class="pt-10 px-8 lg:min-h-screen flex justify-center items-center gap-10 bg-no-repeat"
+    >
       <div class="text-center">
         <div class="flex justify-center avatar-group mb-2 -space-x-6 rtl:space-x-reverse">
           <div class="avatar">
             <div class="w-8">
-            <img
+              <img
                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
               />
             </div>
@@ -33,8 +35,12 @@ import HeroImage from "../assets/hero-image-2.png";
             </div>
           </div>
         </div>
-        <h1 class="text-6xl  lg:text-9xl break-words font-black">Track Your Budget Effortlessly!</h1>
-        <p class="mt-4 text-lg text-gray-800">Stay on top of your finances. Enjoy managing them with ease.</p>
+        <h1 class="text-6xl lg:text-9xl break-words font-black">
+          Track Your Budget Effortlessly!
+        </h1>
+        <p class="mt-4 text-lg text-gray-800">
+          Stay on top of your finances. Enjoy managing them with ease.
+        </p>
         <div class="mt-4 flex justify-center gap-2">
           <router-link to="/signup" class="font-medium btn btn-primary"
             >Get Started for Free</router-link

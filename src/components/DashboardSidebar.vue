@@ -1,5 +1,6 @@
 <script setup>
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
@@ -18,6 +19,21 @@ const goToGoalsLink = () => {
   router.push("/goals");
 };
 const auth = getAuth();
+
+const name = ref("");
+const email = ref("");
+
+onMounted(() => {
+  const currentUser = auth.currentUser;
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      name.value = auth.currentUser.displayName || "User";
+      email.value = auth.currentUser.email || "email@gmail.com";
+    } else {
+      router.push("/login");
+    }
+  });
+});
 const isActive = (path) => route.path === path;
 </script>
 
@@ -239,8 +255,8 @@ const isActive = (path) => route.path === path;
             </div>
           </div>
           <div>
-            <h2 class="font-medium">Mark Christian Mallari</h2>
-            <p class="text-sm">{{ auth.currentUser.email }}</p>
+            <h2 class="font-medium">{{ name }}</h2>
+            <p class="text-sm">{{ email }}</p>
           </div>
         </div>
         <button>
