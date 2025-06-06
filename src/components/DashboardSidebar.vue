@@ -1,5 +1,5 @@
 <script setup>
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -37,6 +37,18 @@ onMounted(() => {
     }
   });
 });
+
+//signout
+const handleSignOut = () => {
+  signOut(auth)
+    .then(() => {
+      console.log("successfully logout");
+      router.push("/login");
+    })
+    .catch((error) => {
+      console.error(error.message);
+    });
+};
 
 const isActive = (path) => route.path === path;
 </script>
@@ -249,34 +261,48 @@ const isActive = (path) => route.path === path;
           </button>
         </div>
       </div>
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <div class="avatar">
-            <div class="w-10 bg-gray-300 rounded">
-              <img :src="profile" />
+      <!--Dropdown-->
+      <div class="dropdown dropdown-top w-full">
+        <div
+          tabindex="0"
+          role="button"
+          class="btn m-1 w-full flex items-center justify-between"
+        >
+          <div class="flex items-center gap-4">
+            <div class="avatar">
+              <div class="w-10 bg-gray-300 rounded">
+                <img :src="profile" />
+              </div>
+            </div>
+            <div class="text-left">
+              <h2 class="font-medium">{{ name }}</h2>
+              <p class="text-sm font-normal">{{ email }}</p>
             </div>
           </div>
-          <div>
-            <h2 class="font-medium">{{ name }}</h2>
-            <p class="text-sm">{{ email }}</p>
-          </div>
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m4.5 15.75 7.5-7.5 7.5 7.5"
+              />
+            </svg>
+          </button>
         </div>
-        <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m4.5 15.75 7.5-7.5 7.5 7.5"
-            />
-          </svg>
-        </button>
+        <ul
+          tabindex="0"
+          class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm"
+        >
+          <li><a>Item 1</a></li>
+          <li><button @click="handleSignOut">Sign out</button></li>
+        </ul>
       </div>
     </div>
   </div>

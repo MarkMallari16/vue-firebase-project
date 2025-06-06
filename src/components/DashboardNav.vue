@@ -26,17 +26,6 @@ onMounted(() => {
   });
 });
 
-const handleSignOut = () => {
-  signOut(auth)
-    .then(() => {
-      console.log("successfully logout");
-      router.push("/login");
-    })
-    .catch((error) => {
-      console.error(error.message);
-    });
-};
-
 const showModal = () => {
   const modal = document.getElementById("add_transaction");
 
@@ -103,13 +92,83 @@ const showModal = () => {
 
       <!--Modal-->
       <dialog id="add_transaction" class="modal">
-        <div class="modal-box">
-          <h3 class="text-lg font-bold">Hello!</h3>
-          <p class="py-4">Press ESC key or click the button below to close</p>
-          <div class="modal-action">
-            <form method="dialog">
-              <!-- if there is a button in form, it will close the modal -->
-              <button class="btn">Close</button>
+        <div class="modal-box w-11/12 max-w-2xl">
+          <h3 class="text-lg font-bold">Add New Transaction</h3>
+          <p class="text-gray-500">Enter the details of your transaction below.</p>
+          <div>
+            <form method="">
+              <div class="mt-4 mb-10">
+                <p class="font-medium">Transaction Type</p>
+                <div class="flex items-center gap-2 mt-2">
+                  <div class="flex items-center gap-2">
+                    <input
+                      id="income"
+                      type="radio"
+                      name="type"
+                      value="income"
+                      class="radio radio-primary radio-sm"
+                      checked
+                    />
+                    <label for="income" class="font-sans">Income</label>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <input
+                      id="expense"
+                      type="radio"
+                      name="type"
+                      value="income"
+                      class="radio radio-primary radio-sm"
+                    />
+                    <label for="expense" class="font-sans">Expense</label>
+                  </div>
+                </div>
+                <div class="flex items-center gap-5 mt-4 w-full">
+                  <div class="w-full">
+                    <label for="amount" class="font-medium mt-2">Amount</label>
+                    <input
+                      id="amount"
+                      type="number"
+                      class="mt-2 input input-secondary w-full"
+                      min="0"
+                    />
+                  </div>
+
+                  <div class="w-full">
+                    <label for="date" class="font-medium">Date</label>
+                    <input type="date" class="mt-2 input input-secondary w-full" />
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <label for="description" class="font-medium">Description</label>
+                  <input type="text" class="input mt-2 input-secondary w-full" />
+                </div>
+                <div class="mt-4">
+                  <div class="w-full flex items-center gap-5">
+                    <div class="w-full">
+                      <p class="font-medium mb-2">Category</p>
+                      <select class="select select-secondary w-full">
+                        <option disabled selected>Select Category</option>
+                        <option>Zig</option>
+                        <option>Go</option>
+                        <option>Rust</option>
+                      </select>
+                    </div>
+                    <div class="w-full">
+                      <p class="font-medium mb-2">Payment Method</p>
+                      <select class="select select-secondary w-full">
+                        <option selected>Cash</option>
+                        <option>Zig</option>
+                        <option>Go</option>
+                        <option>Rust</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-2 modal-action">
+                <button class="btn">Close</button>
+                <button class="btn btn-primary" type="submit">Save Transaction</button>
+              </div>
             </form>
           </div>
         </div>

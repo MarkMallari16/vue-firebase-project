@@ -1,7 +1,7 @@
 <template>
-  <div class="pt-8">
-    <div class="flex justify-between pb-6">
-      <h1 class="text-3xl font-medium">Overview</h1>
+  <div class="mt-8">
+    <div class="flex justify-between mb-4">
+      <h1 class="text-3xl font-bold">Overview</h1>
       <select class="select select-ghost">
         <option selected>Last 30 days</option>
         <option>Last 7 days</option>
@@ -31,7 +31,7 @@
             />
           </svg>
 
-          <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
+          <p>+2.5% <span class="font-normal">last month</span></p>
         </div>
       </div>
 
@@ -69,7 +69,7 @@
             />
           </svg>
 
-          <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
+          <p>+2.5% <span class="font-normal">last month</span></p>
         </div>
       </div>
 
@@ -108,7 +108,7 @@
             />
           </svg>
 
-          <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
+          <p>+2.5% <span class="font-normal">last month</span></p>
         </div>
       </div>
 
@@ -147,7 +147,7 @@
             />
           </svg>
 
-          <p>+2.5% <span class="text-gray-600 font-normal">last month</span></p>
+          <p>+2.5% <span class="font-normal">last month</span></p>
         </div>
       </div>
     </div>
