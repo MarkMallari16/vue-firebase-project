@@ -10,7 +10,10 @@ const transactions = ref([]);
 onMounted(async () => {
   const query = await getDocs(collection(db, "transactions"));
   console.log(query);
-  transactions.value = query.docs.map((doc) => doc.data());
+  transactions.value = query.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 
   console.log(transactions.value);
 });
@@ -31,7 +34,7 @@ onMounted(async () => {
         <div class="mt-6"></div>
         <div class="bg-white rounded-lg ring-1 ring-inset ring-base-300 p-5">
           <h2 class="text-xl font-medium">Filters</h2>
-          <p class="text-gray-400">Search and filter your transactions</p>
+          <p class="text-gray-500">Search and filter your transactions</p>
 
           <div class="flex items-center justify-between gap-10 mt-3">
             <!--Search Field-->
@@ -82,7 +85,7 @@ onMounted(async () => {
         <div class="mt-3 rounded-lg bg-white ring-1 ring-inset ring-base-300 p-5">
           <div class="mb-4">
             <h2 class="text-xl font-medium">Transaction History</h2>
-            <p class="text-gray-400">Complete list of your financial transactions</p>
+            <p class="text-gray-500">Complete list of your financial transactions</p>
           </div>
           <div class="overflow-x-auto">
             <table class="table">
@@ -90,17 +93,46 @@ onMounted(async () => {
               <thead>
                 <tr>
                   <th>Transaction ID</th>
-                  <th>Category</th>
+                  <th>Type</th>
                   <th>Amount</th>
                   <th>Date</th>
+                  <th>Category</th>
+                  <th>Payment Method</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="transaction in transactions" :key="transaction.id">
-                  <td>{{ transaction.transaction_id }}</td>
-                  <td>{{ transaction.categories }}</td>
+                <tr
+                  v-for="transaction in transactions"
+                  :key="transaction.id"
+                  v-if="transactions"
+                >
+                  <td>{{ transaction.id }}</td>
+                  <td>{{ transaction.type }}</td>
                   <td>{{ transaction.amount }}</td>
-                  <td>{{ transaction.transaction_date }}</td>
+                  <td>{{ transaction.date }}</td>
+                  <td>{{ transaction.category }}</td>
+                  <td>{{ transaction.paymentMethod }}</td>
+                  <td>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                      />
+                    </svg>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="6" class="text-center" v-if="transactions.length === 0">
+                    No transactions found.
+                  </td>
                 </tr>
               </tbody>
             </table>

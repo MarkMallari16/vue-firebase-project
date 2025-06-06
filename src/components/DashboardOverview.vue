@@ -1,3 +1,42 @@
+<script setup>
+import { computed } from "vue";
+
+const overviews = [
+  {
+    subtext: "Total Balance",
+    value: "20040",
+    icon: "₱",
+
+    iconColor: "text-green-500",
+    status: "+2.5%",
+    statusColor: "text-green-500",
+  },
+  {
+    subtext: "Total Income",
+    value: "20040",
+    icon: "M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18",
+    iconColor: "text-green-500",
+    status: "+2.5%",
+    statusColor: "text-green-500",
+  },
+  {
+    subtext: "Total Expenses",
+    value: "20040",
+    icon: "M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3",
+    iconColor: "text-red-500",
+    status: "+2.5%",
+    statusColor: "text-red-500",
+  },
+  {
+    subtext: "Savings Rate",
+    value: "20040",
+    icon: "M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18",
+    iconColor: "text-green-500",
+    status: "+2.5%",
+    statusColor: "text-green-500",
+  },
+];
+</script>
 <template>
   <div class="mt-8">
     <div class="flex justify-between mb-4">
@@ -10,14 +49,33 @@
       </select>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-3">
-      <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
+      <div
+        v-for="(overview, index) in overviews"
+        :key="index"
+        class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white"
+      >
         <div class="flex justify-between items-center">
-          <h2 class="mt-2 text-md font-medium">Total Balance</h2>
-          <h2 class="text-gray-500 text-2xl">₱</h2>
+          <h2 class="mt-2 text-md font-medium">{{ overview.subtext }}</h2>
+          <h2 v-if="!overview.icon.startsWith('M')" class="text-gray-500 text-2xl">
+            {{ overview.icon }}
+          </h2>
+          <!--This will show if have an svg icon-->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-5"
+            :class="overview.iconColor"
+            v-else
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" :d="overview.icon" />
+          </svg>
         </div>
-        <h1 class="text-4xl font-bold">20040</h1>
+        <h1 class="text-4xl font-bold">{{ overview.value }}</h1>
 
-        <div class="flex items-center gap-2 pt-4 text-green-500">
+        <div class="flex items-center gap-2 pt-1" :class="overview.statusColor">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -31,11 +89,11 @@
             />
           </svg>
 
-          <p>+2.5% <span class="font-normal">last month</span></p>
+          <p>{{ overview.status }}<span class="font-normal">last month</span></p>
         </div>
       </div>
 
-      <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
+      <!-- <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
         <div class="flex justify-between items-center">
           <h2 class="mt-2 text-md font-medium">Total Income</h2>
           <svg
@@ -55,7 +113,7 @@
         </div>
         <h1 class="text-4xl font-bold text-green-500">20040</h1>
 
-        <div class="flex items-center gap-2 pt-4 text-green-500">
+        <div class="flex items-center gap-2 pt-1 text-green-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -94,7 +152,7 @@
 
         <h1 class="text-4xl font-bold">20040</h1>
 
-        <div class="flex items-center gap-2 pt-4 text-red-500">
+        <div class="flex items-center gap-2 pt-1 text-red-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -133,7 +191,7 @@
 
         <h1 class="text-4xl font-bold">20040</h1>
 
-        <div class="flex items-center gap-2 pt-4 text-green-500">
+        <div class="flex items-center gap-2 pt-1 text-green-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -149,7 +207,7 @@
 
           <p>+2.5% <span class="font-normal">last month</span></p>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

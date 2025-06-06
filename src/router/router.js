@@ -7,6 +7,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Transactions from '@/pages/Transactions.vue';
 import Categories from '@/pages/Categories.vue';
 import Goals from '@/pages/Goals.vue';
+
 const routes = [
     {
         path: '/',
@@ -78,6 +79,7 @@ const getCurrentUser = () => {
         )
     })
 }
+
 router.beforeEach(async (to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
         if (await getCurrentUser()) {
