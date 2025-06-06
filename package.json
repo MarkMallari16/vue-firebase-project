@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "chart.js": "^4.4.4",
-    "daisyui": "^4.12.12",
+    "daisyui": "^4.12.24",
     "firebase": "^10.14.0",
     "vue": "^3.4.29",
     "vue-chartjs": "^5.3.1",

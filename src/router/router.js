@@ -18,6 +18,7 @@ const routes = [
         name: 'Home',
         component: Home,
         meta: {
+            title: 'Home',
             requiresAuth: true
         }
     },
@@ -34,17 +35,29 @@ const routes = [
     {
         path: '/transactions',
         name: 'Transactions',
-        component: Transactions
+        component: Transactions,
+        meta: {
+            title: 'Transactions',
+            requiresAuth: true
+        }
     },
     {
         path: '/categories',
         name: 'Categories',
-        component: Categories
+        component: Categories,
+        meta: {
+            title: 'Categoies',
+            requiresAuth: true
+        }
     },
     {
         path: '/goals',
         name: 'Goals',
-        component: Goals
+        component: Goals,
+        meta: {
+            title: 'Goals',
+            requiresAuth: true
+        }
     }
 ]
 

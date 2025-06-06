@@ -18,32 +18,36 @@ const goToCategoriesLink = () => {
 const goToGoalsLink = () => {
   router.push("/goals");
 };
+
 const auth = getAuth();
 
 const name = ref("");
 const email = ref("");
-
+const profile = ref("");
 onMounted(() => {
-  const currentUser = auth.currentUser;
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      name.value = auth.currentUser.displayName || "User";
-      email.value = auth.currentUser.email || "email@gmail.com";
+      name.value = user.displayName || "User";
+      email.value = user.email || "email@gmail.com";
+      profile.value = user.photoURL || "Default Profile URL";
+
+      console.log("User is logged in:", name.value, email.value, profile.value);
     } else {
       router.push("/login");
     }
   });
 });
+
 const isActive = (path) => route.path === path;
 </script>
 
 <template>
   <div class="fixed w-96">
     <div
-      class="flex flex-col justify-between bg-gray-100 px-5 py-8 h-screen shadow-lg rounded-3xl"
+      class="flex flex-col justify-between ring-1 ring-inset ring-slate-200 bg-gray-100 px-5 py-8 h-screen shadow-xl rounded-r-3xl"
     >
       <div>
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center justify-between mb-10">
           <div class="flex items-center gap-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +150,7 @@ const isActive = (path) => route.path === path;
           </button>
           <!--Categories-->
           <button
-            class="flex gap-4 items-center mt-8 px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
+            class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
             @click="goToCategoriesLink"
             :class="{
               'bg-base-300': isActive('/categories'),
@@ -249,9 +253,7 @@ const isActive = (path) => route.path === path;
         <div class="flex items-center gap-4">
           <div class="avatar">
             <div class="w-10 bg-gray-300 rounded">
-              <img
-                src="https://img.daisyui.com/images/profile/demo/superperson@192.webp"
-              />
+              <img :src="profile" />
             </div>
           </div>
           <div>
