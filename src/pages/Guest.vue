@@ -4,16 +4,20 @@ import Navbar from "@/components/Navbar.vue";
 import Pricing from "@/components/Pricing.vue";
 import Bar from "@/components/Bar.vue";
 import Footer from "@/components/Footer.vue";
+import Features from "@/components/Features.vue";
 </script>
 <template>
   <div class="">
     <div>
-      <div class="lg:px-10 pt-2">
+      <div>
         <div>
           <Navbar />
         </div>
         <div>
           <Hero />
+        </div>
+        <div>
+          <Features />
         </div>
         <div>
           <Bar />

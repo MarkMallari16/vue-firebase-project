@@ -269,9 +269,9 @@ const isActive = (path) => route.path === path;
           class="btn m-1 w-full flex items-center justify-between"
         >
           <div class="flex items-center gap-4">
-            <div class="avatar">
-              <div class="w-10 bg-gray-300 rounded">
-                <img :src="profile" />
+            <div class="avatar avatar-placeholder">
+              <div class="w-10 bg-gray-300 rounded bg-cover">
+                <img v-if="profile" :src="profile" />
               </div>
             </div>
             <div class="text-left">

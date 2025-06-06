@@ -1,22 +1,22 @@
 <script setup></script>
 <template>
-  <div class="bg-black text-white mt-20 p-20">
-    <div class="flex justify-around flex-wrap">
+  <section class="bg-black text-white mt-6 p-20">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-0">
       <div class="text-center">
-        <h1 class="text-6xl font-bold">50K+</h1>
+        <h1 class="text-7xl lg:text-6xl font-bold">50K+</h1>
         <p class="text-gray-300">Active Users</p>
       </div>
       <div class="text-center">
-        <h1 class="text-6xl font-bold">$2M+</h1>
+        <h1 class="text-7xl lg:text-6xl font-bold">$2M+</h1>
         <p class="text-gray-300">Money Tracked</p>
       </div>
       <div class="text-center">
-        <h1 class="text-6xl font-bold">99.9%</h1>
+        <h1 class="text-7xl lg:text-6xl font-bold">99.9%</h1>
         <p class="text-gray-300">Uptime</p>
       </div>
       <div class="text-center">
-        <h1 class="text-6xl font-bold">4.9</h1>
-        <div class="flex items-center gap-1 text-gray-300">
+        <h1 class="text-7xl lg:text-6xl font-bold">4.9</h1>
+        <div class="flex justify-center items-center gap-1 text-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -34,5 +34,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>

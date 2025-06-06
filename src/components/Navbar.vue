@@ -12,7 +12,9 @@ const handleOpen = () => {
 
 <template>
   <nav>
-    <div class="navbar lg:flex-row flex-col items-start justify-between lg:items-center">
+    <div
+      class="navbar lg:flex-row flex-col items-start justify-between lg:items-center lg:px-10 pt-6"
+    >
       <div class="flex justify-between w-full lg:w-auto">
         <router-link to="/" class="btn btn-ghost text-2xl uppercase font-black">
           <svg
