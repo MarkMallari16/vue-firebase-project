@@ -5,6 +5,7 @@ import Pricing from "@/components/Pricing.vue";
 import Bar from "@/components/Bar.vue";
 import Footer from "@/components/Footer.vue";
 import Features from "@/components/Features.vue";
+import SocialProof from "@/components/SocialProof.vue";
 </script>
 <template>
   <div class="">
@@ -21,6 +22,9 @@ import Features from "@/components/Features.vue";
         </div>
         <div>
           <Bar />
+        </div>
+        <div>
+          <SocialProof />
         </div>
         <div>
           <Pricing />

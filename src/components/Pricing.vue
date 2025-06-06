@@ -3,10 +3,10 @@ import { ref } from "vue";
 </script>
 
 <template>
-  <div class="my-20 px-10 lg:px-0">
+  <section class="pt-10 pb-40 px-10 lg:px-0">
     <div class="text-center py-20">
-      <h2 class="text-4xl font-bold uppercase">Choose your plan</h2>
-      <p class="text-lg text-gray-600">
+      <h2 class="text-6xl font-extrabold">Choose your plan</h2>
+      <p class="text-2xl text-gray-500 pt-6">
         Get the tools you need to manage your budget effectively.
       </p>
     </div>
@@ -64,5 +64,5 @@ import { ref } from "vue";
         </ul>
       </div>
     </div>
-  </div>
+  </section>
 </template>
