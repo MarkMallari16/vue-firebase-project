@@ -3,6 +3,7 @@ import { db } from "@/collection/firebase";
 import { doc, addDoc, collection } from "firebase/firestore";
 import { ref } from "vue";
 import { getAuth } from "firebase/auth";
+const loading = ref(false);
 
 const form = ref({
   type: "income",
@@ -23,18 +24,20 @@ const resetForm = () => {
     paymentMethod: "Cash",
   };
 };
+
 const submitForm = async () => {
   const auth = getAuth();
 
   try {
-    const userRef = doc(db, "users", auth.currentUser.uid);
+    loading.value = true;
+    //const userRef = doc(db, "users", auth.currentUser.uid);
     const formData = {
       ...form.value,
       userId: auth.currentUser.uid,
       createdAt: new Date(),
     };
     await addDoc(collection(db, "transactions"), formData);
-    alert("Transaction added successfully!");
+    loading.value = false;
     resetForm();
   } catch (error) {
     console.error("Error adding document: ", error);
@@ -42,11 +45,12 @@ const submitForm = async () => {
     closeModal();
   }
 };
-
 const closeModal = () => {
   const modal = document.getElementById("add_transaction");
   if (modal) {
     modal.close();
+    loading.value = false;
+    resetForm();
   }
 };
 </script>
@@ -160,7 +164,9 @@ const closeModal = () => {
           </div>
           <div class="flex gap-2 modal-action">
             <button type="button" @click="closeModal" class="btn">Close</button>
-            <button class="btn btn-primary" type="submit">Save Transaction</button>
+            <button :disabled="loading" class="btn btn-primary" type="submit">
+              {{ loading ? "Adding..." : "Add Transaction" }}
+            </button>
           </div>
         </form>
       </div>

@@ -1,12 +1,14 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 import DashboardNav from "@/components/DashboardNav.vue";
 import DashboardSidebar from "@/components/DashboardSidebar.vue";
-import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 
 const transactions = ref([]);
+const filterType = ref("");
+const filterCategory = ref("");
 
 onSnapshot(collection(db, "transactions"), (snapshot) => {
   const auth = getAuth();
@@ -22,6 +24,33 @@ onSnapshot(collection(db, "transactions"), (snapshot) => {
         };
       });
   }
+});
+
+const searchTransactions = ref("");
+// This computed property filters transactions based on the search input
+const filteredTransactions = computed(() => {
+  return transactions.value
+    .filter((transaction) => {
+      const matchesType = filterType.value
+        ? transaction.type.toLowerCase() === filterType.value
+        : true;
+      const matchesCategory = filterCategory.value
+        ? transaction.category.toLowerCase() === filterCategory.value
+        : true;
+
+      return matchesType && matchesCategory;
+    })
+    .filter((transaction) => {
+      const query = searchTransactions.value.toLowerCase();
+      return (
+        transaction.description.toLowerCase().includes(query) ||
+        transaction.category.toLowerCase().includes(query) ||
+        transaction.type.toLowerCase().includes(query) ||
+        transaction.paymentMethod.toLowerCase().includes(query) ||
+        transaction.date.toLowerCase().includes(query) ||
+        transaction.amount.toString().includes(query)
+      );
+    });
 });
 </script>
 
@@ -49,6 +78,7 @@ onSnapshot(collection(db, "transactions"), (snapshot) => {
                 type="text"
                 class="input input-bordered pl-12 w-full"
                 placeholder="Search..."
+                v-model="searchTransactions"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -67,21 +97,21 @@ onSnapshot(collection(db, "transactions"), (snapshot) => {
             <div class="flex items-center gap-3">
               <!--Types-->
               <div>
-                <select class="select select-bordered">
-                  <option>All Types</option>
-                  <option>Income</option>
-                  <option>Expense</option>
+                <select class="select select-bordered" v-model="filterType">
+                  <option value="">All</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
                 </select>
               </div>
               <!--Categories-->
               <div>
-                <select class="select select-bordered">
-                  <option>All Categories</option>
-                  <option>Food</option>
-                  <option>Housing</option>
-                  <option>Transportation</option>
-                  <option>Entertainment</option>
-                  <option>Income</option>
+                <select class="select select-bordered" v-model="filterCategory">
+                  <option value="">All Categories</option>
+                  <option value="food">Food</option>
+                  <option value="housing">Housing</option>
+                  <option value="transportation">Transportation</option>
+                  <option value="entertainment">Entertainment</option>
+                  <option value="income">Income</option>
                 </select>
               </div>
             </div>
@@ -108,7 +138,9 @@ onSnapshot(collection(db, "transactions"), (snapshot) => {
               </thead>
               <tbody>
                 <tr
-                  v-for="transaction in transactions"
+                  v-for="transaction in transactions
+                    ? filteredTransactions
+                    : transactions"
                   :key="transaction.id"
                   v-if="transactions"
                 >
@@ -141,27 +173,40 @@ onSnapshot(collection(db, "transactions"), (snapshot) => {
                     </p>
                   </td>
                   <td>{{ transaction.paymentMethod }}</td>
-                  <td>
-                    <button>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="size-5"
+                  <td class="dropdown dropdown-end">
+                    <div tabindex="0">
+                      <div role="button">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="size-5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                          />
+                        </svg>
+                      </div>
+                      <ul
+                        tabindex="0"
+                        class="dropdown-content dropdown-top menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                       >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                        />
-                      </svg>
-                    </button>
+                        <li><a>Item 1</a></li>
+                        <li><a>Item 2</a></li>
+                      </ul>
+                    </div>
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="6" class="text-center" v-if="transactions.length === 0">
+                  <td
+                    colspan="6"
+                    class="text-center"
+                    v-if="transactions.length === 0 || filteredTransactions.length === 0"
+                  >
                     No transactions found.
                   </td>
                 </tr>
