@@ -24,13 +24,14 @@ const auth = getAuth();
 const name = ref("");
 const email = ref("");
 const profile = ref("");
+
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log(user);
       name.value = user?.displayName;
       email.value = user.email;
-      profile.value = user.photoURL || "Default Profile URL";
+      profile.value = user.photoURL;
 
       console.log("User is logged in:", name.value, email.value, profile.value);
     } else {
@@ -271,8 +272,13 @@ const isActive = (path) => route.path === path;
         >
           <div class="flex items-center gap-4">
             <div class="avatar avatar-placeholder">
-              <div class="w-10 bg-gray-300 rounded bg-cover">
+              <div class="w-10 bg-primary text-white rounded bg-cover">
                 <img v-if="profile" :src="profile" />
+                <div v-else>
+                  <p class="text-2xl font-bold">
+                    {{ name.charAt(0).toUpperCase() }}
+                  </p>
+                </div>
               </div>
             </div>
             <div class="text-left">
@@ -301,8 +307,45 @@ const isActive = (path) => route.path === path;
           tabindex="0"
           class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm"
         >
-          <li><a>Profile</a></li>
-          <li><button @click="handleSignOut">Sign out</button></li>
+          <li>
+            <a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li>
+            <button @click="handleSignOut">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+                />
+              </svg>
+
+              <p>Sign out</p>
+            </button>
+          </li>
         </ul>
       </div>
     </div>

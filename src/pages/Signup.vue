@@ -12,15 +12,18 @@ const fullName = ref("");
 const email = ref("");
 const password = ref("");
 const errorMessage = ref("");
+
 //auth
 const auth = getAuth();
 //loading state
 const loading = ref(false);
 
+// Function to handle user registration
 const register = async (event) => {
   event.preventDefault();
 
   try {
+    //
     const { user } = await createUserWithEmailAndPassword(
       auth,
       email.value,
@@ -29,12 +32,15 @@ const register = async (event) => {
 
     loading.value = true;
 
+    // Create a reference to the user's document in Firestore
     const userRef = data.user;
 
+    // Update the user's profile with the full name
     await updateProfile(userRef, {
       displayName: fullName.value,
     });
 
+    // Save the user data to Firestore
     await setDoc(doc(db, "users", userRef.uid), {
       email: userRef.email,
       createdAt: new Date(),
@@ -42,12 +48,16 @@ const register = async (event) => {
     });
 
     console.log("Successfully registered and saved user to Firestore!", user);
+
+    loading.value = false;
+
     router.push("/home");
   } catch (error) {
     loading.value = false;
 
     console.error("Error code:", error.code);
     console.error("Error message:", error.message);
+
     switch (error.code) {
       case "auth/invalid-email":
         errorMessage.value = "Invalid email address.";
@@ -65,9 +75,11 @@ const register = async (event) => {
 };
 </script>
 <template>
-  <div class="bg-base-200">
-    <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
-      <div class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 p-10">
+  <div>
+    <div class="grid min-h-screen place-items-center mx-6 lg:mx-0 shadow-xl">
+      <div
+        class="w-full lg:w-1/4 bg-white rounded-md ring-1 ring-inset ring-gray-200 p-10"
+      >
         <div class="flex items-center gap-2 mb-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -23,6 +23,7 @@ const login = async (event) => {
 
     const userRef = doc(db, "users", user.uid);
 
+    // Update the user's document in Firestore with last login time
     await setDoc(
       userRef,
       {
@@ -32,8 +33,11 @@ const login = async (event) => {
       },
       { merge: true }
     );
+
     loading.value = false;
+
     console.log(auth.currentUser);
+
     router.push("/home");
   } catch (error) {
     loading.value = false;
@@ -56,10 +60,10 @@ const login = async (event) => {
 };
 </script>
 <template>
-  <div class="bg-base-200">
+  <div>
     <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
       <div
-        class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 rounded-md p-10"
+        class="w-full lg:w-1/4 bg-white ring-1 ring-inset ring-gray-200 rounded-md p-10 shadow-xl"
       >
         <div class="flex items-center gap-2 mb-6">
           <svg
