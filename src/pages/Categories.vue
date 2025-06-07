@@ -11,9 +11,8 @@ import DashboardSidebar from "../components/DashboardSidebar.vue";
       </div>
       <div class="mt-2 ms-5">
         <DashboardNav />
-        <h1 class="text-2xl font-bold">Categories</h1>
-        <p>All categories</p>
-        <div class="mt-3">
+        <h1 class="text-3xl font-bold">Manage Categories</h1>
+        <div class="mt-6">
           <div
             class="overflow-x-auto rounded-md bg-white ring-1 ring-inset ring-base-300 p-5"
           >

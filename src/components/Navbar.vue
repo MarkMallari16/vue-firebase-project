@@ -61,7 +61,7 @@ const handleOpen = () => {
       <div
         :class="
           isOpen
-            ? ' w-full lg:w-auto flex flex-col lg:flex-row items-center gap-5 pt-20 lg:pt-0 lg:gap-4'
+            ? ' w-full lg:w-auto flex flex-col lg:flex-row items-center gap-5 pt-20 lg:pt-0 lg:gap-8'
             : 'hidden '
         "
       >
