@@ -45,7 +45,7 @@ const features = [
 ];
 </script>
 <template>
-  <section class="min-h-screen pt-20 lg:p-20 flex flex-col justify-center">
+  <section class="min-h-screen pt-20 lg:p-20 flex flex-col justify-center w-full">
     <div class="text-center">
       <h1 class="text-4xl lg:text-6xl text-center font-extrabold">
         Everything you need to manage your budgets.

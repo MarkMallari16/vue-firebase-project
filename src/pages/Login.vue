@@ -63,7 +63,7 @@ const login = async (event) => {
   <div>
     <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
       <div
-        class="w-full lg:w-1/4 bg-white ring-1 ring-inset ring-gray-200 rounded-md p-10 shadow-xl"
+        class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 rounded-md p-10 shadow-xl"
       >
         <div class="flex items-center gap-2 mb-6">
           <svg
@@ -91,18 +91,20 @@ const login = async (event) => {
             <div>
               <label for="email">Email</label>
               <input
+                id="email"
                 type="email"
-                class="mt-1 block input input-bordered w-full"
+                class="mt-2 block input input-bordered w-full"
                 placeholder="Enter your email"
                 v-model="email"
                 required
               />
             </div>
             <div class="mt-4">
-              <label for="email">Password</label>
+              <label for="password">Password</label>
               <input
+                id="password"
                 type="password"
-                class="mt-1 block input input-bordered w-full"
+                class="mt-2 block input input-bordered w-full"
                 placeholder="Enter your password"
                 v-model="password"
                 required

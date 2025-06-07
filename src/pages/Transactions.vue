@@ -2,31 +2,27 @@
 import { onMounted, ref } from "vue";
 import DashboardNav from "@/components/DashboardNav.vue";
 import DashboardSidebar from "@/components/DashboardSidebar.vue";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 
 const transactions = ref([]);
 
-onMounted(async () => {
+onSnapshot(collection(db, "transactions"), (snapshot) => {
   const auth = getAuth();
   const userId = auth.currentUser ? auth.currentUser.uid : null;
 
   if (userId) {
-    const transactionsCollection = collection(db, "transactions");
-    const q = query(transactionsCollection, where("userId", "==", userId));
-    const querySnapshot = await getDocs(q);
-
-    transactions.value = querySnapshot.docs.map((doc) => {
-      return {
-        id: doc.id,
-        ...doc.data(),
-      };
-    });
+    transactions.value = snapshot.docs
+      .filter((doc) => doc.data().userId == userId)
+      .map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
   }
 });
-
-console.log(transactions.value);
 </script>
 
 <template>

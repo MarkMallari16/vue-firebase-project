@@ -63,7 +63,8 @@ const register = async (event) => {
         errorMessage.value = "Invalid email address.";
         break;
       case "auth/email-already-in-use":
-        errorMessage.value = "The email address is already in use by another account.";
+        errorMessage.value =
+          "This email address is already in use. Please use a different email.";
         break;
       case "auth/weak-password":
         errorMessage.value = "The password must be 6 characters long or more.";
@@ -76,9 +77,9 @@ const register = async (event) => {
 </script>
 <template>
   <div>
-    <div class="grid min-h-screen place-items-center mx-6 lg:mx-0 shadow-xl">
+    <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
       <div
-        class="w-full lg:w-1/4 bg-white rounded-md ring-1 ring-inset ring-gray-200 p-10"
+        class="lg:w-1/3 bg-white rounded-md ring-1 ring-inset ring-gray-200 p-10 shadow-xl container"
       >
         <div class="flex items-center gap-2 mb-6">
           <svg
@@ -106,8 +107,9 @@ const register = async (event) => {
             <div>
               <label for="fullName">Full Name</label>
               <input
+                id="fullName"
                 type="text"
-                class="mt-1 block input input-bordered w-full"
+                class="mt-2 block input input-bordered w-full"
                 placeholder="Enter your Full Name"
                 v-model="fullName"
                 required
@@ -116,18 +118,20 @@ const register = async (event) => {
             <div class="mt-4">
               <label for="email">Email</label>
               <input
+                id="email"
                 type="email"
-                class="mt-1 block input input-bordered w-full"
+                class="mt-2 block input input-bordered w-full"
                 placeholder="Enter your email"
                 v-model="email"
                 required
               />
             </div>
             <div class="mt-4">
-              <label for="email">Password</label>
+              <label for="password">Password</label>
               <input
+                id="password"
                 type="password"
-                class="mt-1 block input input-bordered w-full"
+                class="mt-2 block input input-bordered w-full"
                 placeholder="Enter your password"
                 v-model="password"
                 required

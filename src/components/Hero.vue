@@ -38,7 +38,7 @@ import HeroImage from "../assets/hero-image-2.png";
         <h1 class="text-6xl lg:text-9xl break-words font-black">
           Track Your Budget Effortlessly!
         </h1>
-        <p class="mt-4 text-lg text-gray-800">
+        <p class="text-2xl text-gray-500 pt-6">
           Stay on top of your finances. Enjoy managing them with ease.
         </p>
         <div class="mt-4 flex justify-center gap-2">

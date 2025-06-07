@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
 
-const linkStyles = "text-gray-600 hover:text-primary transition-colors ease-out";
+const linkStyles =
+  "font-normal text-base-800 hover:text-gray-500 transition-colors ease-in-out duration-300";
 
 const isOpen = ref(true);
 
@@ -13,7 +14,7 @@ const handleOpen = () => {
 <template>
   <nav>
     <div
-      class="navbar lg:flex-row flex-col items-start justify-between lg:items-center lg:px-10 pt-6"
+      class="navbar lg:flex-row flex-col items-start justify-between lg:items-center lg:px-40 pt-6"
     >
       <div class="flex justify-between w-full lg:w-auto">
         <router-link to="/" class="btn btn-ghost text-2xl uppercase font-black">
@@ -65,14 +66,20 @@ const handleOpen = () => {
             : 'hidden '
         "
       >
-        <router-link
-          to="/login"
-          class="text-gray-600 hover:text-primary transition-colors"
-          >Features</router-link
+        <a
+          href="/features"
+          @click.prevent="$emit('scrollTo', 'features')"
+          :class="linkStyles"
+          >Features</a
         >
-        <router-link to="/login" :class="linkStyles">Pricing</router-link>
-        <router-link to="/login" :class="linkStyles">About</router-link>
-        <router-link to="/login" :class="linkStyles">Contact</router-link>
+        <a
+          href="/pricing"
+          @click.prevent="$emit('scrollTo', 'pricing')"
+          :class="linkStyles"
+          >Pricing</a
+        >
+        <a href="#" :class="linkStyles">About</a>
+        <a href="#" :class="linkStyles">Contact</a>
       </div>
 
       <div
@@ -83,7 +90,7 @@ const handleOpen = () => {
             : 'hidden lg:flex items-center gap-5'
         "
       >
-        <router-link to="/login" class="">Login</router-link>
+        <router-link to="/login">Login</router-link>
         <router-link to="/signup" class="btn btn-primary">Get Started</router-link>
       </div>
     </div>
