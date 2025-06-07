@@ -1,6 +1,5 @@
 <script setup>
 import { useAuth } from "@/composables/auth";
-import GoogleLogo from "../assets/google.png";
 import { setDoc, doc } from "firebase/firestore";
 
 const { signInWithGoogle } = useAuth();
@@ -10,12 +9,16 @@ const handleSignInWithGoogle = () => {
   signInWithGoogle()
     .then(async (result) => {
       const user = result.user;
-
-      await setDoc(doc(auth.db, "users", user.uid), {
-        email: user.email,
-        displayName: user.displayName,
-        createdAt: new Date(),
-      });
+      console.log(user);
+      await setDoc(
+        doc(auth.db, "users", user.uid),
+        {
+          email: user.email,
+          displayName: user.displayName,
+          createdAt: new Date(),
+        },
+        { merge: true }
+      );
 
       console.log("User added/updated in Firestore.");
     })
@@ -29,7 +32,7 @@ const handleSignInWithGoogle = () => {
   <button
     type="button"
     class="btn bg-white text-center w-full ring-1 ring-inset ring-gray-300"
-    @click="signInWithGoogle"
+    @click="handleSignInWithGoogle"
   >
     <svg
       class="w-5 h-5 text-primary"

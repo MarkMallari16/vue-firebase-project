@@ -5,7 +5,6 @@ import { useRouter } from "vue-router";
 import { db } from "../collection/firebase";
 import GoogleButton from "@/components/GoogleButton.vue";
 import { doc, setDoc } from "firebase/firestore";
-import Logo from "../assets/budget.png";
 
 const router = useRouter();
 const email = ref("");
@@ -13,33 +12,31 @@ const password = ref("");
 
 const errorMessage = ref("");
 const auth = getAuth();
+const loading = ref(false);
 
 const login = async (event) => {
   event.preventDefault();
 
   try {
-    const { user } = signInWithEmailAndPassword(auth, email.value, password.value);
+    loading.value = true;
+    const { user } = await signInWithEmailAndPassword(auth, email.value, password.value);
 
-    console.log("Successfully logged in!", user);
-
-    //save user data
     const userRef = doc(db, "users", user.uid);
-    console.log(userRef);
 
     await setDoc(
       userRef,
       {
         email: user.email,
-        displayName: user.displayName || "Anonymous",
+        displayName: user.displayName,
         lastLogin: new Date(),
       },
       { merge: true }
     );
-
-    console.log("User added/updated in Firestore.");
+    loading.value = false;
     console.log(auth.currentUser);
     router.push("/home");
   } catch (error) {
+    loading.value = false;
     console.log(error.message);
     switch (error.code) {
       case "auth/invalid-email":
@@ -112,8 +109,12 @@ const login = async (event) => {
             <p v-if="errorMessage" class="mt-2 text-red-500">{{ errorMessage }}</p>
           </div>
           <div class="mt-6">
-            <button type="submit" class="btn btn-primary text-center w-full mb-3">
-              Log in
+            <button
+              :disabled="loading"
+              type="submit"
+              class="btn btn-primary text-center w-full mb-3"
+            >
+              {{ loading ? "Logging in" : "Log in" }}
             </button>
           </div>
           <div class="mt-2 text-center text-gray-800">

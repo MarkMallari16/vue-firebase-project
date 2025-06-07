@@ -14,48 +14,54 @@ const password = ref("");
 const errorMessage = ref("");
 //auth
 const auth = getAuth();
+//loading state
 const loading = ref(false);
 
-const register = (event) => {
+const register = async (event) => {
   event.preventDefault();
 
-  createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then(async (data) => {
-      loading.value = true;
-      const user = data.user;
+  try {
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email.value,
+      password.value
+    );
 
-      await updateProfile(user, {
-        displayName: fullName.value,
-      });
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        createdAt: new Date(),
-        displayName: fullName.value,
-      });
+    loading.value = true;
 
-      console.log("Successfully registered and saved user to Firestore!", user);
-      router.push("/home");
-    })
-    .catch((error) => {
-      loading.value = false;
+    const userRef = data.user;
 
-      console.error("Error code:", error.code);
-      console.error("Error message:", error.message);
-      switch (error.code) {
-        case "auth/invalid-email":
-          errorMessage.value = "Invalid email address.";
-          break;
-        case "auth/email-already-in-use":
-          errorMessage.value = "The email address is already in use by another account.";
-          break;
-        case "auth/weak-password":
-          errorMessage.value = "The password must be 6 characters long or more.";
-          break;
-      }
-    })
-    .finally(() => {
-      loading.value = false;
+    await updateProfile(userRef, {
+      displayName: fullName.value,
     });
+
+    await setDoc(doc(db, "users", userRef.uid), {
+      email: userRef.email,
+      createdAt: new Date(),
+      displayName: fullName.value,
+    });
+
+    console.log("Successfully registered and saved user to Firestore!", user);
+    router.push("/home");
+  } catch (error) {
+    loading.value = false;
+
+    console.error("Error code:", error.code);
+    console.error("Error message:", error.message);
+    switch (error.code) {
+      case "auth/invalid-email":
+        errorMessage.value = "Invalid email address.";
+        break;
+      case "auth/email-already-in-use":
+        errorMessage.value = "The email address is already in use by another account.";
+        break;
+      case "auth/weak-password":
+        errorMessage.value = "The password must be 6 characters long or more.";
+        break;
+    }
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 <template>
