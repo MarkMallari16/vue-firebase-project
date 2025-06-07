@@ -10,7 +10,7 @@ const form = ref({
   amount: null,
   date: "",
   description: "",
-  category: "",
+  category: "Select Category",
   paymentMethod: "Cash",
 });
 
@@ -20,7 +20,7 @@ const resetForm = () => {
     amount: null,
     date: "",
     description: "",
-    category: "",
+    category: "Select Category",
     paymentMethod: "Cash",
   };
 };
@@ -134,7 +134,9 @@ const closeModal = () => {
                     name="category"
                     v-model="form.category"
                   >
-                    <option disabled selected>Select Category</option>
+                    <option value="Select Category" selected disabled>
+                      Select Category
+                    </option>
                     <option>Food</option>
                     <option>Bills</option>
                     <option>Entertainment</option>

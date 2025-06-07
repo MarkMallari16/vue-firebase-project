@@ -7,8 +7,12 @@ import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 
 const transactions = ref([]);
-const filterType = ref("");
-const filterCategory = ref("");
+
+const transactionFilterings = ref({
+  search: "",
+  type: "",
+  category: "",
+});
 
 onSnapshot(collection(db, "transactions"), (snapshot) => {
   const auth = getAuth();
@@ -26,22 +30,21 @@ onSnapshot(collection(db, "transactions"), (snapshot) => {
   }
 });
 
-const searchTransactions = ref("");
 // This computed property filters transactions based on the search input
 const filteredTransactions = computed(() => {
+  const { search, type, category } = transactionFilterings.value;
+
   return transactions.value
     .filter((transaction) => {
-      const matchesType = filterType.value
-        ? transaction.type.toLowerCase() === filterType.value
-        : true;
-      const matchesCategory = filterCategory.value
-        ? transaction.category.toLowerCase() === filterCategory.value
+      const matchesType = type ? transaction.type.toLowerCase() === type : true;
+      const matchesCategory = category
+        ? transaction.category.toLowerCase() === category
         : true;
 
       return matchesType && matchesCategory;
     })
     .filter((transaction) => {
-      const query = searchTransactions.value.toLowerCase();
+      const query = search.toLowerCase();
       return (
         transaction.description.toLowerCase().includes(query) ||
         transaction.category.toLowerCase().includes(query) ||
@@ -78,7 +81,7 @@ const filteredTransactions = computed(() => {
                 type="text"
                 class="input input-bordered pl-12 w-full"
                 placeholder="Search..."
-                v-model="searchTransactions"
+                v-model="transactionFilterings.search"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +100,10 @@ const filteredTransactions = computed(() => {
             <div class="flex items-center gap-3">
               <!--Types-->
               <div>
-                <select class="select select-bordered" v-model="filterType">
+                <select
+                  class="select select-bordered"
+                  v-model="transactionFilterings.type"
+                >
                   <option value="">All</option>
                   <option value="income">Income</option>
                   <option value="expense">Expense</option>
@@ -105,7 +111,10 @@ const filteredTransactions = computed(() => {
               </div>
               <!--Categories-->
               <div>
-                <select class="select select-bordered" v-model="filterCategory">
+                <select
+                  class="select select-bordered"
+                  v-model="transactionFilterings.category"
+                >
                   <option value="">All Categories</option>
                   <option value="food">Food</option>
                   <option value="housing">Housing</option>

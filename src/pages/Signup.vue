@@ -3,7 +3,6 @@ import { ref } from "vue";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "vue-router";
 import GoogleButton from "@/components/GoogleButton.vue";
-import Logo from "../assets/budget.png";
 import { db } from "../collection/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -32,17 +31,14 @@ const register = async (event) => {
 
     loading.value = true;
 
-    // Create a reference to the user's document in Firestore
-    const userRef = data.user;
-
     // Update the user's profile with the full name
-    await updateProfile(userRef, {
+    await updateProfile(user, {
       displayName: fullName.value,
     });
 
     // Save the user data to Firestore
-    await setDoc(doc(db, "users", userRef.uid), {
-      email: userRef.email,
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
       createdAt: new Date(),
       displayName: fullName.value,
     });
