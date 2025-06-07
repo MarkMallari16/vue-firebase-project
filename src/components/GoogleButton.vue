@@ -16,6 +16,7 @@ const handleSignInWithGoogle = () => {
         displayName: user.displayName,
         createdAt: new Date(),
       });
+
       console.log("User added/updated in Firestore.");
       console.log(user);
     })
