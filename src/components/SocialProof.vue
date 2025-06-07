@@ -1,25 +1,26 @@
 <script setup>
 const socialProofs = [
   {
-    name: "Sarah Johnson",
+    name: "Kulas",
     role: "Marketing Manager",
     testimonial:
       "ExpenseTracker completely changed how I manage my finances. The insights are incredible and have helped me save over $500 per month.",
-    image: "https://img.daisyui.com/images/profile/demo/batperson@192.webp",
+    image: "https://i.pinimg.com/474x/21/2a/cd/212acd3d51dc7661ed91c95e3b70d65c.jpg",
   },
   {
-    name: "John Doe",
+    name: "Gina Col",
     role: "Software Engineer",
     testimonial:
       "I love how easy it is to track my expenses. The app is intuitive and has made budgeting a breeze.",
-    image: "https://img.daisyui.com/images/profile/demo/batperson@192.webp",
+    image: "https://i.pinimg.com/736x/4d/13/13/4d13135ef1d77ed91ce80334ceab6ef5.jpg",
   },
   {
-    name: "Emily Smith",
+    name: "Jaja Coleen",
     role: "Product Manager",
     testimonial:
       "The analytics features are top-notch. I can see where my money goes and make informed decisions.",
-    image: "https://img.daisyui.com/images/profile/demo/batperson@192.webp",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE_PlvOF5q2z8eQs5730icDfRU61gSX9_YjWBa7ciNeRmlYLh7Dq50qOtfhTXHck9rz-M&usqp=CAU",
   },
 ];
 </script>
@@ -60,15 +61,15 @@ const socialProofs = [
               {{ proof.testimonial }}
             </p>
           </div>
-          <div class="flex items-center gap-2 pt-6">
+          <div class="flex items-center gap-3 pt-6">
             <div class="avatar">
-              <div class="w-10 rounded-full">
+              <div class="w-12 rounded-full">
                 <img :src="proof.image" />
               </div>
             </div>
             <div>
               <h2 class="font-medium">{{ proof.name }}</h2>
-              <p>{{ proof.role }}</p>
+              <p class="text-sm text-gray-500">{{ proof.role }}</p>
             </div>
           </div>
         </div>

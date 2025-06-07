@@ -82,6 +82,10 @@ const login = async (event) => {
             <h1 class="text-2xl font-bold">Log in</h1>
             <p class="text-gray-400">Log into your account</p>
           </div>
+          <div>
+            <GoogleButton />
+          </div>
+          <div class="my-6 divider text-gray-500">or</div>
           <div class="mt-2">
             <div>
               <label for="email">Email</label>
@@ -111,7 +115,6 @@ const login = async (event) => {
             <button type="submit" class="btn btn-primary text-center w-full mb-3">
               Log in
             </button>
-            <GoogleButton />
           </div>
           <div class="mt-2 text-center text-gray-800">
             <router-link to="/signup"> Don't have an account? Sign up here.</router-link>

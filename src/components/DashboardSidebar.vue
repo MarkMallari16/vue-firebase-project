@@ -27,8 +27,9 @@ const profile = ref("");
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      name.value = user.displayName || "User";
-      email.value = user.email || "email@gmail.com";
+      console.log(user);
+      name.value = user?.displayName;
+      email.value = user.email;
       profile.value = user.photoURL || "Default Profile URL";
 
       console.log("User is logged in:", name.value, email.value, profile.value);
@@ -300,7 +301,7 @@ const isActive = (path) => route.path === path;
           tabindex="0"
           class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm"
         >
-          <li><a>Item 1</a></li>
+          <li><a>Profile</a></li>
           <li><button @click="handleSignOut">Sign out</button></li>
         </ul>
       </div>

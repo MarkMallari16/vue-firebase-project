@@ -1,7 +1,8 @@
 <script setup>
 import { db } from "@/collection/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, addDoc, collection } from "firebase/firestore";
 import { ref } from "vue";
+import { getAuth } from "firebase/auth";
 
 const form = ref({
   type: "income",
@@ -22,10 +23,17 @@ const resetForm = () => {
     paymentMethod: "Cash",
   };
 };
-
 const submitForm = async () => {
+  const auth = getAuth();
+
   try {
-    await addDoc(collection(db, "transactions"), form.value);
+    const userRef = doc(db, "users", auth.currentUser.uid);
+    const formData = {
+      ...form.value,
+      userId: auth.currentUser.uid,
+      createdAt: new Date(),
+    };
+    await addDoc(collection(db, "transactions"), formData);
     alert("Transaction added successfully!");
     resetForm();
   } catch (error) {
