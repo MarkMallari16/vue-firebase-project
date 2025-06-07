@@ -3,6 +3,7 @@ import DashboardOverview from "@/components/DashboardOverview.vue";
 import DashboardChart from "@/components/DashboardChart.vue";
 import DashboardNav from "@/components/DashboardNav.vue";
 import DashboardSidebar from "@/components/DashboardSidebar.vue";
+import { ref } from "vue";
 </script>
 
 <template>

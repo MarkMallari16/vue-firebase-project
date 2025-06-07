@@ -35,6 +35,12 @@ const showModal = () => {
     console.error("Modal element not found");
   }
 };
+const isSidebarOpen = ref(false);
+const handleToggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+
+  console.log("Sidebar toggled:", isSidebarOpen.value);
+};
 </script>
 <template>
   <!--Top-->
@@ -43,7 +49,7 @@ const showModal = () => {
   >
     <div class="flex items-center gap-4">
       <div class="flex gap-5 items-center">
-        <SidebarCloseButton />
+        <SidebarCloseButton @toggleSidebar="handleToggleSidebar" />
         <p class="text-gray-500">|</p>
       </div>
       <h1 class="font-medium text-2xl">{{ route.meta.title }}</h1>

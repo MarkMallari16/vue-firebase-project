@@ -1,7 +1,15 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+const emit = defineEmits(["toggleSidebar"]);
+
+const toggleSidebar = () => {
+  emit("toggleSidebar");
+};
+</script>
 <template>
   <button
     class="p-1 hover:bg-gray-200 transition-all ease-in-out duration-150 rounded-lg"
+    @click="toggleSidebar"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
