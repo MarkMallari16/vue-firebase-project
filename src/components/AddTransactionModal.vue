@@ -45,6 +45,7 @@ const submitForm = async () => {
     closeModal();
   }
 };
+
 const closeModal = () => {
   const modal = document.getElementById("add_transaction");
   if (modal) {
@@ -62,6 +63,13 @@ const closeModal = () => {
       <div>
         <form @submit.prevent="submitForm" method="post">
           <div class="mt-4 mb-10">
+            <button
+              type="button"
+              class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              @click="closeModal"
+            >
+              ✕
+            </button>
             <p class="font-medium">Transaction Type</p>
             <div class="flex items-center gap-2 mt-2">
               <div class="flex items-center gap-2">

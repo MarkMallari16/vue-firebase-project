@@ -38,7 +38,7 @@ const pricings = [
 </script>
 
 <template>
-  <section class="pb-40 px-10 lg:px-0 bg-gray-100">
+  <section class="pb-40 px-10 lg:px-0 bg-gray-50">
     <div class="text-center pt-20 pb-10">
       <h2 class="text-6xl font-extrabold">Choose your plan</h2>
       <p class="text-2xl text-gray-500 pt-6">
@@ -49,7 +49,7 @@ const pricings = [
     <div class="flex justify-center gap-8 flex-wrap pt-4">
       <div
         v-for="(pricing, index) in pricings"
-        class="p-10 ring-1 ring-inset ring-gray-300 rounded-lg w-96"
+        class="p-10 ring-1 ring-inset ring-gray-300 rounded-lg w-96 bg-white"
         :key="index"
       >
         <div class="text-center">

@@ -1,6 +1,6 @@
 <script setup>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { inject, onMounted, ref } from "vue";
+import { inject, onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
@@ -21,21 +21,20 @@ const goToGoalsLink = () => {
 
 const auth = getAuth();
 
-const name = ref("");
-const email = ref("");
-const profile = ref("");
+const storedUser = reactive({
+  name: "",
+  email: "",
+  photoURL: "",
+});
 
 const isSidebarOpen = inject("isSidebarOpen");
 
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log(user);
-      name.value = user?.displayName;
-      email.value = user.email;
-      profile.value = user.photoURL;
-
-      console.log("User is logged in:", name.value, email.value, profile.value);
+      storedUser.name = user?.displayName;
+      storedUser.email = user?.email;
+      storedUser.photoURL = user?.photoURL;
     } else {
       router.push("/login");
     }
@@ -285,17 +284,17 @@ const isActive = (path) => route.path === path;
             <div class="flex items-center gap-4">
               <div class="avatar avatar-placeholder">
                 <div class="w-10 bg-primary text-white rounded bg-cover">
-                  <img v-if="profile" :src="profile" />
+                  <img v-if="storedUser.profile" :src="storedUser.profile" />
                   <div v-else>
                     <p class="text-2xl font-bold">
-                      {{ name.charAt(0).toUpperCase() }}
+                      {{ storedUser.name.charAt(0).toUpperCase() }}
                     </p>
                   </div>
                 </div>
               </div>
               <div class="text-left">
-                <h2 class="font-medium">{{ name }}</h2>
-                <p class="text-sm font-normal">{{ email }}</p>
+                <h2 class="font-medium">{{ storedUser.name }}</h2>
+                <p class="text-sm font-normal">{{ storedUser.email }}</p>
               </div>
             </div>
             <svg
