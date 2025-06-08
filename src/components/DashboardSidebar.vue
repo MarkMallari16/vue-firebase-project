@@ -58,12 +58,10 @@ const isActive = (path) => route.path === path;
 </script>
 
 <template>
-  <div>
+  <div class="overflow-hidden">
     <div
-      :class="[
-        isSidebarOpen ? 'w-96 fixed ' : 'w-12',
-        'transition-all duration-300 ease-in-out',
-      ]"
+      class="transition-all duration-500 ease-in-out"
+      :class="[isSidebarOpen ? 'w-96 fixed  ' : ' w-0  opacity-0 ']"
     >
       <div
         class="flex flex-col justify-between ring-1 ring-inset ring-slate-200 bg-gray-100 px-5 py-8 h-screen shadow-xl rounded-r-3xl"

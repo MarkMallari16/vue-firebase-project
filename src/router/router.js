@@ -8,6 +8,8 @@ import Transactions from '@/pages/Transactions.vue';
 import Categories from '@/pages/Categories.vue';
 import Goals from '@/pages/Goals.vue';
 
+
+
 const routes = [
     {
         path: '/',
@@ -20,7 +22,8 @@ const routes = [
         component: Home,
         meta: {
             title: 'Home',
-            requiresAuth: true
+            requiresAuth: true,
+            showSidebar: true
         }
     },
     {
@@ -39,7 +42,9 @@ const routes = [
         component: Transactions,
         meta: {
             title: 'Transactions',
-            requiresAuth: true
+            requiresAuth: true,
+            showSidebar: true
+
         }
     },
     {
@@ -48,7 +53,8 @@ const routes = [
         component: Categories,
         meta: {
             title: 'Categoies',
-            requiresAuth: true
+            requiresAuth: true,
+            showSidebar: true
         }
     },
     {
@@ -57,7 +63,8 @@ const routes = [
         component: Goals,
         meta: {
             title: 'Goals',
-            requiresAuth: true
+            requiresAuth: true,
+            showSidebar: true
         }
     }
 ]
@@ -91,4 +98,5 @@ router.beforeEach(async (to, from, next) => {
         next()
     }
 });
+
 export default router;

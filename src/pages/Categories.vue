@@ -1,14 +1,21 @@
 <script setup>
+import { inject } from "vue";
 import DashboardNav from "../components/DashboardNav.vue";
 import DashboardSidebar from "../components/DashboardSidebar.vue";
+
+const isSidebarOpen = inject("isSidebarOpen");
+
+console.log("isSidebarOpen:", isSidebarOpen);
 </script>
 
 <template>
   <div class="min-h-screen">
-    <div class="grid grid-cols-[1fr_4fr] gap-3">
-      <div>
-        <DashboardSidebar />
-      </div>
+    <div
+      class="grid transition-all duration-500 ease-in-out"
+      :class="[isSidebarOpen ? 'grid-cols-[1fr_4fr]' : 'grid-cols-[0fr_6fr]']"
+    >
+      <DashboardSidebar />
+
       <div class="mt-2 ms-5">
         <DashboardNav />
         <h1 class="text-3xl font-bold">Manage Categories</h1>
