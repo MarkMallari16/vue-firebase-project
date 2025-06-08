@@ -7,33 +7,37 @@ const overviews = [
     value: "20040",
     icon: "₱",
 
-    iconColor: "text-green-500",
+    iconColor: "text-green-600",
     status: "+2.5%",
-    statusColor: "text-green-500",
+    valueColor: "",
+    statusColor: "text-green-600",
   },
   {
     subtext: "Total Income",
     value: "20040",
     icon: "M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18",
-    iconColor: "text-green-500",
+    iconColor: "text-green-600",
     status: "+2.5%",
-    statusColor: "text-green-500",
+    valueColor: "text-green-600",
+    statusColor: "text-green-600",
   },
   {
     subtext: "Total Expenses",
-    value: "20040",
+    value: "-20040",
     icon: "M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3",
-    iconColor: "text-red-500",
+    iconColor: "text-red-600",
     status: "+2.5%",
-    statusColor: "text-red-500",
+    valueColor: "text-red-600",
+    statusColor: "text-red-600",
   },
   {
     subtext: "Savings Rate",
     value: "20040",
     icon: "M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18",
-    iconColor: "text-green-500",
+    iconColor: "text-green-600",
+    valueColor: "text-primary",
     status: "+2.5%",
-    statusColor: "text-green-500",
+    statusColor: "text-green-600",
   },
 ];
 </script>
@@ -56,7 +60,7 @@ const overviews = [
       >
         <div class="flex justify-between items-center">
           <h2 class="mt-2 text-md font-medium">{{ overview.subtext }}</h2>
-          <h2 v-if="!overview.icon.startsWith('M')" class="text-gray-500 text-2xl">
+          <h2 v-if="!overview.icon.startsWith('M')" class="text-gray-600 text-2xl">
             {{ overview.icon }}
           </h2>
           <!--This will show if have an svg icon-->
@@ -73,9 +77,11 @@ const overviews = [
             <path stroke-linecap="round" stroke-linejoin="round" :d="overview.icon" />
           </svg>
         </div>
-        <h1 class="text-4xl font-bold">{{ overview.value }}</h1>
+        <h1 class="text-4xl font-bold" :class="overview.valueColor">
+          {{ overview.value }}
+        </h1>
 
-        <div class="flex items-center gap-2 pt-1" :class="overview.statusColor">
+        <div class="flex items-center gap-2" :class="overview.statusColor">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -89,7 +95,7 @@ const overviews = [
             />
           </svg>
 
-          <p>{{ overview.status }}<span class="font-normal">last month</span></p>
+          <p>{{ overview.status }}<span class="font-normal"> last month</span></p>
         </div>
       </div>
     </div>
