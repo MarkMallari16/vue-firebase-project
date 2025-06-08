@@ -87,8 +87,8 @@ const toggleNavBar = () => {
       <div
         :class="[
           'mt-10 lg:mt-0 flex flex-col items-center lg:flex-row  w-full lg:w-auto gap-4 ',
-          isOpen ? 'flex' : 'hidden',
           'lg:flex',
+          isOpen ? 'flex' : 'hidden',
         ]"
       >
         <router-link to="/login">Login</router-link>
