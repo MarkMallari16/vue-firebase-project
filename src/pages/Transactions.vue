@@ -1,8 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import DashboardNav from "@/components/DashboardNav.vue";
-import DashboardSidebar from "@/components/DashboardSidebar.vue";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 
@@ -55,6 +54,20 @@ const filteredTransactions = computed(() => {
       );
     });
 });
+
+const deleteTransaction = async (transactionId) => {
+  const auth = getAuth();
+  if (auth.currentUser) {
+    try {
+      await deleteDoc(doc(db, "transactions", transactionId));
+      console.log("Transaction deleted successfully");
+    } catch (error) {
+      console.error("Error deleting transaction: ", error);
+    }
+  } else {
+    console.error("User not authenticated. Cannot delete transaction.");
+  }
+};
 </script>
 
 <template>
@@ -133,6 +146,7 @@ const filteredTransactions = computed(() => {
                 <th>Date</th>
                 <th>Category</th>
                 <th>Payment Method</th>
+                <th>Notes</th>
               </tr>
             </thead>
             <tbody>
@@ -165,12 +179,19 @@ const filteredTransactions = computed(() => {
                 <td>{{ transaction.amount }}</td>
                 <td>{{ transaction.date }}</td>
                 <td>
-                  <p class="badge badge-neutral rounded-full text-md">
+                  <p class="badge badge-ghost rounded-full text-md font-medium">
                     {{ transaction.category }}
                   </p>
                 </td>
                 <td>{{ transaction.paymentMethod }}</td>
-                <td class="dropdown dropdown-end">
+                <td>
+                  {{
+                    transaction.notes && transaction.notes.length > 0
+                      ? transaction.notes
+                      : "No notes"
+                  }}
+                </td>
+                <td class="dropdown dropdown-left">
                   <div tabindex="0">
                     <div role="button">
                       <svg
@@ -192,8 +213,15 @@ const filteredTransactions = computed(() => {
                       tabindex="0"
                       class="dropdown-content dropdown-top menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                     >
-                      <li><a>Item 1</a></li>
-                      <li><a>Item 2</a></li>
+                      <li>
+                        <button class="font-medium">Edit</button>
+                        <button
+                          @click="deleteTransaction(transaction.id)"
+                          class="text-red-500 font-medium"
+                        >
+                          Delete
+                        </button>
+                      </li>
                     </ul>
                   </div>
                 </td>

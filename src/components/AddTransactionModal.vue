@@ -12,6 +12,7 @@ const form = ref({
   description: "",
   category: "Select Category",
   paymentMethod: "Cash",
+  notes: "",
 });
 
 const resetForm = () => {
@@ -22,6 +23,7 @@ const resetForm = () => {
     description: "",
     category: "Select Category",
     paymentMethod: "Cash",
+    notes: "",
   };
 };
 
@@ -169,6 +171,18 @@ const closeModal = () => {
                     <option>Other</option>
                   </select>
                 </div>
+              </div>
+              <div class="mt-4">
+                <label for="notes" class="font-medium"
+                  >Notes <span class="text-gray-500 font-normal">(optional)</span></label
+                >
+                <textarea
+                  id="notes"
+                  name="notes"
+                  v-model="form.notes"
+                  placeholder="Enter any additional notes"
+                  class="textarea textarea-secondary w-full mt-2"
+                ></textarea>
               </div>
             </div>
           </div>

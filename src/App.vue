@@ -20,7 +20,7 @@ const isSidebar = useRoute();
   <div>
     <div
       v-if="isSidebar.meta.showSidebar"
-      class="grid transition-all duration-500 ease-in-out"
+      class="grid transition-all duration-300 delay-0 ease-in-out"
       :class="[isSidebarOpen ? 'grid-cols-[1fr_4fr]' : 'grid-cols-[0fr_6fr]']"
     >
       <!--sidebar-->
