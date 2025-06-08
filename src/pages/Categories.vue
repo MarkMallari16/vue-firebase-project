@@ -9,8 +9,8 @@ console.log("isSidebarOpen:", isSidebarOpen);
 </script>
 
 <template>
-  <div class="min-h-screen">
-    <div class="mt-2 ms-5">
+  <div class="min-h-screen px-12 transition-all duration-300 ease-in-out">
+    <div>
       <DashboardNav />
       <h1 class="text-3xl font-bold">Manage Categories</h1>
       <div class="mt-6">

@@ -58,13 +58,12 @@ const filteredTransactions = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen">
-    <div class="mt-2 mx-5">
+  <div class="min-h-screen px-12 transition-all duration-300 ease-in-out">
+    <div>
       <DashboardNav />
       <h1 class="text-3xl font-bold">All Transactions</h1>
 
-      <div class="mt-6"></div>
-      <div class="bg-white rounded-lg ring-1 ring-inset ring-base-300 p-5">
+      <div class="mt-6 bg-white rounded-lg ring-1 ring-inset ring-base-300 p-5">
         <h2 class="text-xl font-medium">Filters</h2>
         <p class="text-gray-500">Search and filter your transactions</p>
 

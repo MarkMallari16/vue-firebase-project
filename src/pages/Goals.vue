@@ -3,8 +3,8 @@ import DashboardNav from "@/components/DashboardNav.vue";
 import DashboardSidebar from "@/components/DashboardSidebar.vue";
 </script>
 <template>
-  <div class="min-h-screen">
-    <div class="mt-2 ms-5">
+  <div class="min-h-screen px-12 transition-all duration-300 ease-in-out">
+    <div>
       <DashboardNav />
       <h1 class="text-2xl font-bold">Goals</h1>
       <p>All categories</p>

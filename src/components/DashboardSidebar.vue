@@ -60,34 +60,34 @@ const isActive = (path) => route.path === path;
 <template>
   <div class="overflow-hidden">
     <div
-      class="transition-all duration-500 ease-in-out"
-      :class="[isSidebarOpen ? 'w-96 fixed  ' : ' w-0  opacity-0 ']"
+      class="transition-all duration-500 delay-75 ease-in-out"
+      :class="[isSidebarOpen ? 'w-96 fixed ' : 'w-0 opacity-0']"
     >
       <div
-        class="flex flex-col justify-between ring-1 ring-inset ring-slate-200 bg-gray-100 px-5 py-8 h-screen shadow-xl rounded-r-3xl"
+        class="flex flex-col justify-between ring-1 ring-inset ring-slate-200 px-5 py-8 h-screen shadow-xl rounded-r-3xl"
       >
         <div>
-          <div class="flex items-center justify-between mb-10">
-            <div class="flex items-center gap-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="size-12"
-              >
-                <path
-                  d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z"
-                />
-              </svg>
-              <div>
-                <h2 class="hidden lg:block text-xl font-black uppercase">
-                  Budget Tracker
-                </h2>
-                <p class="text-gray-500 font-normal">Your Personal Tracker</p>
-              </div>
+          <!--Logo and Website Name-->
+          <div class="flex items-center flex-nowrap gap-2 mb-10 w-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-12"
+            >
+              <path
+                d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z"
+              />
+            </svg>
+            <div>
+              <h2 class="hidden lg:block text-xl font-black uppercase w-full text-nowrap">
+                Budget Tracker
+              </h2>
+              <p class="text-gray-500 font-normal w-full">Your Personal Tracker</p>
             </div>
           </div>
-          <div>
+          <!--Navigation Links-->
+          <div class="transition-all delay-800 duration-500 ease-in-out">
             <!--Dashboard-->
             <button
               class="flex gap-4 items-center px-4 py-3 rounded-md cursor-pointer mb-3 w-full"
@@ -278,9 +278,9 @@ const isActive = (path) => route.path === path;
         <!--Dropdown-->
         <div class="dropdown dropdown-top w-full">
           <div
-            tabindex="0"
             role="button"
-            class="btn m-1 w-full flex items-center justify-between"
+            class="btn w-full flex items-center flex-nowrap justify-between"
+            tabindex="0"
           >
             <div class="flex items-center gap-4">
               <div class="avatar avatar-placeholder">
@@ -298,22 +298,20 @@ const isActive = (path) => route.path === path;
                 <p class="text-sm font-normal">{{ email }}</p>
               </div>
             </div>
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                />
-              </svg>
-            </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m4.5 15.75 7.5-7.5 7.5 7.5"
+              />
+            </svg>
           </div>
           <ul
             tabindex="0"
