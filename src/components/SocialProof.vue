@@ -34,6 +34,7 @@ const socialProofs = [
     </div>
     <div class="pt-20">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4">
+        <!-- Loop through each social proof -->
         <div
           v-for="(proof, index) in socialProofs"
           :key="index"
