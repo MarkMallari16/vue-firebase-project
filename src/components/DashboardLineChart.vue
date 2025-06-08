@@ -22,25 +22,24 @@ ChartJS.register(
   LinearScale
 );
 
-// Define the data for the line chart
 const chartData = ref({
   labels: ["January", "February", "March", "April", "May", "June", "July"], // Time periods (months)
   datasets: [
     {
       label: "Actual Spending",
-      data: [500, 600, 800, 700, 850, 950, 1050], // Actual spending for each month
+      data: [500, 600, 800, 700, 850, 950, 1050],
       borderColor: "#FF6384",
-      backgroundColor: "rgba(255,99,132,0.2)", // Optional fill color under the line
+      backgroundColor: "rgba(255,99,132,0.2)",
       borderWidth: 2,
       tension: 0.4, // Smooth the line (optional)
     },
     {
       label: "Budget",
-      data: [700, 700, 700, 700, 700, 700, 700], // Budget limit for each month
+      data: [700, 700, 700, 700, 700, 700, 700],
       borderColor: "#36A2EB",
-      backgroundColor: "rgba(54,162,235,0.2)", // Optional fill color under the line
+      backgroundColor: "rgba(54,162,235,0.2)",
       borderWidth: 2,
-      tension: 0.4, // Smooth the line (optional)
+      tension: 0.4,
     },
   ],
 });
