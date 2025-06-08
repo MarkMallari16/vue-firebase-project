@@ -76,8 +76,10 @@ import { ref } from "vue";
       </div>
 
       <div class="relative p-10 ring-2 ring-inset ring-primary rounded-lg w-96">
-        <div class="absolute -top-3 left-36">
-          <span class="badge badge-neutral rounded-full">Most Popular</span>
+        <div class="flex justify-center">
+          <div class="absolute -top-3">
+            <span class="badge badge-neutral rounded-full">Most Popular</span>
+          </div>
         </div>
         <div class="text-center">
           <h3 class="text-2xl font-bold mb-2">Basic Plan</h3>

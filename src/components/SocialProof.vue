@@ -25,7 +25,7 @@ const socialProofs = [
 ];
 </script>
 <template>
-  <section class="px-20 py-32 pb-48">
+  <section class="lg:px-20 py-20 lg:py-32 lg:pb-48">
     <div class="text-center">
       <h1 class="text-6xl font-extrabold">Loved by thousands of users</h1>
       <p class="text-2xl pt-6 text-gray-500">
@@ -33,11 +33,11 @@ const socialProofs = [
       </p>
     </div>
     <div class="pt-20">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-5">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4">
         <div
           v-for="(proof, index) in socialProofs"
           :key="index"
-          class="p-10 ring-1 ring-inset ring-base-300 rounded-lg shadow-md flex flex-col justify-between"
+          class="p-10 ring-1 ring-inset ring-base-300 rounded-lg shadow-md flex flex-col justify-between w-full"
         >
           <div class="flex items-center">
             <!--Display Stars-->
