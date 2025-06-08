@@ -1,6 +1,6 @@
 <template>
   <div class="bg-base-content text-base-200 rounded-sm">
-    <footer className="footer p-10">
+    <footer className="footer container mx-auto p-10">
       <aside>
         <div class="flex items-center gap-2">
           <svg

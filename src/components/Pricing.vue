@@ -1,6 +1,4 @@
-<script setup>
-import { ref } from "vue";
-</script>
+<script setup></script>
 
 <template>
   <section class="pb-40 px-10 lg:px-0 bg-gray-100">

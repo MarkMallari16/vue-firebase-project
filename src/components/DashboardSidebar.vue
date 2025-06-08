@@ -279,7 +279,7 @@ const isActive = (path) => route.path === path;
         <div class="dropdown dropdown-top w-full">
           <div
             role="button"
-            class="btn w-full flex items-center flex-nowrap justify-between"
+            class="btn btn-ghost w-full flex items-center flex-nowrap justify-between"
             tabindex="0"
           >
             <div class="flex items-center gap-4">

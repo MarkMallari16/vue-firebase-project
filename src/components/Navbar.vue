@@ -4,9 +4,9 @@ import { ref } from "vue";
 const linkStyles =
   "font-normal text-base-800 hover:text-gray-500 transition-colors ease-in-out duration-300";
 
-const isOpen = ref(true);
+const isOpen = ref(false);
 
-const handleOpen = () => {
+const toggleNavBar = () => {
   isOpen.value = !isOpen.value;
 };
 </script>
@@ -14,7 +14,7 @@ const handleOpen = () => {
 <template>
   <nav>
     <div
-      class="navbar lg:flex-row flex-col items-start justify-between lg:items-center lg:px-40 pt-6"
+      class="container mx-auto navbar lg:flex-row flex-col items-start justify-between lg:items-center pt-6"
     >
       <div class="flex justify-between w-full lg:w-auto">
         <router-link to="/" class="btn btn-ghost text-2xl uppercase font-black">
@@ -30,7 +30,7 @@ const handleOpen = () => {
           </svg>
           Budget Tracker
         </router-link>
-        <button class="flex lg:hidden bg-base-300 rounded-md p-2" @click="handleOpen">
+        <button class="flex lg:hidden bg-base-300 rounded-md p-2" @click="toggleNavBar">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -59,36 +59,37 @@ const handleOpen = () => {
           </svg>
         </button>
       </div>
+
       <div
-        :class="
-          isOpen
-            ? ' w-full lg:w-auto flex flex-col lg:flex-row items-center gap-5 pt-20 lg:pt-0 lg:gap-8'
-            : 'hidden '
-        "
+        :class="[
+          'w-full lg:w-auto flex-col items-center lg:flex lg:flex-row  gap-5 pt-20 lg:pt-0 lg:gap-8 transition-all duration-500 ease-in-out',
+          isOpen ? 'flex' : 'hidden',
+        ]"
       >
         <a
           href="/features"
           @click.prevent="$emit('scrollTo', 'features')"
           :class="linkStyles"
+          @click="toggleNavBar"
           >Features</a
         >
         <a
           href="/pricing"
           @click.prevent="$emit('scrollTo', 'pricing')"
           :class="linkStyles"
+          @click="toggleNavBar"
           >Pricing</a
         >
-        <a href="#" :class="linkStyles">About</a>
-        <a href="#" :class="linkStyles">Contact</a>
+        <a href="#" :class="linkStyles" @click="toggleNavBar">About</a>
+        <a href="#" :class="linkStyles" @click="toggleNavBar">Contact</a>
       </div>
 
       <div
-        class="mt-10 lg:mt-0 flex flex-col lg:flex-row lg:block"
-        :class="
-          isOpen
-            ? 'w-full lg:w-auto block lg:flex  gap-5'
-            : 'hidden lg:flex items-center gap-5'
-        "
+        :class="[
+          'mt-10 lg:mt-0 flex flex-col items-center lg:flex-row  w-full lg:w-auto gap-4 ',
+          isOpen ? 'flex' : 'hidden',
+          'lg:flex',
+        ]"
       >
         <router-link to="/login">Login</router-link>
         <router-link to="/signup" class="btn btn-primary">Get Started</router-link>
