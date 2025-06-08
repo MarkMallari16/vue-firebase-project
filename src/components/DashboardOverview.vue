@@ -39,7 +39,7 @@ const overviews = [
 </script>
 <template>
   <div class="pt-6">
-    <div class="flex justify-between mb-4">
+    <div class="flex items-center justify-between mb-4">
       <h1 class="text-3xl font-bold">Overview</h1>
       <select class="select select-ghost">
         <option selected>Last 30 days</option>

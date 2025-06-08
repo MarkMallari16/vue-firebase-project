@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import SidebarCloseButton from "./SidebarCloseButton.vue";
@@ -28,35 +28,30 @@ onMounted(() => {
 
 const showModal = () => {
   const modal = document.getElementById("add_transaction");
-
   if (modal) {
     modal.showModal();
   } else {
     console.error("Modal element not found");
   }
 };
-const isSidebarOpen = ref(false);
-const handleToggleSidebar = () => {
-  isSidebarOpen.value = !isSidebarOpen.value;
 
-  console.log("Sidebar toggled:", isSidebarOpen.value);
-};
+const toggleSidebar = inject("handleToggleSidebar");
 </script>
 <template>
   <!--Top-->
   <div
-    class="flex flex-col lg:flex-row justify-between items-center gap-10 py-4 mb-2 rounded-md"
+    class="flex flex-col lg:flex-row justify-between lg:items-center gap-10 py-4 mb-2 rounded-md"
   >
     <div class="flex items-center gap-4">
       <div class="flex gap-5 items-center">
-        <SidebarCloseButton @toggleSidebar="handleToggleSidebar" />
+        <SidebarCloseButton @click="toggleSidebar" />
         <p class="text-gray-500">|</p>
       </div>
       <h1 class="font-medium text-2xl">{{ route.meta.title }}</h1>
     </div>
 
     <div class="flex items-center gap-5">
-      <div class="w-1/2 relative">
+      <div class="w-1/2 relative -z-10 lg:z-10">
         <input
           type="text"
           class="input input-bordered pl-12 w-full"
