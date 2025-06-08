@@ -65,9 +65,7 @@ const isActive = (path) => route.path === path;
       class="transition-all duration-300 delay-75 ease-in-out"
       :class="[isSidebarOpen ? 'w-96 fixed ' : 'w-0 opacity-0']"
     >
-      <div
-        class="flex flex-col justify-between ring-1 ring-inset ring-slate-200 px-5 py-8 h-screen shadow-xl rounded-r-3xl"
-      >
+      <div class="flex flex-col justify-between px-5 py-8 h-screen">
         <div>
           <!--Logo and Website Name-->
           <div class="flex items-center flex-nowrap gap-2 mb-10 w-full">
@@ -287,7 +285,7 @@ const isActive = (path) => route.path === path;
             <div class="flex items-center gap-4">
               <div class="avatar avatar-placeholder">
                 <div class="w-10 bg-primary text-white rounded bg-cover">
-                  <img v-if="storedUser.profile" :src="storedUser.profile" />
+                  <img v-if="storedUser.photoURL" :src="storedUser.photoURL" />
                   <div v-else>
                     <p class="text-2xl font-bold">
                       {{ storedUser.name.charAt(0).toUpperCase() }}

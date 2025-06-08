@@ -108,7 +108,7 @@ const closeModal = () => {
                   placeholder="Enter Amount"
                   v-model="form.amount"
                   required
-                  class="mt-2 input input-secondary w-full"
+                  class="mt-2 input input-bordered w-full"
                   min="0"
                 />
               </div>
@@ -120,7 +120,7 @@ const closeModal = () => {
                   name="date"
                   v-model="form.date"
                   required
-                  class="mt-2 input input-secondary w-full"
+                  class="mt-2 input input-bordered w-full"
                 />
               </div>
             </div>
@@ -132,7 +132,7 @@ const closeModal = () => {
                 v-model="form.description"
                 placeholder="Enter Description"
                 required
-                class="input mt-2 input-secondary w-full"
+                class="input mt-2 input-bordered w-full"
               />
             </div>
             <div class="mt-4">
@@ -140,7 +140,7 @@ const closeModal = () => {
                 <div class="w-full">
                   <p class="font-medium mb-2">Category</p>
                   <select
-                    class="select select-secondary w-full"
+                    class="select select-bordered w-full"
                     name="category"
                     v-model="form.category"
                   >
@@ -159,7 +159,7 @@ const closeModal = () => {
                 <div class="w-full">
                   <p class="font-medium mb-2">Payment Method</p>
                   <select
-                    class="select select-secondary w-full"
+                    class="select select-bordered w-full"
                     name="payment_method"
                     v-model="form.paymentMethod"
                   >
@@ -181,7 +181,7 @@ const closeModal = () => {
                   name="notes"
                   v-model="form.notes"
                   placeholder="Enter any additional notes"
-                  class="textarea textarea-secondary w-full mt-2"
+                  class="textarea textarea-bordered w-full mt-2"
                 ></textarea>
               </div>
             </div>

@@ -71,7 +71,9 @@ const deleteTransaction = async (transactionId) => {
 </script>
 
 <template>
-  <div class="min-h-screen px-12 transition-all duration-300 ease-in-out">
+  <div
+    class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl"
+  >
     <div>
       <DashboardNav />
       <h1 class="text-3xl font-bold">All Transactions</h1>
@@ -147,6 +149,7 @@ const deleteTransaction = async (transactionId) => {
                 <th>Category</th>
                 <th>Payment Method</th>
                 <th>Notes</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
