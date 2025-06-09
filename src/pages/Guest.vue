@@ -50,7 +50,7 @@ const scrollToSection = (section) => {
       <Footer />
     </div>
     <!-- Decorative SVG -->
-    <div class="absolute top-[10%] -left-32">
+    <div class="absolute top-[10%] -left-32 hidden lg:block">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -68,7 +68,7 @@ const scrollToSection = (section) => {
         />
       </svg>
     </div>
-    <div class="absolute top-48 -right-56">
+    <div class="absolute top-48 -right-56 hidden lg:block">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
