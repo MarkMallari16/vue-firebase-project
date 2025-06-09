@@ -1,6 +1,6 @@
 <script setup>
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { inject, onMounted, reactive, ref } from "vue";
+import { inject, onMounted, reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
@@ -15,13 +15,16 @@ const goToTransactionsLink = () => {
 const goToCategoriesLink = () => {
   router.push("/categories");
 };
-const goToGoalsLink = () => {
-  router.push("/goals");
-};
-const goToProfileLink = () => {
-  router.push("/profile");
+const goToBudgetLink = () => {
+  router.push("/budget");
 };
 
+const goToSettingsLink = () => {
+  router.push("/settings");
+};
+const goToSupportLink = () => {
+  router.push("/support");
+};
 const auth = getAuth();
 
 const storedUser = reactive({
@@ -127,7 +130,9 @@ const isActive = (path) => route.path === path;
                 />
               </svg>
 
-              <h2 class="font-medium">Dashboard</h2>
+              <h2 :class="[isActive('/home') ? 'font-medium' : 'font-normal']">
+                Dashboard
+              </h2>
             </button>
             <!--Transactions-->
             <button
@@ -168,7 +173,9 @@ const isActive = (path) => route.path === path;
                 />
               </svg>
 
-              <h2 class="font-medium">Transaction</h2>
+              <h2 :class="[isActive('/transactions') ? 'font-medium' : 'font-normal']">
+                Transaction
+              </h2>
             </button>
             <!--Categories-->
             <button
@@ -219,38 +226,37 @@ const isActive = (path) => route.path === path;
                 />
               </svg>
 
-              <h2 class="font-medium">Categories</h2>
+              <h2 :class="[isActive('/categories') ? 'font-medium' : 'font-normal']">
+                Categories
+              </h2>
             </button>
-            <!--Goals-->
+            <!--Budget-->
             <button
               class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
-              @click="goToGoalsLink"
+              @click="goToBudgetLink"
               :class="{
-                'bg-base-300': isActive('/goals'),
-                'hover:bg-base-300': !isActive('/goals'),
+                'bg-base-300': isActive('/budget'),
+                'hover:bg-base-300': !isActive('/budget'),
               }"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
+                fill="currentColor"
                 class="size-6"
+                v-if="isActive('/budget')"
               >
+                <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 6v12M6 12h12"
+                  fill-rule="evenodd"
+                  d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 14.625v-9.75ZM8.25 9.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM18.75 9a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V9.75a.75.75 0 0 0-.75-.75h-.008ZM4.5 9.75A.75.75 0 0 1 5.25 9h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H5.25a.75.75 0 0 1-.75-.75V9.75Z"
+                  clip-rule="evenodd"
+                />
+                <path
+                  d="M2.25 18a.75.75 0 0 0 0 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 0 0-.75-.75H2.25Z"
                 />
               </svg>
 
-              <h2 class="font-medium">Goals</h2>
-            </button>
-            <!-- Settings -->
-            <button
-              class="flex gap-4 items-center px-4 py-3 mt-10 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
-            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -258,6 +264,55 @@ const isActive = (path) => route.path === path;
                 stroke-width="1.5"
                 stroke="currentColor"
                 class="size-6"
+                v-else
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"
+                />
+              </svg>
+
+              <h2 :class="[isActive('/budget') ? 'font-medium' : 'font-normal']">
+                Budget
+              </h2>
+            </button>
+          </div>
+        </div>
+        <!--Dropdown-->
+        <div>
+          <div class="mb-10">
+            <!-- Settings -->
+            <button
+              class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md mb-3 cursor-pointer w-full"
+              @click="goToSettingsLink"
+              :class="{
+                'bg-base-300': isActive('/settings'),
+                'hover:bg-base-300': !isActive('/settings'),
+              }"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+                v-if="isActive('/settings')"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11.828 2.25c-.916 0-1.699.663-1.85 1.567l-.091.549a.798.798 0 0 1-.517.608 7.45 7.45 0 0 0-.478.198.798.798 0 0 1-.796-.064l-.453-.324a1.875 1.875 0 0 0-2.416.2l-.243.243a1.875 1.875 0 0 0-.2 2.416l.324.453a.798.798 0 0 1 .064.796 7.448 7.448 0 0 0-.198.478.798.798 0 0 1-.608.517l-.55.092a1.875 1.875 0 0 0-1.566 1.849v.344c0 .916.663 1.699 1.567 1.85l.549.091c.281.047.508.25.608.517.06.162.127.321.198.478a.798.798 0 0 1-.064.796l-.324.453a1.875 1.875 0 0 0 .2 2.416l.243.243c.648.648 1.67.733 2.416.2l.453-.324a.798.798 0 0 1 .796-.064c.157.071.316.137.478.198.267.1.47.327.517.608l.092.55c.15.903.932 1.566 1.849 1.566h.344c.916 0 1.699-.663 1.85-1.567l.091-.549a.798.798 0 0 1 .517-.608 7.52 7.52 0 0 0 .478-.198.798.798 0 0 1 .796.064l.453.324a1.875 1.875 0 0 0 2.416-.2l.243-.243c.648-.648.733-1.67.2-2.416l-.324-.453a.798.798 0 0 1-.064-.796c.071-.157.137-.316.198-.478.1-.267.327-.47.608-.517l.55-.091a1.875 1.875 0 0 0 1.566-1.85v-.344c0-.916-.663-1.699-1.567-1.85l-.549-.091a.798.798 0 0 1-.608-.517 7.507 7.507 0 0 0-.198-.478.798.798 0 0 1 .064-.796l.324-.453a1.875 1.875 0 0 0-.2-2.416l-.243-.243a1.875 1.875 0 0 0-2.416-.2l-.453.324a.798.798 0 0 1-.796.064 7.462 7.462 0 0 0-.478-.198.798.798 0 0 1-.517-.608l-.091-.55a1.875 1.875 0 0 0-1.85-1.566h-.344ZM12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                v-else
               >
                 <path
                   stroke-linecap="round"
@@ -271,98 +326,144 @@ const isActive = (path) => route.path === path;
                 />
               </svg>
 
-              <h2 class="font-medium">Settings</h2>
+              <h2 :class="[isActive('/settings') ? 'font-medium' : 'font-normal']">
+                Settings
+              </h2>
+            </button>
+            <!--Support-->
+            <button
+              class="flex gap-4 items-center px-4 py-3 hover:bg-base-300 rounded-md cursor-pointer mb-3 w-full"
+              @click="goToSupportLink"
+              :class="{
+                'bg-base-300': isActive('/support'),
+                'hover:bg-base-300': !isActive('/support'),
+              }"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+                v-if="isActive('/support')"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 0 1-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 0 1-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 0 1-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584ZM12 18a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+                v-else
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
+                />
+              </svg>
+
+              <h2 :class="[isActive('/support') ? 'font-medium' : 'font-normal']">
+                Help & Support
+              </h2>
             </button>
           </div>
-        </div>
-        <!--Dropdown-->
-        <div class="dropdown dropdown-top w-full">
-          <div
-            role="button"
-            class="btn btn-ghost w-full flex items-center flex-nowrap justify-between"
-            tabindex="0"
-          >
-            <div class="flex items-center gap-4">
-              <div class="avatar avatar-placeholder">
-                <div class="w-10 bg-primary text-white rounded bg-cover">
-                  <img v-if="storedUser.photoURL" :src="storedUser.photoURL" />
-                  <div v-else>
-                    <p class="text-2xl font-bold">
-                      {{ storedUser.name.charAt(0).toUpperCase() }}
-                    </p>
+
+          <!-- User Profile Dropdown -->
+          <div class="dropdown dropdown-top w-full">
+            <div
+              role="button"
+              class="btn btn-ghost w-full flex items-center flex-nowrap justify-between"
+              tabindex="0"
+            >
+              <div class="flex items-center gap-4">
+                <div class="avatar avatar-placeholder">
+                  <div class="w-10 bg-primary text-white rounded bg-cover">
+                    <img v-if="storedUser.photoURL" :src="storedUser.photoURL" />
+                    <div v-else>
+                      <p class="text-2xl font-bold">
+                        {{ storedUser.name.charAt(0).toUpperCase() }}
+                      </p>
+                    </div>
                   </div>
                 </div>
+                <div class="text-left">
+                  <h2 class="font-medium">{{ storedUser.name }}</h2>
+                  <p class="text-sm font-normal">{{ storedUser.email }}</p>
+                </div>
               </div>
-              <div class="text-left">
-                <h2 class="font-medium">{{ storedUser.name }}</h2>
-                <p class="text-sm font-normal">{{ storedUser.email }}</p>
-              </div>
-            </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m4.5 15.75 7.5-7.5 7.5 7.5"
-              />
-            </svg>
-          </div>
-          <ul
-            tabindex="0"
-            class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm"
-          >
-            <li>
-              <button
-                @click="goToProfileLink"
-                :class="{
-                  'bg-base-300': isActive('/profile'),
-                  'hover:bg-base-300': !isActive('/profile'),
-                }"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-4"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6"
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                />
+              </svg>
+            </div>
+            <ul
+              tabindex="0"
+              class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm"
+            >
+              <li>
+                <button
+                  @click="goToSettingsLink"
+                  :class="{
+                    'bg-base-300': isActive('/settings'),
+                    'hover:bg-base-300': !isActive('/settings'),
+                  }"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                  />
-                </svg>
-                <p>Profile</p>
-              </button>
-            </li>
-            <li>
-              <button @click="handleSignOut">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-                  />
-                </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                    />
+                  </svg>
+                  <p>Profile</p>
+                </button>
+              </li>
+              <li>
+                <button @click="handleSignOut">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+                    />
+                  </svg>
 
-                <p>Sign out</p>
-              </button>
-            </li>
-          </ul>
+                  <p>Sign out</p>
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

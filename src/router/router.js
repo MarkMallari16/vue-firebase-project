@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/pages/Home.vue';
-import Login from '@/pages/Login.vue';
-import Signup from '@/pages/Signup.vue';
+import Login from '@/pages/Auth/Login.vue';
+import Signup from '@/pages/Auth/Signup.vue';
 import Guest from '@/pages/Guest.vue';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Transactions from '@/pages/Transactions.vue';
 import Categories from '@/pages/Categories.vue';
-import Goals from '@/pages/Goals.vue';
-import Profile from '@/pages/Profile.vue';
-
+import Budget from '@/pages/Budget.vue';
+import Settings from '@/pages/Profile/Settings.vue';
+import Support from '@/pages/Support.vue';
 
 
 const routes = [
@@ -59,21 +59,31 @@ const routes = [
         }
     },
     {
-        path: '/goals',
-        name: 'Goals',
-        component: Goals,
+        path: '/settings',
+        name: 'settings',
+        component: Settings,
         meta: {
-            title: 'Goals',
+            title: 'Settings',
             requiresAuth: true,
             showSidebar: true
         }
     },
     {
-        path: '/profile',
-        name: 'Profile',
-        component: Profile,
+        path: '/budget',
+        name: 'budget',
+        component: Budget,
         meta: {
-            title: 'Profile',
+            title: 'Budget',
+            requiresAuth: true,
+            showSidebar: true
+        }
+    },
+    {
+        path: '/support',
+        name: 'Support',
+        component: Support,
+        meta: {
+            title: 'Support',
             requiresAuth: true,
             showSidebar: true
         }

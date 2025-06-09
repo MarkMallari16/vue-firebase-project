@@ -1,73 +1,61 @@
 <script setup>
 import { ref } from "vue";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
+import { db } from "../../collection/firebase";
 import GoogleButton from "@/components/GoogleButton.vue";
-import { db } from "../collection/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 const router = useRouter();
-const fullName = ref("");
 const email = ref("");
 const password = ref("");
-const errorMessage = ref("");
 
-//auth
+const errorMessage = ref("");
 const auth = getAuth();
-//loading state
 const loading = ref(false);
 
-// Function to handle user registration
-const register = async (event) => {
+const login = async (event) => {
   event.preventDefault();
 
   try {
-    //
-    const { user } = await createUserWithEmailAndPassword(
-      auth,
-      email.value,
-      password.value
+    loading.value = true;
+    const { user } = await signInWithEmailAndPassword(auth, email.value, password.value);
+
+    const userRef = doc(db, "users", user.uid);
+
+    // Update the user's document in Firestore with last login time
+    await setDoc(
+      userRef,
+      {
+        email: user.email,
+        displayName: user.displayName,
+        lastLogin: new Date(),
+      },
+      { merge: true }
     );
 
-    loading.value = true;
-
-    // Update the user's profile with the full name
-    await updateProfile(user, {
-      displayName: fullName.value,
-    });
-
-    // Save the user data to Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      email: user.email,
-      createdAt: new Date(),
-      displayName: fullName.value,
-    });
-
-    console.log("Successfully registered and saved user to Firestore!", user);
-
     loading.value = false;
+
+    console.log(auth.currentUser);
 
     router.push("/home");
   } catch (error) {
     loading.value = false;
-
-    console.error("Error code:", error.code);
-    console.error("Error message:", error.message);
-
+    console.log(error.message);
     switch (error.code) {
       case "auth/invalid-email":
-        errorMessage.value = "Invalid email address.";
+        errorMessage.value = "Invalid Email.";
         break;
-      case "auth/email-already-in-use":
-        errorMessage.value =
-          "This email address is already in use. Please use a different email.";
+      case "auth/user-not-found":
+        errorMessage.value = "User does not exists.";
         break;
-      case "auth/weak-password":
-        errorMessage.value = "The password must be 6 characters long or more.";
+      case "auth/wrong-password":
+        errorMessage.value = "Incorrect password.";
+        break;
+      default:
+        errorMessage.value = "Email or Password was incorrect.";
         break;
     }
-  } finally {
-    loading.value = false;
   }
 };
 </script>
@@ -75,7 +63,7 @@ const register = async (event) => {
   <div>
     <div class="grid min-h-screen place-items-center mx-6 lg:mx-0">
       <div
-        class="lg:w-1/3 bg-white rounded-md ring-1 ring-inset ring-gray-200 p-10 shadow-xl container"
+        class="w-full lg:w-1/3 bg-white ring-1 ring-inset ring-gray-200 rounded-md p-10 shadow-xl"
       >
         <div class="flex items-center gap-2 mb-6">
           <svg
@@ -90,28 +78,17 @@ const register = async (event) => {
           </svg>
           <h2 class="text-3xl font-black uppercase">Bugdet Tracker</h2>
         </div>
-        <form @submit.prevent="register">
+        <form @submit.prevent="login">
           <div class="mb-4">
-            <h1 class="text-2xl font-bold">Sign in</h1>
-            <p class="text-gray-400">Create your account</p>
+            <h1 class="text-2xl font-bold">Log in</h1>
+            <p class="text-gray-400">Log into your account</p>
           </div>
           <div>
             <GoogleButton />
           </div>
           <div class="my-6 divider text-gray-500">or</div>
-          <div>
+          <div class="mt-2">
             <div>
-              <label for="fullName">Full Name</label>
-              <input
-                id="fullName"
-                type="text"
-                class="mt-2 block input input-bordered w-full"
-                placeholder="Enter your Full Name"
-                v-model="fullName"
-                required
-              />
-            </div>
-            <div class="mt-4">
               <label for="email">Email</label>
               <input
                 id="email"
@@ -143,11 +120,11 @@ const register = async (event) => {
               type="submit"
               class="btn btn-primary text-center w-full mb-3"
             >
-              {{ loading ? "Signing in..." : "Sign in" }}
+              {{ loading ? "Logging in" : "Log in" }}
             </button>
           </div>
-          <div class="mt-1 text-center text-gray-800">
-            <router-link to="/login">Already have an account? Log in here. </router-link>
+          <div class="mt-2 text-center text-gray-800">
+            <router-link to="/signup"> Don't have an account? Sign up here.</router-link>
           </div>
         </form>
       </div>

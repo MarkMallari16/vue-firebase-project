@@ -1,6 +1,5 @@
 <script setup>
 import DashboardNav from "@/components/DashboardNav.vue";
-import DashboardSidebar from "@/components/DashboardSidebar.vue";
 </script>
 <template>
   <div
