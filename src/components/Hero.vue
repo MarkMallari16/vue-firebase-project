@@ -39,7 +39,7 @@ import HeroImage from "../assets/hero-image-2.png";
           Track Your Budget Effortlessly!
         </h1>
         <p class="text-xl lg:text-2xl text-gray-500 pt-6">
-          Stay on top of your finances. Enjoy managing them with ease.
+          Take control of your budget. Manage your money effortlessly.
         </p>
         <div class="pt-6 flex justify-center gap-2">
           <router-link to="/signup" class="font-medium btn btn-primary"

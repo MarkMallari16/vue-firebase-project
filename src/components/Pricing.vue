@@ -49,7 +49,7 @@ const pricings = [
     <div class="flex justify-center gap-8 flex-wrap pt-4">
       <div
         v-for="(pricing, index) in pricings"
-        class="p-10 ring-1 ring-inset ring-gray-300 w-96 bg-white"
+        class="p-10 ring-1 ring-inset ring-gray-300 w-96 bg-white rounded-lg"
         :key="index"
       >
         <div class="text-center">

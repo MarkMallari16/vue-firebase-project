@@ -12,9 +12,9 @@ const toggleNavBar = () => {
 </script>
 
 <template>
-  <nav>
+  <nav class="container mx-auto w-full">
     <div
-      class="container mx-auto navbar lg:flex-row flex-col items-start justify-between lg:items-center pt-6"
+      class="navbar flex-col items-start lg:flex-row lg:justify-between lg:items-center pt-6"
     >
       <div class="flex justify-between w-full lg:w-auto">
         <router-link to="/" class="btn btn-ghost text-2xl uppercase font-black">

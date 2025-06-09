@@ -25,14 +25,14 @@ const socialProofs = [
 ];
 </script>
 <template>
-  <section class="lg:px-20 py-20 lg:py-32 lg:pb-48">
+  <section class="py-20 px-16 lg:px-20 lg:py-32 lg:pb-48 w-full">
     <div class="text-center">
       <h1 class="text-6xl font-extrabold">Loved by thousands of users</h1>
       <p class="text-2xl pt-6 text-gray-500">
         See what our customers have to say about Bugdet Tracker
       </p>
     </div>
-    <div class="pt-20">
+    <div class="pt-16">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-8">
         <!-- Loop through each social proof -->
         <div
