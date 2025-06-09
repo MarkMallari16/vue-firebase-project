@@ -80,7 +80,7 @@ const scrollToSection = (section) => {
         />
       </svg>
     </div>
-    <div class="absolute bottom-[19%] -left-40 -rotate-45 hidden lg:block">
+    <div class="absolute bottom-[20%] -right-44 -rotate-45 hidden lg:block">
       <svg
         class="size-96"
         aria-hidden="true"
