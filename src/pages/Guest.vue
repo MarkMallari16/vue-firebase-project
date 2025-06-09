@@ -50,12 +50,12 @@ const scrollToSection = (section) => {
       <Footer />
     </div>
     <!-- Decorative SVG -->
-    <div class="absolute top-[10%] -left-32 hidden lg:block">
+    <div class="absolute top-[12%] -left-32 hidden lg:block">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        class="size-96 rotate-45"
+        class="size-96 rotate-12"
       >
         <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
         <path
@@ -68,7 +68,7 @@ const scrollToSection = (section) => {
         />
       </svg>
     </div>
-    <div class="absolute top-48 -right-56 hidden lg:block">
+    <div class="absolute top-48 -right-52 hidden lg:block">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
