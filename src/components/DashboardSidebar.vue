@@ -65,7 +65,7 @@ const isActive = (path) => route.path === path;
 <template>
   <div class="overflow-hidden">
     <div
-      class="transition-all duration-300 delay-75 ease-in-out"
+      class="rounded-3xl transition-all duration-300 delay-75 ease-in-out"
       :class="[isSidebarOpen ? 'w-96 fixed ' : 'w-0 opacity-0']"
     >
       <div class="flex flex-col justify-between px-5 py-8 h-screen">
@@ -418,7 +418,7 @@ const isActive = (path) => route.path === path;
               class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm"
             >
               <li>
-                <button
+                <!-- <button
                   @click="goToSettingsLink"
                   :class="{
                     'bg-base-300': isActive('/settings'),
@@ -440,7 +440,7 @@ const isActive = (path) => route.path === path;
                     />
                   </svg>
                   <p>Profile</p>
-                </button>
+                </button> -->
               </li>
               <li>
                 <button @click="handleSignOut">

@@ -61,7 +61,7 @@ const features = [
       <div
         v-for="(feature, index) in features"
         :key="index"
-        class="p-10 ring-1 ring-inset ring-base-300 rounded-lg"
+        class="bg-white p-10 ring-1 ring-inset ring-base-300 rounded-lg"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

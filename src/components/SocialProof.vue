@@ -38,7 +38,7 @@ const socialProofs = [
         <div
           v-for="(proof, index) in socialProofs"
           :key="index"
-          class="p-10 ring-1 ring-inset ring-base-300 rounded-lg shadow-md flex flex-col justify-between w-full"
+          class="bg-white p-10 ring-1 ring-inset ring-base-300 rounded-lg shadow-md flex flex-col justify-between w-full"
         >
           <div class="flex items-center">
             <!--Display Stars-->
