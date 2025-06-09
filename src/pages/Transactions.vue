@@ -241,6 +241,31 @@ const deleteTransaction = async (transactionId) => {
             </tbody>
           </table>
         </div>
+        <!--Pagination-->
+        <div class="mt-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <p class="text-gray-500">Showing 1 to 10 of</p>
+            <select
+              name="transactionSelection"
+              id="transactionSelection"
+              class="select select-bordered w-20"
+            >
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            <p class="text-gray-500 h-5">20 transactions</p>
+          </div>
+
+          <div class="join gap-2">
+            <button class="join-item btn">Previous</button>
+            <button class="join-item btn">1</button>
+            <button class="join-item btn">2</button>
+            <button class="join-item btn">3</button>
+            <button class="join-item btn">Next</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
