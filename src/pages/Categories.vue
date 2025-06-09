@@ -15,30 +15,21 @@ console.log("isSidebarOpen:", isSidebarOpen);
     <div>
       <DashboardNav />
       <h1 class="text-3xl font-bold">Manage Categories</h1>
-      <div class="mt-6">
-        <div
-          class="overflow-x-auto rounded-md bg-white ring-1 ring-inset ring-base-300 p-5"
-        >
-          <table class="table">
-            <!-- head -->
-            <thead>
-              <tr>
-                <th>Category ID</th>
-                <th>Category</th>
-                <th>Amount</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>23</td>
-                <td>23</td>
-                <td>23</td>
-                <td>23</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="mt-6 p-2 tabs tabs-boxed font-medium rounded-md h-full" role="tablist">
+        <input
+          type="radio"
+          name="categories"
+          class="tab h-10"
+          aria-label="Expense Categories"
+          checked
+        />
+
+        <input
+          type="radio"
+          name="categories"
+          class="tab h-10"
+          aria-label="Income Categories"
+        />
       </div>
     </div>
   </div>
