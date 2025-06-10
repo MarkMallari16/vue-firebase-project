@@ -3,7 +3,7 @@ import { inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import SidebarCloseButton from "./SidebarCloseButton.vue";
-import AddTransactionModal from "./AddTransactionModal.vue";
+import AddTransactionModal from "./modals/AddTransactionModal.vue";
 import DashboardNavBarSlot from "./DashboardNavBarRightSlot.vue";
 
 const route = useRoute();

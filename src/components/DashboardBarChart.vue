@@ -22,7 +22,9 @@ const chartData = ref({
 });
 
 const chartOptions = ref({
+  indexAxis: "y",
   responsive: true,
+  horizontal: true,
   plugins: {
     legend: {
       display: true,

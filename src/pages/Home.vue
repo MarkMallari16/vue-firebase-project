@@ -3,7 +3,7 @@ import DashboardOverview from "@/components/DashboardOverview.vue";
 import DashboardCharts from "@/components/DashboardCharts.vue";
 import DashboardNav from "@/components/DashboardNav.vue";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
-import AddTransactionModal from "@/components/AddTransactionModal.vue";
+import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
 import AddButtonModal from "@/components/AddButtonModal.vue";
 
 const showModal = () => {

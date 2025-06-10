@@ -3,11 +3,23 @@ import DashboardNav from "../components/DashboardNav.vue";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
 import AddButtonModal from "@/components/AddButtonModal.vue";
 import { ref } from "vue";
+import AddCategoryModal from "@/components/modals/AddCategoryModal.vue";
 
 const tab = ref("expense");
+
+const showModal = () => {
+  const modal = document.getElementById("add_category");
+  if (modal) {
+    modal.showModal();
+  } else {
+    console.log("Modal not shown");
+  }
+};
 </script>
 
 <template>
+  <!--Modal-->
+  <AddCategoryModal />
   <div
     class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl"
   >
@@ -15,7 +27,7 @@ const tab = ref("expense");
       <!--Top-->
       <DashboardNav>
         <DashboardNavBarRightSlot>
-          <AddButtonModal @click=""> Add Category </AddButtonModal>
+          <AddButtonModal @click="showModal">Add Category</AddButtonModal>
         </DashboardNavBarRightSlot>
       </DashboardNav>
       <h1 class="text-3xl font-bold">Manage Categories</h1>

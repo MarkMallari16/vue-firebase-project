@@ -2,8 +2,6 @@
 import DashboardBarChart from "./DashboardBarChart.vue";
 import DashboardLineChart from "./DashboardLineChart.vue";
 import { inject } from "vue";
-
-const isSidebarOpen = inject("isSidebarOpen");
 </script>
 
 <template>

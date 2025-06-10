@@ -5,7 +5,7 @@ import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
-import AddTransactionModal from "@/components/AddTransactionModal.vue";
+import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
 import AddButtonModal from "@/components/AddButtonModal.vue";
 
 const transactions = ref([]);
@@ -19,7 +19,6 @@ const transactionFilterings = ref({
 onSnapshot(collection(db, "transactions"), (snapshot) => {
   const auth = getAuth();
   const userId = auth.currentUser ? auth.currentUser.uid : null;
-
   if (userId) {
     transactions.value = snapshot.docs
       .filter((doc) => doc.data().userId == userId)
@@ -83,6 +82,8 @@ const showModal = () => {
 </script>
 
 <template>
+  <!--Modal-->
+  <AddTransactionModal />
   <div
     class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl"
   >
@@ -91,7 +92,6 @@ const showModal = () => {
         <DashboardNavBarRightSlot>
           <AddButtonModal @click="showModal">Add Transaction</AddButtonModal>
         </DashboardNavBarRightSlot>
-        <AddTransactionModal />
       </DashboardNav>
       <h1 class="text-3xl font-bold">All Transactions</h1>
 
