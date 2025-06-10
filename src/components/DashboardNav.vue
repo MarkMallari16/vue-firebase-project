@@ -42,12 +42,11 @@ const toggleSidebar = inject("handleToggleSidebar");
   <div
     class="flex flex-col lg:flex-row justify-between lg:items-center gap-10 py-4 mb-2 rounded-md"
   >
-    <div class="flex items-center gap-4">
-      <div class="flex gap-5 items-center">
-        <SidebarCloseButton @click="toggleSidebar" />
-        <p class="text-gray-500">|</p>
-      </div>
-      <h1 class="font-medium text-2xl">{{ route.meta.title }}</h1>
+    <div class="flex items-center gap-2">
+      <!--Sidebar-->
+      <SidebarCloseButton @click="toggleSidebar" />
+      <div class="text-gray-500 divider divider-vertical">|</div>
+      <h1 class="font-medium text-2xl text-gray-700">{{ route.meta.title }}</h1>
     </div>
 
     <div class="flex items-center gap-5">
