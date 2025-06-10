@@ -53,7 +53,7 @@ const routes = [
         name: 'Categories',
         component: Categories,
         meta: {
-            title: 'Categoies',
+            title: 'Categories',
             requiresAuth: true,
             showSidebar: true
         }
