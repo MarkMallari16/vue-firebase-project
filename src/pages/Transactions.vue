@@ -19,6 +19,7 @@ const transactionFilterings = ref({
 onSnapshot(collection(db, "transactions"), (snapshot) => {
   const auth = getAuth();
   const userId = auth.currentUser ? auth.currentUser.uid : null;
+
   if (userId) {
     transactions.value = snapshot.docs
       .filter((doc) => doc.data().userId == userId)

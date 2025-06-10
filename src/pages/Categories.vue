@@ -4,8 +4,31 @@ import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue"
 import AddButtonModal from "@/components/AddButtonModal.vue";
 import { ref } from "vue";
 import AddCategoryModal from "@/components/modals/AddCategoryModal.vue";
+import { collection, onSnapshot } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { db } from "@/collection/firebase";
 
 const tab = ref("expense");
+
+const categories = ref([]);
+
+onSnapshot(collection(db, "categories"), (snapshot) => {
+  const auth = getAuth();
+  const userId = auth.currentUser ? auth.currentUser.uid : null;
+  if (userId) {
+    categories.value = snapshot.docs
+      .filter((doc) => doc.data().userId === userId)
+      .map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+    console.log(categories.value);
+  }
+});
+
+console.log(categories.value);
 
 const showModal = () => {
   const modal = document.getElementById("add_category");
@@ -55,7 +78,11 @@ const showModal = () => {
 
           <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
             <!--Card-->
-            <div class="p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm">
+            <div
+              v-for="category in categories"
+              :key="category.id"
+              class="p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm"
+            >
               <div class="flex justify-between items-center">
                 <div class="flex gap-3">
                   <svg
@@ -73,8 +100,8 @@ const showModal = () => {
                     />
                   </svg>
                   <div>
-                    <h3 class="font-sans">Food & Dining</h3>
-                    <p class="text-gray-600">8 transactions</p>
+                    <h3 class="font-sans">{{ category.name }}</h3>
+                    <p class="text-gray-600">{{ category.type }}</p>
                   </div>
                 </div>
                 <div class="dropdown dropdown-bottom">

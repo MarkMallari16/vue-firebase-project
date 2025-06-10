@@ -3,27 +3,9 @@ import { db } from "@/collection/firebase";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { ref } from "vue";
 import { getAuth } from "firebase/auth";
+
 const loading = ref(false);
-const categories = ref([]);
-
-onSnapshot(collection(db, "categories"), (snapshot) => {
-  const auth = getAuth();
-  const userId = auth.currentUser ? auth.currentUser.uid : null;
-  console.log("Current user ID:", userId);
-  if (userId) {
-    categories.value = snapshot.docs
-      .filter((doc) => doc.data().userId === userId)
-      .map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data(),
-        };
-      });
-  }
-});
-console.log(categories.value);
 const selectedIcon = ref({ name: "", svg: "" });
-
 const form = ref({
   type: "income",
   name: "",
