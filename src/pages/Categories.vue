@@ -4,7 +4,7 @@ import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue"
 import AddButtonModal from "@/components/AddButtonModal.vue";
 import { ref } from "vue";
 import AddCategoryModal from "@/components/modals/AddCategoryModal.vue";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 
@@ -28,6 +28,14 @@ onSnapshot(collection(db, "categories"), (snapshot) => {
   }
 });
 
+//handle delete category
+const deleteCategory = async (categoryId) => {
+  try {
+    await deleteDoc(doc(db, "categories", categoryId));
+  } catch (error) {
+    console.error("Error deleting category:", error);
+  }
+};
 console.log(categories.value);
 
 const showModal = () => {
@@ -138,7 +146,7 @@ const showModal = () => {
                       </button>
                     </li>
                     <li>
-                      <button>
+                      <button @click="deleteCategory(category.id)">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -216,6 +224,7 @@ const showModal = () => {
                     tabindex="0"
                     class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                     popover
+                    popout
                   >
                     <li>
                       <button>
@@ -237,7 +246,7 @@ const showModal = () => {
                       </button>
                     </li>
                     <li>
-                      <button>
+                      <button @click="deleteCategory(category.id)">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

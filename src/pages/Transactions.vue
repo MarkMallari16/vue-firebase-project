@@ -59,16 +59,11 @@ const filteredTransactions = computed(() => {
 });
 
 const deleteTransaction = async (transactionId) => {
-  const auth = getAuth();
-  if (auth.currentUser) {
-    try {
-      await deleteDoc(doc(db, "transactions", transactionId));
-      console.log("Transaction deleted successfully");
-    } catch (error) {
-      console.error("Error deleting transaction: ", error);
-    }
-  } else {
-    console.error("User not authenticated. Cannot delete transaction.");
+  try {
+    await deleteDoc(doc(db, "transactions", transactionId));
+    console.log("Transaction deleted successfully");
+  } catch (error) {
+    console.error("Error deleting transaction: ", error);
   }
 };
 
