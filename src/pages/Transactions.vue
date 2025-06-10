@@ -4,6 +4,9 @@ import DashboardNav from "@/components/DashboardNav.vue";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
+import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
+import AddTransactionModal from "@/components/AddTransactionModal.vue";
+import AddButtonModal from "@/components/AddButtonModal.vue";
 
 const transactions = ref([]);
 
@@ -68,6 +71,15 @@ const deleteTransaction = async (transactionId) => {
     console.error("User not authenticated. Cannot delete transaction.");
   }
 };
+
+const showModal = () => {
+  const modal = document.getElementById("add_transaction");
+  if (modal) {
+    modal.showModal();
+  } else {
+    console.error("Modal element not found");
+  }
+};
 </script>
 
 <template>
@@ -75,7 +87,12 @@ const deleteTransaction = async (transactionId) => {
     class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl"
   >
     <div>
-      <DashboardNav />
+      <DashboardNav>
+        <DashboardNavBarRightSlot>
+          <AddButtonModal @click="showModal">Add Transaction</AddButtonModal>
+        </DashboardNavBarRightSlot>
+        <AddTransactionModal />
+      </DashboardNav>
       <h1 class="text-3xl font-bold">All Transactions</h1>
 
       <div class="mt-6 bg-white rounded-lg ring-1 ring-inset ring-base-300 p-5">

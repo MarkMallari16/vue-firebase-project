@@ -1,11 +1,8 @@
 <script setup>
 import { inject } from "vue";
 import DashboardNav from "../components/DashboardNav.vue";
-import DashboardSidebar from "../components/DashboardSidebar.vue";
-
-const isSidebarOpen = inject("isSidebarOpen");
-
-console.log("isSidebarOpen:", isSidebarOpen);
+import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
+import AddButtonModal from "@/components/AddButtonModal.vue";
 </script>
 
 <template>
@@ -13,7 +10,12 @@ console.log("isSidebarOpen:", isSidebarOpen);
     class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl"
   >
     <div>
-      <DashboardNav />
+      <!--Top-->
+      <DashboardNav>
+        <DashboardNavBarRightSlot>
+          <AddButtonModal @click=""> Add Category </AddButtonModal>
+        </DashboardNavBarRightSlot>
+      </DashboardNav>
       <h1 class="text-3xl font-bold">Manage Categories</h1>
       <div class="mt-6 p-2 tabs tabs-boxed font-medium rounded-md h-full" role="tablist">
         <input
