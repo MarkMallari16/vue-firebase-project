@@ -50,14 +50,18 @@ const scrollIndicator = {
           <Navbar @scrollTo="scrollToSection" />
         </div>
         <motion.div
-          :initial="{ x: -50, opacity: 0, delay: 2 }"
-          :whileInView="{ x: 0, opacity: 1, delay: 2 }"
+          :initial="{
+            x: -50,
+            opacity: 0,
+          }"
+          :whileInView="{ x: 0, opacity: 1 }"
+          :transition="{ delay: 0.1, ease: 'easeInOut' }"
         >
           <Hero />
         </motion.div>
         <motion.div
-          :initial="{ y: -50, opacity: 0, delay: 2 }"
-          :whileInView="{ y: 0, opacity: 1, delay: 2 }"
+          :initial="{ y: -50, opacity: 0 }"
+          :whileInView="{ y: 0, opacity: 1 }"
           ref="features"
           class="container mx-auto px-4"
         >
@@ -77,8 +81,9 @@ const scrollIndicator = {
     </div>
     <!-- Decorative SVG -->
     <motion.div
-      :initial="{ y: -50, opacity: 0, delay: 2 }"
-      :whileInView="{ y: 0, opacity: 1, delay: 2 }"
+      :initial="{ y: -50, opacity: 0 }"
+      :whileInView="{ y: 0, opacity: 1 }"
+      :transition="{ delay: 0.2, ease: 'easeInOut' }"
       class="absolute top-[12%] -left-32 hidden lg:block"
     >
       <svg
@@ -101,6 +106,7 @@ const scrollIndicator = {
     <motion.div
       :initial="{ x: -50, opacity: 0, delay: 5 }"
       :whileInView="{ x: 0, opacity: 1, delay: 5 }"
+      :transition="{ delay: 0.3, ease: 'easeInOut' }"
       class="absolute top-48 -right-52 hidden lg:block"
     >
       <svg
