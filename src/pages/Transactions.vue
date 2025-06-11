@@ -1,36 +1,49 @@
 <script setup>
 import { computed, ref } from "vue";
 import DashboardNav from "@/components/DashboardNav.vue";
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
 import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
 import AddButtonModal from "@/components/AddButtonModal.vue";
+const auth = getAuth();
+const userId = auth.currentUser ? auth.currentUser.uid : null;
 
 const transactions = ref([]);
-
+const categories = ref([]);
 const transactionFilterings = ref({
   search: "",
   type: "",
   category: "",
 });
+const transactionsQuery = query(
+  collection(db, "transactions"),
+  where("userId", "==", userId)
+);
+const categoriesQuery = query(collection(db, categories), where("userId", "==", userId));
 
-onSnapshot(collection(db, "transactions"), (snapshot) => {
-  const auth = getAuth();
-  const userId = auth.currentUser ? auth.currentUser.uid : null;
+if (userId) {
+  //transactions
+  onSnapshot(transactionsQuery, (snapshot) => {
+    transactions.value = snapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+  });
 
-  if (userId) {
-    transactions.value = snapshot.docs
-      .filter((doc) => doc.data().userId == userId)
-      .map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data(),
-        };
-      });
-  }
-});
+  //categories
+  onSnapshot(categoriesQuery, (snapshot) => {
+    categories.value = snapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+  });
+}
 
 // This computed property filters transactions based on the search input
 const filteredTransactions = computed(() => {
