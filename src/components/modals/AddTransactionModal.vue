@@ -1,6 +1,6 @@
 <script setup>
 import { db } from "@/collection/firebase";
-import { doc, addDoc, collection } from "firebase/firestore";
+import { doc, addDoc, collection, onSnapshot, query, where } from "firebase/firestore";
 import { ref } from "vue";
 import { getAuth } from "firebase/auth";
 const loading = ref(false);
@@ -26,6 +26,25 @@ const resetForm = () => {
     notes: "",
   };
 };
+const categories = ref([]);
+
+const auth = getAuth();
+const userId = auth.currentUser ? auth.currentUser.uid : null;
+
+const categoriesQuery = query(
+  collection(db, "categories"),
+  where("userId", "==", userId)
+);
+
+// Fetch categories from the "categories" collection
+onSnapshot(categoriesQuery, (snapshot) => {
+  categories.value = snapshot.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+  });
+});
 
 const submitForm = async () => {
   const auth = getAuth();
@@ -144,16 +163,15 @@ const closeModal = () => {
                     name="category"
                     v-model="form.category"
                   >
-                    <option value="Select Category" selected disabled>
+                    <option
+                      v-for="(category, index) in categories"
+                      :key="category.id"
+                      value="Select Category"
+                      selected
+                      disabled
+                    >
                       Select Category
                     </option>
-                    <option>Food</option>
-                    <option>Bills</option>
-                    <option>Entertainment</option>
-                    <option>Transportation</option>
-                    <option>Shopping</option>
-                    <option>Travel</option>
-                    <option>Healthcare</option>
                   </select>
                 </div>
                 <div class="w-full">

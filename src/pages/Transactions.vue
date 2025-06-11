@@ -7,44 +7,36 @@ import { db } from "@/collection/firebase";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
 import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
 import AddButtonModal from "@/components/AddButtonModal.vue";
+
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
 
 const transactions = ref([]);
 const categories = ref([]);
+
+// Fetch categories from the "categories" collection
 const transactionFilterings = ref({
   search: "",
   type: "",
   category: "",
 });
-const transactionsQuery = query(
+
+const transactionQuery = query(
   collection(db, "transactions"),
   where("userId", "==", userId)
 );
-const categoriesQuery = query(collection(db, categories), where("userId", "==", userId));
 
-if (userId) {
-  //transactions
-  onSnapshot(transactionsQuery, (snapshot) => {
-    transactions.value = snapshot.docs.map((doc) => {
-      return {
-        id: doc.id,
-        ...doc.data(),
-      };
-    });
+//Fetch transactions from the "transactions" collection
+onSnapshot(transactionQuery, (snapshot) => {
+  transactions.value = snapshot.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
   });
+});
 
-  //categories
-  onSnapshot(categoriesQuery, (snapshot) => {
-    categories.value = snapshot.docs.map((doc) => {
-      return {
-        id: doc.id,
-        ...doc.data(),
-      };
-    });
-  });
-}
-
+console.log(transactions.value);
 // This computed property filters transactions based on the search input
 const filteredTransactions = computed(() => {
   const { search, type, category } = transactionFilterings.value;
@@ -88,6 +80,8 @@ const showModal = () => {
     console.error("Modal element not found");
   }
 };
+
+console.log(categories.value);
 </script>
 
 <template>
