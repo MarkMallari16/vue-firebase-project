@@ -62,6 +62,7 @@ const scrollIndicator = {
         <motion.div
           :initial="{ y: -50, opacity: 0 }"
           :whileInView="{ y: 0, opacity: 1 }"
+          :transition="{ delay: 0.2, ease: 'easeInOut' }"
           ref="features"
           class="container mx-auto px-4"
         >
