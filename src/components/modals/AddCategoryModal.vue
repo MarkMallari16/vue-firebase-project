@@ -119,11 +119,11 @@ const selectIcon = (icon) => {
         class="flex justify-center items-center gap-3 mt-4 bg-gray-100 ring-1 ring-gray-300 rounded-lg p-4"
         v-if="form.name && form.color !== 'Select Color'"
       >
-        <div class="rounded-lg" :class="form.color">
+        <div class="rounded-lg w-12 h-12 p-2" :class="form.color">
           <div
             v-if="selectedIcon.name && selectedIcon.svg"
             v-html="selectedIcon.svg"
-            class="text-white size-12 p-2"
+            class="text-white"
           ></div>
         </div>
         <div>
@@ -143,6 +143,7 @@ const selectIcon = (icon) => {
             </button>
             <p class="font-medium">Category Type</p>
             <div class="flex items-center gap-2 mt-2">
+              <!-- Income Radio Button -->
               <div class="flex items-center gap-2">
                 <input
                   id="income"
@@ -155,6 +156,7 @@ const selectIcon = (icon) => {
                 />
                 <label for="income" class="font-sans">Income</label>
               </div>
+              <!-- Expense Radio Button -->
               <div class="flex items-center gap-2">
                 <input
                   id="expense"

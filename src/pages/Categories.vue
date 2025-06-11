@@ -8,10 +8,11 @@ import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 
-const tab = ref("expense");
+const tab = ref("income");
 
 const categories = ref([]);
 
+// Fetch categories from Firestore
 onSnapshot(collection(db, "categories"), (snapshot) => {
   const auth = getAuth();
   const userId = auth.currentUser ? auth.currentUser.uid : null;
@@ -67,27 +68,26 @@ const showModal = () => {
       >
         <button
           class="btn w-1/2 rounded-lg"
-          :class="[tab === 'expense' ? 'btn-primary' : 'btn-ghost']"
-          @click="tab = 'expense'"
-        >
-          Expense
-        </button>
-        <button
-          class="btn w-1/2 rounded-lg"
           :class="[tab === 'income' ? 'btn-primary' : 'btn-ghost']"
           @click="tab = 'income'"
         >
           Income
         </button>
+        <button
+          class="btn w-1/2 rounded-lg"
+          :class="[tab === 'expense' ? 'btn-primary' : 'btn-ghost']"
+          @click="tab = 'expense'"
+        >
+          Expense
+        </button>
       </div>
       <div>
-        <div v-if="tab === 'expense'">
-          <h2 class="text-2xl font-semibold mt-4">Expense Categories</h2>
-
+        <div v-if="tab === 'income'">
+          <h2 class="text-2xl font-semibold mt-4">Income Categories</h2>
           <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
             <!--Card-->
             <div
-              v-for="category in categories.filter((cat) => cat.type === 'expense')"
+              v-for="category in categories.filter((cat) => cat.type === 'income')"
               :key="category.id"
               class="p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm"
             >
@@ -125,6 +125,7 @@ const showModal = () => {
                     tabindex="0"
                     class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                     popover
+                    popout
                   >
                     <li>
                       <button>
@@ -182,11 +183,12 @@ const showModal = () => {
           </div>
         </div>
         <div v-else>
-          <h2 class="text-2xl font-semibold mt-4">Income Categories</h2>
+          <h2 class="text-2xl font-semibold mt-4">Expense Categories</h2>
+
           <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
             <!--Card-->
             <div
-              v-for="category in categories.filter((cat) => cat.type === 'income')"
+              v-for="category in categories.filter((cat) => cat.type === 'expense')"
               :key="category.id"
               class="p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm"
             >
@@ -224,7 +226,6 @@ const showModal = () => {
                     tabindex="0"
                     class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
                     popover
-                    popout
                   >
                     <li>
                       <button>
