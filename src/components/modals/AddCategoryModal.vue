@@ -99,6 +99,14 @@ const submitForm = async () => {
     closeModal();
   }
 };
+
+// Function to select an icon
+const selectIcon = (icon) => {
+  selectedIcon.value.name = icon.name;
+  selectedIcon.value.svg = icon.icon;
+  form.value.icon = icon.icon;
+};
+
 // Function to close the modal and reset the form
 const closeModal = () => {
   const modal = document.getElementById("add_category");
@@ -107,13 +115,6 @@ const closeModal = () => {
     loading.value = false;
     resetForm();
   }
-};
-
-// Function to select an icon
-const selectIcon = (icon) => {
-  selectedIcon.value.name = icon.name;
-  selectedIcon.value.svg = icon.icon;
-  form.value.icon = icon.icon;
 };
 </script>
 <template>

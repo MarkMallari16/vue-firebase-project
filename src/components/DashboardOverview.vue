@@ -1,6 +1,4 @@
 <script setup>
-import { computed } from "vue";
-
 const overviews = [
   {
     subtext: "Total Balance",
@@ -42,7 +40,7 @@ const overviews = [
 ];
 </script>
 <template>
-  <div class="pt-6">
+  <div>
     <div class="flex items-center justify-between mb-4">
       <h1 class="text-3xl font-bold">Overview</h1>
       <select class="select select-ghost">
