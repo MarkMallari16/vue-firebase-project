@@ -10,7 +10,7 @@ const form = ref({
   amount: null,
   date: "",
   description: "",
-  category: "Select Category",
+  category: "",
   paymentMethod: "Cash",
   notes: "",
 });
@@ -21,7 +21,7 @@ const resetForm = () => {
     amount: null,
     date: "",
     description: "",
-    category: "Select Category",
+    category: "",
     paymentMethod: "Cash",
     notes: "",
   };
@@ -55,6 +55,8 @@ const submitForm = async () => {
     const formData = {
       ...form.value,
       userId: auth.currentUser.uid,
+      categoryId:
+        categories.value.find((c) => c.name === form.value.category)?.id || null,
       createdAt: new Date(),
     };
     await addDoc(collection(db, "transactions"), formData);
@@ -163,9 +165,7 @@ const closeModal = () => {
                     name="category"
                     v-model="form.category"
                   >
-                    <option value="Select Category" selected disabled>
-                      Select Category
-                    </option>
+                    <option value="" selected disabled>Select Category</option>
                     <option
                       v-for="category in categories.filter((c) => c.type === form.type)"
                       :key="category.id"

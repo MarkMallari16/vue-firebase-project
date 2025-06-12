@@ -154,7 +154,9 @@ const showModal = () => {
               >
                 <option value="">All Categories</option>
                 <option
-                  v-for="category in categories"
+                  v-for="category in categories.filter(
+                    (c) => c.type === transactionFilterings.type
+                  )"
                   :value="category.name"
                   :key="category.id"
                 >

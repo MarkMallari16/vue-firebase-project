@@ -1,11 +1,72 @@
 <script setup>
+import { db } from "@/collection/firebase";
+import { getAuth } from "firebase/auth";
+import { addDoc, collection, onSnapshot, query, where } from "firebase/firestore";
 import { ref } from "vue";
 
+const auth = getAuth();
+const userId = auth.currentUser ? auth.currentUser.uid : null;
+const categories = ref([]);
 const loading = ref(false);
+
+const categoriesQuery = query(
+  collection(db, "categories"),
+  where("userId", "==", userId)
+);
+
+const form = ref({
+  category: "",
+  amount: null,
+  timePeriod: "monthly",
+});
+
+if (userId) {
+  // Fetch categories from the "categories" collection
+  onSnapshot(categoriesQuery, (snapshot) => {
+    categories.value = snapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+  });
+}
+
+const submitForm = async () => {
+  loading.value = true;
+
+  try {
+    const formData = {
+      ...form.value,
+      userId: userId,
+      // Ensure the category is selected
+      categoryId:
+        categories.value.find((c) => c.name === form.value.category)?.id || null,
+      createdAt: new Date(),
+    };
+
+    await addDoc(collection(db, "budgets"), formData);
+
+    loading.value = false;
+    console.log("Budget added successfully:", formData);
+  } catch (error) {
+    console.error("Error adding budget:", error);
+  } finally {
+    loading.value = false;
+    resetForm();
+    closeModal();
+  }
+};
+
+const resetForm = () => {
+  form.value = {
+    amount: null,
+    timePeriod: "monthly",
+  };
+};
 
 const closeModal = () => {
   const modal = document.getElementById("add_budget");
-
   if (modal) {
     modal.close();
     loading.value = false;
@@ -34,14 +95,72 @@ const closeModal = () => {
           Set up a new budget to track your spending in a specific category.
         </p>
       </div>
-      <form @submit.prevent="" method="post">
-        <div class="mt-4 mb-10">
+      <!-- Form for adding a new budget -->
+      <form @submit.prevent="submitForm" method="post">
+        <div class="mt-4 mb-4">
           <button
             type="button"
             class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
             @click="closeModal"
           >
             ✕
+          </button>
+        </div>
+        <div class="mb-4 w-full">
+          <div class="w-full">
+            <label for="category" class="font-medium">Category</label>
+            <select
+              name="category"
+              id="category"
+              v-model="form.category"
+              class="select select-bordered w-full mt-2"
+              required
+            >
+              <option value="">Select Category</option>
+              <option
+                v-for="category in categories.filter((c) => c.type === 'expense')"
+                :key="category.id"
+                :value="category.name"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 w-full">
+          <div class="w-full">
+            <label for="amount" class="font-medium">Amount</label>
+            <input
+              type="number"
+              name="amount"
+              v-model="form.amount"
+              id="amount"
+              class="input input-bordered w-full mt-2"
+              placeholder="0.00"
+              required
+              min="0"
+            />
+          </div>
+          <div class="w-full">
+            <label for="period" class="font-medium">Time Period</label>
+            <select
+              name="period"
+              id="period"
+              v-model="form.timePeriod"
+              class="select select-bordered w-full mt-2"
+              required
+            >
+              <option value="" selected disabled>Select Period</option>
+              <option value="monthly">Monthly</option>
+              <option value="weekly">Weekly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex gap-2 modal-action">
+          <button type="button" @click="closeModal" class="btn">Close</button>
+          <button :disabled="loading" class="btn btn-primary" type="submit">
+            {{ loading ? "Creating..." : "Create Budget" }}
           </button>
         </div>
       </form>
