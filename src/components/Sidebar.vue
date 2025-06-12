@@ -1,31 +1,32 @@
 <script setup>
+import { useNavigation } from "@/composables/useNavigation";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { inject, onMounted, reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 // Import Firebase Authentication
 const auth = getAuth();
-const router = useRouter();
 const route = useRoute();
+const { goTo } = useNavigation();
 
 const goToDashboardLink = () => {
-  router.push("/home");
+  goTo("/home");
 };
 const goToTransactionsLink = () => {
-  router.push("/transactions");
+  goTo("/transactions");
 };
 const goToCategoriesLink = () => {
-  router.push("/categories");
+  goTo("/categories");
 };
 const goToBudgetLink = () => {
-  router.push("/budget");
+  goTo("/budget");
 };
 
 const goToSettingsLink = () => {
-  router.push("/settings");
+  goTo("/settings");
 };
 const goToSupportLink = () => {
-  router.push("/support");
+  goTo("/support");
 };
 
 // Reactive object to store user information
@@ -46,7 +47,7 @@ onMounted(() => {
       storedUser.email = user?.email;
       storedUser.photoURL = user?.photoURL;
     } else {
-      router.push("/login");
+      goTo("/login");
     }
   });
 });
@@ -56,7 +57,7 @@ const handleSignOut = () => {
   signOut(auth)
     .then(() => {
       console.log("successfully logout");
-      router.push("/login");
+      goTo("/login");
     })
     .catch((error) => {
       console.error(error.message);
@@ -270,24 +271,17 @@ const settingsSupportLinks = [
 
 <template>
   <div class="overflow-hidden text-nowrap">
-    <div
-      class="rounded-3xl transition-all duration-500 delay-0ase-in-out"
-      :class="[isSidebarOpen ? 'w-[21rem] fixed ' : 'w-0 opacity-0']"
-    >
+    <div class="rounded-3xl transition-all duration-500 delay-0ase-in-out"
+      :class="[isSidebarOpen ? 'w-[21rem] fixed ' : 'w-0 opacity-0']">
       <div class="flex flex-col justify-between px-5 py-8 h-screen">
         <div>
           <!--Logo and Website Name-->
           <div class="flex items-center flex-nowrap gap-2 mb-10 w-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
               class="text-primary transition-all ease-in-out duration-200 delay-200"
-              :class="[isSidebarOpen ? 'size-12' : 'size-0']"
-            >
+              :class="[isSidebarOpen ? 'size-12' : 'size-0']">
               <path
-                d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z"
-              />
+                d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z" />
             </svg>
             <div>
               <h2 class="hidden lg:block text-xl font-black uppercase w-full">
@@ -302,21 +296,13 @@ const settingsSupportLinks = [
               <p class="text-gray-500 font-normal text-sm">Overview</p>
             </div>
             <!--Links-->
-            <button
-              v-for="(overview, index) in overviewLinks"
-              :key="index"
-              class="flex gap-4 items-center pl-2 py-3 rounded-md cursor-pointer mb-3 w-full"
-              :class="{
+            <button v-for="(overview, index) in overviewLinks" :key="index"
+              class="flex gap-4 items-center pl-2 py-3 rounded-md cursor-pointer mb-3 w-full" :class="{
                 'bg-base-300': isActive(overview.path),
                 'hover:bg-base-300': !isActive(overview.path),
-              }"
-              @click="overview.linkTo"
-            >
-              <span
-                v-html="
-                  isActive(overview.path) ? overview.iconActive : overview.iconInActive
-                "
-              ></span>
+              }" @click="overview.linkTo">
+              <span v-html="isActive(overview.path) ? overview.iconActive : overview.iconInActive
+                "></span>
 
               <h2 :class="[isActive(overview.path) ? 'font-medium' : 'font-normal']">
                 {{ overview.name }}
@@ -328,18 +314,13 @@ const settingsSupportLinks = [
         <div>
           <div class="mb-10">
             <!-- settings and support links -->
-            <button
-              v-for="(link, index) in settingsSupportLinks"
+            <button v-for="(link, index) in settingsSupportLinks"
               class="flex gap-4 items-center pl-2 py-3 hover:bg-base-300 rounded-md mb-3 cursor-pointer w-full"
-              @click="link.linkTo"
-              :class="{
+              @click="link.linkTo" :class="{
                 'bg-base-300': isActive(link.path),
                 'hover:bg-base-300': !isActive(link.path),
-              }"
-            >
-              <span
-                v-html="isActive(link.path) ? link.iconActive : link.iconInActive"
-              ></span>
+              }">
+              <span v-html="isActive(link.path) ? link.iconActive : link.iconInActive"></span>
 
               <h2 :class="[isActive(link.path) ? 'font-medium' : 'font-normal']">
                 {{ link.name }}
@@ -349,11 +330,7 @@ const settingsSupportLinks = [
 
           <!-- User Profile Dropdown -->
           <div class="dropdown dropdown-top w-full hover:bg-base-200 p-1 rounded-lg">
-            <div
-              role="button"
-              class="w-full flex items-center justify-between"
-              tabindex="0"
-            >
+            <div role="button" class="w-full flex items-center justify-between" tabindex="0">
               <div class="flex items-center gap-4">
                 <div class="avatar avatar-placeholder">
                   <div class="w-10 bg-primary text-white rounded bg-cover">
@@ -370,65 +347,18 @@ const settingsSupportLinks = [
                   <p class="text-sm font-normal">{{ storedUser.email }}</p>
                 </div>
               </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
               </svg>
             </div>
-            <ul
-              tabindex="0"
-              class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm"
-            >
-              <li>
-                <!-- <button
-                  @click="goToSettingsLink"
-                  :class="{
-                    'bg-base-300': isActive('/settings'),
-                    'hover:bg-base-300': !isActive('/settings'),
-                  }"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                    />
-                  </svg>
-                  <p>Profile</p>
-                </button> -->
-              </li>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-sm">
               <li>
                 <button @click="handleSignOut">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-                    />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                   </svg>
 
                   <p>Sign out</p>
