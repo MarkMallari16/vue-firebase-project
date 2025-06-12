@@ -1,7 +1,7 @@
 <script setup>
 import DashboardNav from "../components/DashboardNav.vue";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
-import AddButtonModal from "@/components/AddButtonModal.vue";
+import OpenAddModalButton from "@/components/OpenAddModalButton.vue";
 import { ref } from "vue";
 import AddCategoryModal from "@/components/modals/AddCategoryModal.vue";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
@@ -59,7 +59,7 @@ const showModal = () => {
       <!--Top-->
       <DashboardNav>
         <DashboardNavBarRightSlot>
-          <AddButtonModal @click="showModal">Add Category</AddButtonModal>
+          <OpenAddModalButton @click="showModal">Add Category</OpenAddModalButton>
         </DashboardNavBarRightSlot>
       </DashboardNav>
       <h1 class="text-3xl font-bold">Manage Categories</h1>

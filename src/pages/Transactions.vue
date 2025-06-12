@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
 import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
-import AddButtonModal from "@/components/AddButtonModal.vue";
+import OpenAddModalButton from "@/components/OpenAddModalButton.vue";
 
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
@@ -92,7 +92,7 @@ const showModal = () => {
     <div>
       <DashboardNav>
         <DashboardNavBarRightSlot>
-          <AddButtonModal @click="showModal">Add Transaction</AddButtonModal>
+          <OpenAddModalButton @click="showModal">Add Transaction</OpenAddModalButton>
         </DashboardNavBarRightSlot>
       </DashboardNav>
       <h1 class="text-3xl font-bold">All Transactions</h1>

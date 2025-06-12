@@ -4,7 +4,7 @@ import DashboardCharts from "@/components/DashboardCharts.vue";
 import DashboardNav from "@/components/DashboardNav.vue";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
 import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
-import AddButtonModal from "@/components/AddButtonModal.vue";
+import AddButtonModal from "@/components/OpenAddModalButton.vue";
 
 const showModal = () => {
   const modal = document.getElementById("add_transaction");

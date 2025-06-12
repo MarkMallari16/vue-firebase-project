@@ -1,5 +1,5 @@
 <script setup>
-import AddButtonModal from "@/components/AddButtonModal.vue";
+import OpenAddModalButton from "@/components/OpenAddModalButton.vue";
 import DashboardNav from "@/components/DashboardNav.vue";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
 import AddBudgetModal from "@/components/modals/AddBudgetModal.vue";
@@ -18,7 +18,7 @@ const showModal = () => {
   >
     <DashboardNav>
       <DashboardNavBarRightSlot>
-        <AddButtonModal @click="showModal">Create Budget</AddButtonModal>
+        <OpenAddModalButton @click="showModal">Create Budget</OpenAddModalButton>
       </DashboardNavBarRightSlot>
     </DashboardNav>
     <div>
