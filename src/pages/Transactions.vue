@@ -12,7 +12,6 @@ const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
 
 const transactions = ref([]);
-const categories = ref([]);
 
 // Fetch categories from the "categories" collection
 const transactionFilterings = ref({
@@ -26,15 +25,17 @@ const transactionQuery = query(
   where("userId", "==", userId)
 );
 
-//Fetch transactions from the "transactions" collection
-onSnapshot(transactionQuery, (snapshot) => {
-  transactions.value = snapshot.docs.map((doc) => {
-    return {
-      id: doc.id,
-      ...doc.data(),
-    };
+if (userId) {
+  //Fetch transactions from the "transactions" collection
+  onSnapshot(transactionQuery, (snapshot) => {
+    transactions.value = snapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
   });
-});
+}
 
 console.log(transactions.value);
 // This computed property filters transactions based on the search input
@@ -80,8 +81,6 @@ const showModal = () => {
     console.error("Modal element not found");
   }
 };
-
-console.log(categories.value);
 </script>
 
 <template>

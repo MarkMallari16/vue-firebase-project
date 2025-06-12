@@ -5,18 +5,19 @@ import AddButtonModal from "@/components/AddButtonModal.vue";
 import { ref } from "vue";
 import AddCategoryModal from "@/components/modals/AddCategoryModal.vue";
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 import { db } from "@/collection/firebase";
+import { getAuth } from "firebase/auth";
 
 const tab = ref("income");
 
 const categories = ref([]);
 
+const auth = getAuth();
+const userId = auth.currentUser ? auth.currentUser.uid : null;
+
 // Fetch categories from Firestore
-onSnapshot(collection(db, "categories"), (snapshot) => {
-  const auth = getAuth();
-  const userId = auth.currentUser ? auth.currentUser.uid : null;
-  if (userId) {
+if (userId) {
+  onSnapshot(collection(db, "categories"), (snapshot) => {
     categories.value = snapshot.docs
       .filter((doc) => doc.data().userId === userId)
       .map((doc) => {
@@ -25,9 +26,8 @@ onSnapshot(collection(db, "categories"), (snapshot) => {
           ...doc.data(),
         };
       });
-    console.log(categories.value);
-  }
-});
+  });
+}
 
 //handle delete category
 const deleteCategory = async (categoryId) => {

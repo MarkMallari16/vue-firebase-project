@@ -163,14 +163,15 @@ const closeModal = () => {
                     name="category"
                     v-model="form.category"
                   >
+                    <option value="Select Category" selected disabled>
+                      Select Category
+                    </option>
                     <option
                       v-for="(category, index) in categories"
                       :key="category.id"
-                      value="Select Category"
-                      selected
-                      disabled
+                      :value="category.name"
                     >
-                      Select Category
+                      {{ category.name }}
                     </option>
                   </select>
                 </div>
