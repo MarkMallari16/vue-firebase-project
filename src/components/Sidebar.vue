@@ -2,7 +2,7 @@
 import { useNavigation } from "@/composables/useNavigation";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { inject, onMounted, reactive } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 // Import Firebase Authentication
 const auth = getAuth();

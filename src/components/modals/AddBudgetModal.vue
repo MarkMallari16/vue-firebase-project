@@ -1,5 +1,5 @@
 <script setup>
-import { db } from "@/collection/firebase";
+import { db } from "@/firebase/firebase";
 import { getAuth } from "firebase/auth";
 import { addDoc, collection, onSnapshot, query, where } from "firebase/firestore";
 import { ref } from "vue";

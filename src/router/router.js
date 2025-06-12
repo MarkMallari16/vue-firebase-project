@@ -45,7 +45,6 @@ const routes = [
             title: 'Transactions',
             requiresAuth: true,
             showSidebar: true
-
         }
     },
     {

@@ -1,5 +1,5 @@
 <script setup>
-import { db } from "@/collection/firebase";
+import { db } from "@/firebase/firebase";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { ref } from "vue";
 import { getAuth } from "firebase/auth";
@@ -95,6 +95,7 @@ const submitForm = async () => {
       userId: auth.currentUser.uid,
       createdAt: new Date(),
     };
+    // Add the new category to the Firestore collection
     await addDoc(collection(db, "categories"), formData);
 
     console.log("Document successfully added!");

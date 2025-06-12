@@ -6,7 +6,7 @@ import AddBudgetModal from "@/components/modals/AddBudgetModal.vue";
 import { getAuth } from "firebase/auth";
 import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
 import { computed, ref, watchEffect } from "vue";
-import { db } from "@/collection/firebase";
+import { db } from "@/firebase/firebase";
 
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
