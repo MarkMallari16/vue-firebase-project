@@ -72,11 +72,25 @@ const budgetSummaries = computed(() => {
   });
 });
 
-// watchEffect(() => {
-//   console.log("Budget summaries updated:", budgetSummaries.value);
-//   console.log("Budgets:", budgets.value);
-//   console.log("Transactions:", transactions.value);
-// })
+// Calculate total budget across all budgets
+const totalBudget = computed(() => {
+  return budgets.value.reduce((sum, budget) => sum + budget.amount, 0);
+})
+// Calculate total spent across all transactions
+const totalSpent = computed(() => {
+  return transactions.value.filter(t => t.type === "expense")
+    .reduce((sum, transaction) => sum + transaction.amount, 0)
+})
+// Calculate remaining budget
+const remainingBudget = computed(() => {
+  return totalBudget.value - totalSpent.value;
+})
+
+const percentageUsed = computed(() => {
+  if (totalBudget.value === 0) return 0;
+
+  return ((totalSpent.value / totalBudget.value) * 100).toFixed(2);
+})
 const deleteBudget = async (budgetId) => {
   try {
     const budgetRef = doc(db, "budgets", budgetId);
@@ -120,17 +134,18 @@ const statusStyle = (status) => {
       <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-3">
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Total Budget</h2>
-          <h1 class="mt-1 text-3xl font-bold">₱40,000</h1>
+          <h1 class="mt-1 text-3xl font-bold">₱{{ totalBudget }}</h1>
           <p class="text-gray-500">This Month</p>
         </div>
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Total Spent</h2>
-          <h1 class="mt-1 text-3xl font-bold text-red-600">₱1,600</h1>
-          <p class="text-gray-500">82.1% of budget</p>
+          <h1 class="mt-1 text-3xl font-bold text-red-600">₱{{ totalSpent }}</h1>
+          <p class="text-gray-500">{{percentageUsed}}% of budget</p>
         </div>
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Remaining</h2>
-          <h1 class="mt-1 text-3xl font-bold text-green-600">₱40,000</h1>
+          <h1 class="mt-1 text-3xl font-bold" :class="[remainingBudget < 0 ? 'text-red-600' : 'text-green-600']">
+            ₱{{ remainingBudget }}</h1>
           <p class="text-gray-500">Available to spend</p>
         </div>
       </div>
@@ -152,8 +167,7 @@ const statusStyle = (status) => {
               </div>
             </div>
             <div class="flex items-center gap-2">
-              <p class="badge rounded-full text-sm font-medium"
-                :class="statusStyle(summary.status)">
+              <p class="badge rounded-full text-sm font-medium" :class="statusStyle(summary.status)">
                 {{ summary.status }}
               </p>
 
