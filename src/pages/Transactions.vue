@@ -16,8 +16,8 @@ const transactions = ref([]);
 // Fetch categories from the "categories" collection
 const transactionFilterings = ref({
   search: "",
-  type: "",
-  category: "",
+  type: "all",
+  category: "all",
 });
 
 const transactionQuery = query(
@@ -68,10 +68,9 @@ const filteredTransactions = computed(() => {
 
   return transactions.value
     .filter((transaction) => {
-      const matchesType = type ? transaction.type.toLowerCase() === type : true;
-      const matchesCategory = category
-        ? transaction.category.toLowerCase() === category.toLowerCase()
-        : true;
+      const matchesType = !type || type === 'all' || transaction.type.toLowerCase() === type;
+      const matchesCategory = !category || category === 'all' || transaction.category.toLowerCase() === category.toLowerCase();
+
 
       return matchesType && matchesCategory;
     })
@@ -88,6 +87,15 @@ const filteredTransactions = computed(() => {
     });
 });
 
+const computedCategories = computed(() => {
+  if (transactionFilterings.value.category === "all") {
+    return categories.value;
+  }
+
+  return categories.value.filter(
+    (category) => category.type === transactionFilterings.value.type
+  );
+})
 const deleteTransaction = async (transactionId) => {
   try {
     await deleteDoc(doc(db, "transactions", transactionId));
@@ -141,7 +149,7 @@ const showModal = () => {
             <!--Types-->
             <div>
               <select class="select select-bordered" v-model="transactionFilterings.type">
-                <option value="">All</option>
+                <option value="all">All</option>
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
               </select>
@@ -149,10 +157,8 @@ const showModal = () => {
             <!--Categories-->
             <div>
               <select class="select select-bordered" v-model="transactionFilterings.category">
-                <option value="">All Categories</option>
-                <option v-for="category in categories.filter(
-                  (c) => c.type === transactionFilterings.type
-                )" :value="category.name" :key="category.id">
+                <option value="all">All Categories</option>
+                <option v-for="category in computedCategories" :value="category.name" :key="category.id">
                   {{ category.name }}
                 </option>
               </select>
