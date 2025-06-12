@@ -36,9 +36,7 @@ if (userId) {
         ...doc.data(),
       };
     });
-
   });
-
 }
 
 const budgetSummaries = computed(() => {

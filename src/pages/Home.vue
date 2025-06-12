@@ -113,7 +113,7 @@ const { goTo } = useNavigation();
                   {{ transaction.description }}
                 </p>
               </td>
-              <td>{{ transaction.amount }}</td>
+              <td class="font-medium" :class="[transaction.type == 'expense' ? 'text-red-600' : 'text-green-600']">{{ transaction.amount }}</td>
               <td>{{ transaction.date }}</td>
               <td>
                 <p class="badge badge-ghost rounded-full text-md font-medium">
