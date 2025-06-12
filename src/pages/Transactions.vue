@@ -11,6 +11,7 @@ import OpenAddModalButton from "@/components/OpenAddModalButton.vue";
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
 
+const categories = ref([]);
 const transactions = ref([]);
 
 // Fetch categories from the "categories" collection
@@ -24,7 +25,10 @@ const transactionQuery = query(
   collection(db, "transactions"),
   where("userId", "==", userId)
 );
-
+const categoriesQuery = query(
+  collection(db, "categories"),
+  where("userId", "==", userId)
+);
 if (userId) {
   //Fetch transactions from the "transactions" collection
   onSnapshot(transactionQuery, (snapshot) => {
@@ -35,9 +39,18 @@ if (userId) {
       };
     });
   });
+
+  //Fetch categories from the "categories" collection
+  onSnapshot(categoriesQuery, (snapshot) => {
+    categories.value = snapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
+  });
 }
 
-console.log(transactions.value);
 // This computed property filters transactions based on the search input
 const filteredTransactions = computed(() => {
   const { search, type, category } = transactionFilterings.value;
@@ -46,7 +59,7 @@ const filteredTransactions = computed(() => {
     .filter((transaction) => {
       const matchesType = type ? transaction.type.toLowerCase() === type : true;
       const matchesCategory = category
-        ? transaction.category.toLowerCase() === category
+        ? transaction.category.toLowerCase() === category.toLowerCase()
         : true;
 
       return matchesType && matchesCategory;
@@ -140,11 +153,13 @@ const showModal = () => {
                 v-model="transactionFilterings.category"
               >
                 <option value="">All Categories</option>
-                <option value="food">Food</option>
-                <option value="housing">Housing</option>
-                <option value="transportation">Transportation</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="income">Income</option>
+                <option
+                  v-for="category in categories"
+                  :value="category.name"
+                  :key="category.id"
+                >
+                  {{ category.name }}
+                </option>
               </select>
             </div>
           </div>

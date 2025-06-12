@@ -167,7 +167,7 @@ const closeModal = () => {
                       Select Category
                     </option>
                     <option
-                      v-for="(category, index) in categories"
+                      v-for="category in categories.filter((c) => c.type === form.type)"
                       :key="category.id"
                       :value="category.name"
                     >

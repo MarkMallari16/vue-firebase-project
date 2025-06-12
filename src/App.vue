@@ -1,6 +1,6 @@
 <script setup>
 import { provide, ref } from "vue";
-import DashboardSidebar from "./components/DashboardSidebar.vue";
+import Sidebar from "./components/Sidebar.vue";
 import { useRoute } from "vue-router";
 
 const isSidebarOpen = ref(true);
@@ -23,7 +23,7 @@ const isSidebar = useRoute();
       :class="[isSidebarOpen ? 'grid-cols-[1fr_5fr]' : 'grid-cols-[0fr_5fr]']"
     >
       <!--sidebar-->
-      <DashboardSidebar v-if="isSidebar.meta.showSidebar" />
+      <Sidebar v-if="isSidebar.meta.showSidebar" />
       <router-view />
     </div>
 
