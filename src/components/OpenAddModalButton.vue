@@ -2,7 +2,7 @@
 defineEmits(["showModal"]);
 </script>
 <template>
-  <button class="btn btn-primary" @click="$emit('showModal')">
+  <button class="btn btn-primary rounded-lg" @click="$emit('showModal')">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
