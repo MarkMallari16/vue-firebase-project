@@ -140,7 +140,7 @@ const statusStyle = (status) => {
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Total Spent</h2>
           <h1 class="mt-1 text-3xl font-bold text-red-600">₱{{ totalSpent }}</h1>
-          <p class="text-gray-500">{{percentageUsed}}% of budget</p>
+          <p class="text-gray-500">{{ percentageUsed }}% of budget</p>
         </div>
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Remaining</h2>
