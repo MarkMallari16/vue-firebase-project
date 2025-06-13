@@ -18,6 +18,10 @@ const icons = [
 `,
   },
   {
+    name: "Games",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"  fill="currentColor"><path d="M17 4C20.3137 4 23 6.68629 23 10V14C23 17.3137 20.3137 20 17 20H7C3.68629 20 1 17.3137 1 14V10C1 6.68629 3.68629 4 7 4H17ZM17 6H7C4.8578 6 3.10892 7.68397 3.0049 9.80036L3 10V14C3 16.1422 4.68397 17.8911 6.80036 17.9951L7 18H17C19.1422 18 20.8911 16.316 20.9951 14.1996L21 14V10C21 7.8578 19.316 6.10892 17.1996 6.0049L17 6ZM10 9V11H12V13H9.999L10 15H8L7.999 13H6V11H8V9H10ZM18 13V15H16V13H18ZM16 9V11H14V9H16Z"></path></svg>`
+  },
+  {
     name: "Electricity",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
   <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
@@ -131,16 +135,10 @@ const closeModal = () => {
       <h3 class="text-lg font-bold">Add New Category</h3>
       <p class="text-gray-500">Create a new category for your transactions.</p>
       <!---Preview-->
-      <div
-        class="flex justify-center items-center gap-3 mt-4 bg-gray-100 ring-1 ring-gray-300 rounded-lg p-4"
-        v-if="form.name && form.color !== 'Select Color'"
-      >
+      <div class="flex justify-center items-center gap-3 mt-4 bg-gray-100 ring-1 ring-gray-300 rounded-lg p-4"
+        v-if="form.name && form.color !== 'Select Color'">
         <div class="rounded-lg w-12 h-12 p-2" :class="form.color">
-          <div
-            v-if="selectedIcon.name && selectedIcon.svg"
-            v-html="selectedIcon.svg"
-            class="text-white"
-          ></div>
+          <div v-if="selectedIcon.name && selectedIcon.svg" v-html="selectedIcon.svg" class="text-white"></div>
         </div>
         <div>
           <h3 class="font-medium">{{ form.name }}</h3>
@@ -150,52 +148,29 @@ const closeModal = () => {
       <div>
         <form @submit.prevent="submitForm" method="post">
           <div class="mt-4 mb-10">
-            <button
-              type="button"
-              class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-              @click="closeModal"
-            >
+            <button type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="closeModal">
               ✕
             </button>
             <p class="font-medium">Category Type</p>
             <div class="flex items-center gap-2 mt-2">
               <!-- Income Radio Button -->
               <div class="flex items-center gap-2">
-                <input
-                  id="income"
-                  type="radio"
-                  name="type"
-                  value="income"
-                  v-model="form.type"
-                  class="radio radio-primary radio-sm"
-                  checked
-                />
+                <input id="income" type="radio" name="type" value="income" v-model="form.type"
+                  class="radio radio-primary radio-sm" checked />
                 <label for="income" class="font-sans">Income</label>
               </div>
               <!-- Expense Radio Button -->
               <div class="flex items-center gap-2">
-                <input
-                  id="expense"
-                  type="radio"
-                  name="type"
-                  value="expense"
-                  v-model="form.type"
-                  class="radio radio-primary radio-sm"
-                />
+                <input id="expense" type="radio" name="type" value="expense" v-model="form.type"
+                  class="radio radio-primary radio-sm" />
                 <label for="expense" class="font-sans">Expense</label>
               </div>
             </div>
 
             <div class="mt-4">
               <label for="category_name" class="font-medium">Category Name</label>
-              <input
-                id="category_name"
-                type="text"
-                v-model="form.name"
-                placeholder="Enter Category Name"
-                required
-                class="input mt-2 input-bordered w-full"
-              />
+              <input id="category_name" type="text" v-model="form.name" placeholder="Enter Category Name" required
+                class="input mt-2 input-bordered w-full" />
             </div>
             <div class="mt-4">
               <div class="w-full flex items-center gap-5">
@@ -203,24 +178,14 @@ const closeModal = () => {
                   <p class="font-medium mb-2">Icon</p>
                   <div class="dropdown dropdown-bottom dropdown-center w-full">
                     <div tabindex="0" role="button" class="btn m-1 w-full">
-                      <div
-                        class="flex items-center gap-1"
-                        v-if="selectedIcon.name && selectedIcon.svg"
-                      >
+                      <div class="flex items-center gap-1" v-if="selectedIcon.name && selectedIcon.svg">
                         <span v-html="selectedIcon.svg" class="size-6"></span>
                         <p>{{ selectedIcon.name }}</p>
                       </div>
                       <div v-else>Select Icon</div>
                     </div>
-                    <ul
-                      tabindex="0"
-                      class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-lg"
-                    >
-                      <li
-                        v-for="icon in icons"
-                        :key="icon.name"
-                        @click="selectIcon(icon)"
-                      >
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-lg">
+                      <li v-for="icon in icons" :key="icon.name" @click="selectIcon(icon)">
                         <a>
                           <span v-html="icon.icon" class="size-6"></span>
                           {{ icon.name }}
@@ -232,11 +197,7 @@ const closeModal = () => {
                 <!-- Color Selection -->
                 <div class="w-full">
                   <p class="font-medium mb-2">Color</p>
-                  <select
-                    class="select select-bordered w-full"
-                    name="payment_method"
-                    v-model="form.color"
-                  >
+                  <select class="select select-bordered w-full" name="payment_method" v-model="form.color">
                     <option disabled>Select Color</option>
                     <option selected value="bg-blue-500">Blue</option>
                     <option value="bg-green-500">Green</option>

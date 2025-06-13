@@ -2,24 +2,43 @@
 import DashboardNav from "../components/DashboardNav.vue";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
 import OpenAddModalButton from "@/components/OpenAddModalButton.vue";
-import { ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import AddCategoryModal from "@/components/modals/AddCategoryModal.vue";
-import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { getAuth } from "firebase/auth";
 
 const tab = ref("income");
 
 const categories = ref([]);
-
+const transactions = ref([]);
+const budgets = ref([]);
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
+
 const categoriesQuery = query(
   collection(db, "categories"),
+  where("userId", "==", userId),
+  orderBy("createdAt", "desc")
+)
+
+const transactionsQuery = query(
+  collection(db, "transactions"),
   where("userId", "==", userId)
 )
-if (userId) {
-  onSnapshot(categoriesQuery, (snapshot) => {
+
+const budgetsQuery = query(
+  collection(db, "budgets"),
+  where("userId", "==", userId)
+)
+
+
+let unsubscribeCategories = null;
+let unsubscribeTransactions = null;
+let unsubscribeBudgets = null;
+
+onMounted(() => {
+  unsubscribeCategories = onSnapshot(categoriesQuery, (snapshot) => {
     categories.value = snapshot.docs
       .filter((doc) => doc.data().userId === userId)
       .map((doc) => {
@@ -29,7 +48,71 @@ if (userId) {
         };
       });
   });
-}
+
+  unsubscribeTransactions = onSnapshot(transactionsQuery, (snapshot) => {
+    transactions.value = snapshot.docs
+      .filter((doc) => doc.data().userId === userId)
+      .map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+  });
+
+  unsubscribeBudgets = onSnapshot(budgetsQuery, (snapshot) => {
+    budgets.value = snapshot.docs
+      .filter((doc) => doc.data().userId === userId)
+      .map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+  });
+})
+
+onUnmounted(() => {
+  if (unsubscribeCategories) {
+    unsubscribeCategories();
+  }
+  if (unsubscribeTransactions) {
+    unsubscribeTransactions();
+  }
+  if (unsubscribeBudgets) {
+    unsubscribeBudgets();
+  }
+})
+
+const categorySummaries = computed(() => {
+  return categories.value.map((category) => {
+    const relatedTransactions = transactions.value.filter((transaction) => {
+      return transaction.categoryId === category.id && transaction.type === 'expense';
+    })
+    const totalBudget = budgets.value.find(b => b.categoryId === category.id)?.amount || 0;
+
+    const totalTransactionsCategory = transactions.value.filter((transaction) => {
+      return transaction.categoryId === category.id;
+    }).length;
+
+    const totalSpent = relatedTransactions.reduce((sum, t) => sum + t.amount, 0);
+    const categoryBudget = category.budget || budgets.value.find(b => b.categoryId === category.id)?.amount || 0
+    const amountLeft = categoryBudget - totalSpent;
+    const budgetPercentageUsed = categoryBudget > 0
+      ? ((totalSpent / categoryBudget) * 100).toFixed(2)
+      : '0.00';
+
+    return {
+      ...category,
+      totalTransactionsCategory,
+      totalSpent,
+      totalBudget,
+      budgetUsed: categoryBudget,
+      amountLeft,
+      budgetPercentageUsed,
+    };
+  })
+})
 
 //handle delete category
 const deleteCategory = async (categoryId) => {
@@ -142,14 +225,14 @@ const showModal = () => {
 
           <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
             <!--Card-->
-            <div v-for="category in categories.filter((cat) => cat.type === 'expense')" :key="category.id"
+            <div v-for="category in categorySummaries.filter(c => c.type == 'expense')" :key="category.id"
               class="p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm">
               <div class="flex justify-between items-center">
                 <div class="flex gap-3">
                   <span v-html="category.icon" class="size-11 p-2 text-white rounded-lg" :class="category.color"></span>
                   <div>
                     <h3 class="font-medium text-lg">{{ category.name }}</h3>
-                    <p class="text-gray-600">{{ category.type }}</p>
+                    <p class="text-gray-600">{{ category.totalTransactionsCategory }} transaction</p>
                   </div>
                 </div>
                 <div class="dropdown dropdown-bottom dropdown-center z-10">
@@ -186,14 +269,14 @@ const showModal = () => {
                 </div>
               </div>
               <div class="pt-2 flex justify-between">
-                <p>Spent: ₱2000</p>
-                <p>Budget: ₱10000</p>
+                <p>Spent: ₱{{ category.totalSpent }}</p>
+                <p>Budget: ₱{{ category.budgetUsed }}</p>
               </div>
               <div>
-                <progress class="progress" value="10" max="100"></progress>
+                <progress class="progress" :value="category.totalSpent" :max="category.totalBudget"></progress>
                 <div class="pt-1 flex justify-between text-sm text-gray-500">
-                  <p>10% of budget used</p>
-                  <p>₱84.01 remaining</p>
+                  <p>{{ category.budgetPercentageUsed }}% of budget used</p>
+                  <p>₱{{ category.amountLeft }} remaining</p>
                 </div>
               </div>
             </div>
