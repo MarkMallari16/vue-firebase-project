@@ -7,6 +7,7 @@ import { db } from "@/firebase/firebase";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
 import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
 import OpenAddModalButton from "@/components/OpenAddModalButton.vue";
+import UpdateTransactionModal from "@/components/modals/UpdateTransactionModal.vue";
 
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
@@ -107,7 +108,7 @@ const deleteTransaction = async (transactionId) => {
   }
 };
 
-const showModal = () => {
+const showAddModal = () => {
   const modal = document.getElementById("add_transaction");
 
   if (modal) {
@@ -115,18 +116,24 @@ const showModal = () => {
   }
 };
 
-
+const showUpdateModal = () => {
+  const modal = document.getElementById("update_transaction");
+  if (modal) {
+    modal.showModal();
+  }
+}
 </script>
 
 <template>
   <!--Modal-->
   <AddTransactionModal />
+  <UpdateTransactionModal />
   <div
     class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl">
     <div>
       <DashboardNav>
         <DashboardNavBarRightSlot>
-          <OpenAddModalButton @click="showModal">Add Transaction</OpenAddModalButton>
+          <OpenAddModalButton @click="showAddModal">Add Transaction</OpenAddModalButton>
         </DashboardNavBarRightSlot>
       </DashboardNav>
       <h1 class="text-3xl font-bold">All Transactions</h1>
@@ -228,7 +235,7 @@ const showModal = () => {
                     <ul tabindex="0"
                       class="dropdown-content dropdown-top menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                       <li>
-                        <button class="font-medium">
+                        <button @click="showUpdateModal" class="font-medium">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"

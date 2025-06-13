@@ -7,7 +7,7 @@ import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
 import AddButtonModal from "@/components/OpenAddModalButton.vue";
 import { useNavigation } from "@/composables/useNavigation";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { db } from "@/firebase/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -48,6 +48,9 @@ const showModal = () => {
   }
 };
 
+const fiveRecentTransactions = computed(() => {
+  return transactions.value.slice(0, 5);
+})
 // navigation composable
 const { goTo } = useNavigation();
 
@@ -101,13 +104,10 @@ const { goTo } = useNavigation();
             </tr>
           </thead>
           <tbody>
-            <tr v-for="transaction in transactions.slice(0, 5)" v-if="transactions" :key="transaction.id">
+            <tr v-for="transaction in fiveRecentTransactions" v-if="transactions" :key="transaction.id">
               <td class="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" class="size-10 rounded-full badge rind-1">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                </svg>
+
+                <span v-html="transaction.categoryIcon" class="size-10 rounded-full badge rind-1"></span>
 
                 <p>
                   {{ transaction.description }}
