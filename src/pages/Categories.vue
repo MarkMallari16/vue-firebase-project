@@ -183,7 +183,7 @@ const showModal = () => {
                   <span v-html="category.icon" class="size-11 p-2 text-white rounded-lg" :class="category.color"></span>
                   <div>
                     <h3 class="font-medium text-lg">{{ category.name }}</h3>
-                    <p class="text-gray-600">{{  category.numberOfTransactions }} transaction</p>
+                    <p class="text-gray-600">{{ category.numberOfTransactions }} transactions</p>
                   </div>
                 </div>
                 <div class="dropdown dropdown-bottom dropdown-center z-10">
@@ -284,7 +284,7 @@ const showModal = () => {
               </div>
               <div class="pt-2">
                 <p class="text-3xl font-bold" :class="[category.totalAmount > 0 ? 'text-green-600' : 'text-neutral']">
-                  {{ category.incomeStatus }}{{category.totalAmount }}</p>
+                  {{ category.incomeStatus }}{{ category.totalAmount }}</p>
               </div>
               <div class="pt-2">
                 <p class="badge rounded-full bg-gray-100 font-medium">This month</p>
