@@ -270,7 +270,7 @@ const settingsSupportLinks = [
 </script>
 
 <template>
-  <div class="overflow-hidden text-nowrap">
+  <div class="hidden md:block lg:block overflow-hidden text-nowrap">
     <div class="rounded-3xl transition-all duration-500 delay-0ase-in-out"
       :class="[isSidebarOpen ? 'w-[21rem] fixed ' : 'w-0 opacity-0']">
       <div class="flex flex-col justify-between px-5 py-8 h-screen">

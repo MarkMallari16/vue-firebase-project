@@ -5,7 +5,7 @@ import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue"
 import AddBudgetModal from "@/components/modals/AddBudgetModal.vue";
 import { getAuth } from "firebase/auth";
 import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
-import { computed, ref, watchEffect } from "vue";
+import { computed, onMounted, onUnmounted, ref, watchEffect } from "vue";
 import { db } from "@/firebase/firebase";
 
 const auth = getAuth();
@@ -19,8 +19,11 @@ const transactionsqQuery = query(
 );
 const budgetsQuery = query(collection(db, "budgets"), where("userId", "==", userId));
 
-if (userId) {
-  onSnapshot(transactionsqQuery, (snapshot) => {
+let unsubscribeTransactions;
+let unsubscribeBudgets;
+
+onMounted(() => {
+  unsubscribeTransactions = onSnapshot(transactionsqQuery, (snapshot) => {
     transactions.value = snapshot.docs.map((doc) => {
       return {
         id: doc.id,
@@ -29,7 +32,7 @@ if (userId) {
     });
   });
 
-  onSnapshot(budgetsQuery, (snapshot) => {
+  unsubscribeBudgets = onSnapshot(budgetsQuery, (snapshot) => {
     budgets.value = snapshot.docs.map((doc) => {
       return {
         id: doc.id,
@@ -37,10 +40,18 @@ if (userId) {
       };
     });
   });
-}
+})
+
+onUnmounted(() => {
+  if (unsubscribeTransactions) {
+    unsubscribeTransactions();
+  }
+  if (unsubscribeBudgets) {
+    unsubscribeBudgets();
+  }
+})
 
 const budgetSummaries = computed(() => {
-  console.log(budgets.value)
   return budgets.value.map((budget) => {
     const relatedTransactions = transactions.value.filter((transaction) =>
       transaction.categoryId === budget.categoryId && transaction.type === "expense");
@@ -48,7 +59,6 @@ const budgetSummaries = computed(() => {
     const totalSpent = relatedTransactions.reduce((sum, t) => sum + t.amount, 0);
     const percentageUsed = ((totalSpent / budget.amount) * 100).toFixed(2);
     const amountLeft = budget.amount - totalSpent;
-
 
     let statusMessasge = "No budget set";
 
@@ -60,34 +70,58 @@ const budgetSummaries = computed(() => {
       statusMessasge = "On Track";
     }
 
+    let statusIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-5 text-green-600">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>`;
+
+    if (statusMessasge === "Over Budget") {
+      statusIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-red-600">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+    </svg>
+`
+    } else if (statusMessasge === "At Limit") {
+      statusIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-yellow-500">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+    </svg>
+`
+    } else if (statusMessasge === "On Track") {
+      statusIcon = ` <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-5 text-green-600">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>`
+    }
     return {
       ...budget,
       totalSpent,
       percentageUsed,
       amountLeft,
       status: statusMessasge,
+      statusIcon: statusIcon
     };
   });
 });
 
 // Calculate total budget across all budgets
-const totalBudget = computed(() => {
+const totalOverviewBudget = computed(() => {
   return budgets.value.reduce((sum, budget) => sum + budget.amount, 0);
 })
 // Calculate total spent across all transactions
-const totalSpent = computed(() => {
+const totalOverviewSpent = computed(() => {
   return transactions.value.filter(t => t.type === "expense")
     .reduce((sum, transaction) => sum + transaction.amount, 0)
 })
 // Calculate remaining budget
-const remainingBudget = computed(() => {
-  return totalBudget.value - totalSpent.value;
+const remainingOverviewBudget = computed(() => {
+  return totalOverviewBudget.value - totalOverviewSpent.value;
 })
 
-const percentageUsed = computed(() => {
-  if (totalBudget.value === 0) return 0;
+const percentageOverviewUsed = computed(() => {
+  if (totalOverviewBudget.value === 0) return 0;
 
-  return ((totalSpent.value / totalBudget.value) * 100).toFixed(2);
+  return ((totalOverviewSpent.value / totalOverviewBudget.value) * 100).toFixed(2);
 })
 const deleteBudget = async (budgetId) => {
   try {
@@ -115,6 +149,7 @@ const statusStyle = (status) => {
     return "bg-gray-100 text-gray-600";
   }
 }
+
 </script>
 <template>
   <AddBudgetModal />
@@ -128,37 +163,34 @@ const statusStyle = (status) => {
     <div>
       <!-- Budget Overview -->
       <h1 class="text-3xl font-bold">Your Budget</h1>
-
       <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-3">
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Total Budget</h2>
-          <h1 class="mt-1 text-3xl font-bold">₱{{ totalBudget }}</h1>
+          <h1 class="mt-1 text-3xl font-bold">₱{{ totalOverviewBudget }}</h1>
           <p class="text-gray-500">This Month</p>
         </div>
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Total Spent</h2>
-          <h1 class="mt-1 text-3xl font-bold text-red-600">₱{{ totalSpent }}</h1>
-          <p class="text-gray-500">{{ percentageUsed }}% of budget</p>
+          <h1 class="mt-1 text-3xl font-bold text-red-600">₱{{ totalOverviewSpent }}</h1>
+          <p class="text-gray-500">{{ percentageOverviewUsed }}% of budget</p>
         </div>
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Remaining</h2>
-          <h1 class="mt-1 text-3xl font-bold" :class="[remainingBudget < 0 ? 'text-red-600' : 'text-green-600']">
-            ₱{{ remainingBudget }}</h1>
+          <h1 class="mt-1 text-3xl font-bold"
+            :class="[remainingOverviewBudget < 0 ? 'text-red-600' : 'text-green-600']">
+            ₱{{ remainingOverviewBudget }}</h1>
           <p class="text-gray-500">Available to spend</p>
         </div>
       </div>
-      <div class="mt-6 ring-1 ring-inset ring-base-300 bg-white p-6 rounded-md">
+      <!-- Budget Categories -->
+      <div class="mt-6 ring-1 ring-inset ring-base-300 bg-white pt-6 px-6 pb-10 rounded-lg">
         <h1 class="text-2xl font-bold">Budget Categories</h1>
         <p class="text-gray-500">Track your spending by category</p>
 
         <div v-for="summary in budgetSummaries" :key="summary.id" class="pt-6">
           <div class="flex justify-between items-center">
             <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6 text-green-600">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-              </svg>
+              <span v-html="summary.statusIcon"></span>
               <div>
                 <h3 class="font-medium text-xl">{{ summary.category }}</h3>
                 <p class="text-sm text-gray-600">₱{{ summary.totalSpent }} used of ₱{{ summary.amount }}</p>
@@ -205,7 +237,10 @@ const statusStyle = (status) => {
               </div>
             </div>
           </div>
-          <progress class="progress w-full" :value="summary.percentageUsed" max="100"></progress>
+
+          <progress class="progress w-full h-4 rounded-full" :value="summary.totalSpent"
+            :max="summary.amount"></progress>
+
           <div class="text-gray-600 flex justify-between">
             <p>{{ summary.percentageUsed }}% used</p>
             <p>₱{{ summary.amountLeft }}</p>
