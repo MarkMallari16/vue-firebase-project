@@ -135,7 +135,7 @@ const showUpdateModal = () => {
   <AddTransactionModal />
   <UpdateTransactionModal />
   <div
-    class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl">
+    class="lg:min-h-screen mx-4 my-2 px-12 pb-10 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-lg rounded-2xl">
     <div>
       <DashboardNav>
         <DashboardNavBarRightSlot>
@@ -148,7 +148,7 @@ const showUpdateModal = () => {
         <h2 class="text-xl font-medium">Filters</h2>
         <p class="text-gray-500">Search and filter your transactions</p>
 
-        <div class="flex items-center justify-between gap-10 mt-3">
+        <div class="flex items-center lg:justify-between flex-wrap lg:flex-nowrap lg:gap-10 lg:mt-3">
           <!--Search Field-->
           <div class="w-full relative">
             <input type="text" class="input input-bordered pl-12 w-full" placeholder="Search..."
@@ -161,10 +161,10 @@ const showUpdateModal = () => {
             </svg>
           </div>
 
-          <div class="flex items-center gap-3">
+          <div class="flex items-center justify-end gap-3 mt-2 lg:mt-0">
             <!--Types-->
             <div>
-              <select class="select select-bordered" v-model="transactionFilterings.type">
+              <select class="select select-bordered" v-model="transactionFilterings.type" >
                 <option value="">All Type</option>
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
