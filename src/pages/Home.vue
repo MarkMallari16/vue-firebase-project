@@ -124,7 +124,7 @@ const { goTo } = useNavigation();
             </tr>
             <tr>
               <td colspan="6" class="text-center" v-if="transactions.length === 0">
-                No transactions found.
+                No recent transactions.
               </td>
             </tr>
 
