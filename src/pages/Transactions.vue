@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import DashboardNav from "@/components/DashboardNav.vue";
 import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -16,8 +16,8 @@ const transactions = ref([]);
 // Fetch categories from the "categories" collection
 const transactionFilterings = ref({
   search: "",
-  type: "all",
-  category: "all",
+  type: "",
+  category: "",
 });
 
 const transactionQuery = query(
@@ -41,6 +41,8 @@ onMounted(() => {
         ...doc.data(),
       };
     });
+    console.log("transactions", transactions.value);
+
   });
 
   //Fetch categories from the "categories" collection
@@ -53,7 +55,6 @@ onMounted(() => {
     });
   });
 })
-
 onUnmounted(() => {
   if (unsubscribeTransactions) {
     unsubscribeTransactions();
@@ -62,15 +63,15 @@ onUnmounted(() => {
     unsubscribeCategories();
   }
 });
+
 // This computed property filters transactions based on the search input
 const filteredTransactions = computed(() => {
   const { search, type, category } = transactionFilterings.value;
 
   return transactions.value
     .filter((transaction) => {
-      const matchesType = !type || type === 'all' || transaction.type.toLowerCase() === type;
-      const matchesCategory = !category || category === 'all' || transaction.category.toLowerCase() === category.toLowerCase();
-
+      const matchesType = !type || transaction.type.toLowerCase() === type;
+      const matchesCategory = !category || transaction.category.toLowerCase() === category.toLowerCase();
 
       return matchesType && matchesCategory;
     })
@@ -86,16 +87,17 @@ const filteredTransactions = computed(() => {
       );
     });
 });
-
-const computedCategories = computed(() => {
-  if (transactionFilterings.value.category === "all") {
-    return categories.value;
-  }
-
-  return categories.value.filter(
-    (category) => category.type === transactionFilterings.value.type
-  );
+// This computed property filters categories based on the selected type
+const filteredCategories = computed(() => {
+  const { type } = transactionFilterings.value;
+  return type === "" ? categories.value : categories.value.filter(c => c.type === type);
 })
+
+// Reset category when type changes
+watch(() => transactionFilterings.value.type, () => {
+  transactionFilterings.value.category = "";
+})
+
 const deleteTransaction = async (transactionId) => {
   try {
     await deleteDoc(doc(db, "transactions", transactionId));
@@ -107,12 +109,13 @@ const deleteTransaction = async (transactionId) => {
 
 const showModal = () => {
   const modal = document.getElementById("add_transaction");
+
   if (modal) {
     modal.showModal();
-  } else {
-    console.error("Modal element not found");
   }
 };
+
+
 </script>
 
 <template>
@@ -149,7 +152,7 @@ const showModal = () => {
             <!--Types-->
             <div>
               <select class="select select-bordered" v-model="transactionFilterings.type">
-                <option value="all">All</option>
+                <option value="">All Type</option>
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
               </select>
@@ -157,8 +160,8 @@ const showModal = () => {
             <!--Categories-->
             <div>
               <select class="select select-bordered" v-model="transactionFilterings.category">
-                <option value="all">All Categories</option>
-                <option v-for="category in computedCategories" :value="category.name" :key="category.id">
+                <option value="">All Categories</option>
+                <option v-for="category in filteredCategories" :value="category.name" :key="category.id">
                   {{ category.name }}
                 </option>
               </select>
@@ -191,11 +194,7 @@ const showModal = () => {
               <tr v-for="transaction in transactions ? filteredTransactions : transactions" :key="transaction.id"
                 v-if="transactions">
                 <td class="flex items-center gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-10 rounded-full badge rind-1">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                  </svg>
+                  <span v-html="transaction.categoryIcon" class="size-10 rounded-full badge rind-1 bg-gray-100"></span>
 
                   <p>
                     {{ transaction.description }}
