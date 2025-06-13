@@ -14,7 +14,7 @@
             />
           </svg>
 
-          <h1 class="text-2xl uppercase font-black">Budget Tracker</h1>
+          <h1 class="text-2xl uppercase font-black">BadgyetWise</h1>
         </div>
         <p class="text-gray-300">Plan smart, spend wise.</p>
       </aside>

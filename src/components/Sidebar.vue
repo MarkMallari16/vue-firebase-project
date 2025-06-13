@@ -285,7 +285,7 @@ const settingsSupportLinks = [
             </svg>
             <div>
               <h2 class="hidden lg:block text-xl font-black uppercase w-full">
-                Budget Tracker
+                BadgyetWise
               </h2>
               <p class="text-gray-500 font-normal w-full">Your Personal Tracker</p>
             </div>

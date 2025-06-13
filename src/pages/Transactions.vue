@@ -14,6 +14,9 @@ const userId = auth.currentUser ? auth.currentUser.uid : null;
 
 const categories = ref([]);
 const transactions = ref([]);
+
+
+
 // Fetch categories from the "categories" collection
 const transactionFilterings = ref({
   search: "",
@@ -21,10 +24,12 @@ const transactionFilterings = ref({
   category: "",
 });
 
+//Fetch transactions from the "transactions" collection
 const transactionQuery = query(
   collection(db, "transactions"),
   where("userId", "==", userId)
 );
+// Fetch transactions from the "categories" collection
 const categoriesQuery = query(
   collection(db, "categories"),
   where("userId", "==", userId)
@@ -43,7 +48,6 @@ onMounted(() => {
       };
     });
     console.log("transactions", transactions.value);
-
   });
 
   //Fetch categories from the "categories" collection
@@ -56,6 +60,7 @@ onMounted(() => {
     });
   });
 })
+// Clean up the listeners when the component is unmounted
 onUnmounted(() => {
   if (unsubscribeTransactions) {
     unsubscribeTransactions();
@@ -99,6 +104,7 @@ watch(() => transactionFilterings.value.type, () => {
   transactionFilterings.value.category = "";
 })
 
+// Function to delete a transaction by its ID
 const deleteTransaction = async (transactionId) => {
   try {
     await deleteDoc(doc(db, "transactions", transactionId));
