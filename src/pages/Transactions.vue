@@ -183,13 +183,14 @@ const showUpdateModal = () => {
     </div>
 
     <!--Transaction History-->
-    <div class="w-[27rem] sm:w-[41rem] md:w-full lg:w-full mt-3 rounded-lg bg-white ring-1 ring-inset ring-base-300 p-5 ">
+    <div
+      class="w-[27rem] sm:w-[41rem] md:w-full lg:w-full mt-3 rounded-lg bg-white ring-1 ring-inset ring-base-300 p-5 ">
       <div class="mb-4">
         <h2 class="text-xl font-medium ">Transaction History</h2>
         <p class="text-gray-500">Complete list of your financial transactions</p>
       </div>
       <div class="rounded-box bg-base-100 overflow-auto">
-        <table class="table w-full min-w-1 ">
+        <table class="table w-full ">
           <!-- head -->
           <thead>
             <tr>
@@ -205,14 +206,13 @@ const showUpdateModal = () => {
           </thead>
           <tbody>
             <tr v-for="transaction in transactions ? filteredTransactions : transactions" :key="transaction.id"
-              v-if="transactions">
-              <td class="flex items-center gap-3">
-                <span v-html="transaction.categoryIcon" class="size-10 rounded-full badge rind-1 bg-gray-100"></span>
-
-                <p>
-                  {{ transaction.description }}
-                </p>
+              v-if="transactions" class="hover:bg-gray-100 transition-colors duration-200">
+              <td class="flex justify-start items-center gap-3 p-5">
+                <div v-html="transaction.categoryIcon"
+                  class="size-[44px] lg:size-10 rounded-full badge rind-1 bg-gray-100"></div>
+                <span class="text-sm">{{ transaction.description }}</span>
               </td>
+
               <td>{{ transaction.type }}</td>
               <td>{{ transaction.amount }}</td>
               <td>{{ transaction.date }}</td>

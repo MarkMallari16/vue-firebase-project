@@ -151,7 +151,7 @@ const showModal = () => {
   <!--Modal-->
   <AddCategoryModal />
   <div
-    class=" min-h-screen text-nowrap mx-4 my-2 px-4 lg:px-12 pb-10 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-lg rounded-2xl">
+    class="min-h-screen text-nowrap mx-4 my-2 px-4 lg:px-12 pb-10 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-lg rounded-2xl">
     <div>
       <!--Top-->
       <DashboardNav>

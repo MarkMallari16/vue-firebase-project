@@ -38,7 +38,7 @@ const pricings = [
 </script>
 
 <template>
-  <section class="pb-40  lg:px-0 bg-slate-100">
+  <section class="pb-40  lg:px-0 bg-slate-50">
     <div class="text-center pt-20 pb-10">
       <h2 class="text-6xl font-extrabold">Choose your plan</h2>
       <p class="text-2xl text-gray-500 pt-6">
