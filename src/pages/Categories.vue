@@ -177,25 +177,28 @@ const showModal = () => {
           <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
             <!--Card Expense-->
             <div v-for="category in categoryExpenseSummaries.filter(c => c.type == 'expense')" :key="category.id"
-              class="p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm">
-              <div class="flex justify-between items-center">
-                <div class="flex items-center gap-3">
+              class="relative p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm">
+              <div class="relative flex justify-between  items-center ">
+                <div class="flex items-center gap-3 ">
                   <span v-html="category.icon" class="size-11 p-2 text-white rounded-lg" :class="category.color"></span>
                   <div>
                     <h3 class="font-medium text-lg">{{ category.name }}</h3>
                     <p class="text-gray-600">{{ category.numberOfTransactions }} transactions</p>
                   </div>
                 </div>
-                <div class="dropdown dropdown-bottom dropdown-center z-10">
-                  <div tabindex="0" role="button" class="m-1">
+
+                <div class="dropdown dropdown-bottom">
+                  <div tabindex="0" role="button" class="btn-ghost p-0 hover:bg-transparent">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="size-6">
+                      stroke="currentColor" class="size-6  ">
                       <path stroke-linecap="round" stroke-linejoin="round"
                         d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                     </svg>
                   </div>
                   <!--Dropdown-->
-                  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm" popover>
+                  <ul tabindex="0"
+                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 max-h-60 z-10 absolute -left-48"
+                    popover>
                     <li>
                       <button>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -218,6 +221,7 @@ const showModal = () => {
                     </li>
                   </ul>
                 </div>
+
               </div>
               <div class="pt-2 flex justify-between">
                 <p>Spent: ₱{{ category.totalSpent }}</p>
@@ -236,9 +240,9 @@ const showModal = () => {
         <div v-else>
           <h2 class="text-2xl font-semibold mt-4">Income Categories</h2>
           <div class="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <!--Card-->
+            <!--Income Card-->
             <div v-for="category in categoryIncomeSummaries" :key="category.id"
-              class="p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm">
+              class="relative p-8 ring-1 ring-inset ring-gray-300 rounded-lg shadow-sm">
               <div class="flex justify-between items-center">
                 <div class="flex items-center gap-3">
                   <span v-html="category.icon" class="size-11 p-2 text-white rounded-lg" :class="category.color"></span>
@@ -248,7 +252,7 @@ const showModal = () => {
                   </div>
                 </div>
                 <!--Dropdown for actions-->
-                <div class="dropdown dropdown-bottom dropdown-center z-10">
+                <div class="dropdown dropdown-end dropdown-bottom z-10">
                   <div tabindex="0" role="button" class="m-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="size-6">
@@ -257,8 +261,9 @@ const showModal = () => {
                     </svg>
                   </div>
                   <!--Dropdown-->
-                  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm" popover
-                    popout>
+                  <ul tabindex="0"
+                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 max-h-60 z-10 absolute -left-48"
+                    popover popout>
                     <li>
                       <button>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

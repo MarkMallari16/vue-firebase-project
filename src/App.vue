@@ -21,11 +21,8 @@ const isSidebar = useRoute();
       :class="[isSidebarOpen ? 'grid-cols-[1fr_5fr] ' : 'grid-cols-[0fr_5fr]']">
       <!--sidebar-->
       <Sidebar v-if="isSidebar.meta.showSidebar" />
-             <router-view />
-
-
+      <router-view />
     </div>
-
     <div v-else>
       <router-view />
     </div>
