@@ -1,10 +1,7 @@
 <script setup>
-import { inject, onMounted, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { inject, } from "vue";
+import { useRoute } from "vue-router";
 import SidebarCloseButton from "./SidebarCloseButton.vue";
-import AddTransactionModal from "./modals/AddTransactionModal.vue";
-import DashboardNavBarSlot from "./DashboardNavBarRightSlot.vue";
 
 const route = useRoute();
 
@@ -12,9 +9,7 @@ const toggleSidebar = inject("handleToggleSidebar");
 </script>
 <template>
   <!--Top-->
-  <div
-    class="flex flex-col lg:flex-row justify-between lg:items-center gap-10 py-4 mb-2 rounded-md"
-  >
+  <div class="flex justify-between items-center gap-10 py-4 mb-2 rounded-md">
     <div class="flex items-center gap-2">
       <!--Sidebar-->
       <SidebarCloseButton @click="toggleSidebar" />
