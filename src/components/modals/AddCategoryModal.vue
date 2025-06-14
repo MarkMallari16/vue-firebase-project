@@ -128,6 +128,7 @@ const closeModal = () => {
     resetForm();
   }
 };
+
 </script>
 <template>
   <dialog id="add_category" class="modal">
@@ -184,7 +185,8 @@ const closeModal = () => {
                       </div>
                       <div v-else>Select Icon</div>
                     </div>
-                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-lg">
+                    <ul tabindex="0"
+                      class="dropdown-content menu bg-base-100 rounded-box z-1 w-full p-2 shadow-lg max-h-40 overflow-x-auto">
                       <li v-for="icon in icons" :key="icon.name" @click="selectIcon(icon)">
                         <a>
                           <span v-html="icon.icon" class="size-6"></span>
@@ -192,6 +194,7 @@ const closeModal = () => {
                         </a>
                       </li>
                     </ul>
+
                   </div>
                 </div>
                 <!-- Color Selection -->

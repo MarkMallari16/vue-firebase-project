@@ -200,7 +200,7 @@ const showModal = () => {
                   </div>
                   <!--Dropdown-->
                   <ul tabindex="0"
-                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 max-h-60 z-10 absolute -left-48"
+                    class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 max-h-60 z-10 absolute -left-48 "
                     popover>
                     <li>
                       <button>
