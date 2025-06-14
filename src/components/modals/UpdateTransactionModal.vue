@@ -24,9 +24,7 @@ const categoriesQuery = query(
     where("userId", "==", userId)
 );
 
-onMounted(async () => {
-
-
+onMounted(() => {
     unsubscribeCategories = onSnapshot(categoriesQuery, (snapshot) => {
         categories.value = snapshot.docs.map((doc) => {
             return {
@@ -43,9 +41,9 @@ onUnmounted(() => {
     }
 })
 
-watch(() => props.transactionId, async (newTransactionId) => {
-    if (props.transactionId) {
-        const docRef = doc(db, "transactions", props.transactionId);
+watch(() => props.transactionId, async (id) => {
+    if (id) {
+        const docRef = doc(db, "transactions", id);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists) {
             form.value = {
