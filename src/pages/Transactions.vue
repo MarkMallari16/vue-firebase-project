@@ -16,6 +16,8 @@ const categories = ref([]);
 const transactions = ref([]);
 
 
+//selectedTransaction
+const selectedTransactionId = ref(null);
 
 // Fetch categories from the "categories" collection
 const transactionFilterings = ref({
@@ -122,7 +124,9 @@ const showAddModal = () => {
   }
 };
 
-const showUpdateModal = () => {
+const showUpdateModal = (id) => {
+  selectedTransactionId.value = id;
+
   const modal = document.getElementById("update_transaction");
   if (modal) {
     modal.showModal();
@@ -139,7 +143,8 @@ const showUpdateModal = () => {
         <OpenAddModalButton @click="showAddModal">Add Transaction</OpenAddModalButton>
         <!--Modal-->
         <AddTransactionModal />
-        <UpdateTransactionModal />
+        <UpdateTransactionModal :transactionId="selectedTransactionId" />
+
       </DashboardNavBarRightSlot>
     </DashboardNav>
     <h1 class="text-3xl font-bold">All Transactions</h1>
@@ -242,7 +247,7 @@ const showUpdateModal = () => {
                   <ul tabindex="0"
                     class="dropdown-content dropdown-top menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                     <li>
-                      <button @click="showUpdateModal" class="font-medium">
+                      <button @click="showUpdateModal(transaction.id)" class="font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                           stroke="currentColor" class="size-6">
                           <path stroke-linecap="round" stroke-linejoin="round"
@@ -259,6 +264,7 @@ const showUpdateModal = () => {
 
                         Delete
                       </button>
+
                     </li>
                   </ul>
                 </div>
