@@ -92,7 +92,7 @@ const { goTo } = useNavigation();
           <button class="btn rounded-xl" @click="goTo('/transactions')">View All</button>
         </div>
       </div>
-      <div class="overflow-x-auto">
+      <div class="overflow-auto">
         <table class="table">
           <!-- head -->
           <thead>
@@ -118,7 +118,7 @@ const { goTo } = useNavigation();
               </td>
               <td>{{ transaction.date }}</td>
               <td>
-                <p class="badge badge-ghost rounded-full text-md font-medium">
+                <p class="text-xs lg:text-sm badge badge-ghost rounded-full text-md font-medium">
                   {{ transaction.category }}
                 </p>
               </td>
