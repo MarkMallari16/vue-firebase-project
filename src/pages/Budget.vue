@@ -118,16 +118,18 @@ const showModal = () => {
 <template>
   <AddBudgetModal />
   <section
-    class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl">
+    class="min-h-screen mx-4 my-2 px-4 lg:px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl">
     <DashboardNav>
       <DashboardNavBarRightSlot>
         <OpenAddModalButton @click="showModal">Create Budget</OpenAddModalButton>
       </DashboardNavBarRightSlot>
     </DashboardNav>
+
+
     <div>
       <!-- Budget Overview -->
       <h1 class="text-3xl font-bold">Your Budget</h1>
-      <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-3">
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-3 w-full">
         <div class="rounded-md p-6 ring-1 ring-inset ring-base-300 bg-white">
           <h2 class="mt-2 text-md font-medium">Total Budget</h2>
           <h1 class="mt-1 text-3xl font-bold">₱{{ totalOverviewBudget }}</h1>

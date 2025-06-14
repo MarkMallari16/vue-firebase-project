@@ -151,7 +151,7 @@ const showModal = () => {
   <!--Modal-->
   <AddCategoryModal />
   <div
-    class="min-h-screen mx-4 my-2 px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl">
+    class=" min-h-screen text-nowrap mx-4 my-2 px-4 lg:px-12 pb-10 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-lg rounded-2xl">
     <div>
       <!--Top-->
       <DashboardNav>
@@ -159,7 +159,10 @@ const showModal = () => {
           <OpenAddModalButton @click="showModal">Add Category</OpenAddModalButton>
         </DashboardNavBarRightSlot>
       </DashboardNav>
+
+      <!--Title-->
       <h1 class="text-3xl font-bold">Manage Categories</h1>
+
       <div class="w-full mt-4 bg-gray-100 rounded-xl flex justify-center items-center gap-2 px-2 py-2">
         <button class="btn w-1/2 rounded-lg" :class="[tab === 'expense' ? 'btn-primary' : 'btn-ghost']"
           @click="tab = 'expense'">
@@ -170,7 +173,7 @@ const showModal = () => {
           Income
         </button>
       </div>
-      <div>
+      <div class="w-full ">
         <div v-if="tab === 'expense'">
           <h2 class="text-2xl font-semibold mt-4">Expense Categories</h2>
 
@@ -297,7 +300,6 @@ const showModal = () => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>

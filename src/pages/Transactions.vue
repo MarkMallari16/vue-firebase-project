@@ -143,7 +143,6 @@ const showUpdateModal = () => {
       </DashboardNavBarRightSlot>
     </DashboardNav>
     <h1 class="text-3xl font-bold">All Transactions</h1>
-
     <div class="w-full mt-6 bg-white rounded-lg ring-1 ring-inset ring-base-300 p-5">
       <h2 class="text-xl font-medium">Filters</h2>
       <p class="text-gray-500">Search and filter your transactions</p>
