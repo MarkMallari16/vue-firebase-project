@@ -6,50 +6,98 @@ import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue"
 import AddTransactionModal from "@/components/modals/AddTransactionModal.vue";
 import AddButtonModal from "@/components/OpenAddModalButton.vue";
 import { useNavigation } from "@/composables/useNavigation";
-import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { db } from "@/firebase/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const auth = getAuth();
+const userId = ref(null);
+
 const transactions = ref([]);
-let unsubscribe = null;
+const budgets = ref([]);
+
+let unsubscribeTransactions = null;
+let unsubscribeBudgets = null;
 
 onMounted(() => {
   onAuthStateChanged(auth, (user) => {
     if (user == null) {
       return;
     }
-    const userId = user.uid;
+    userId.value = user.uid;
 
     const transactionsQuery = query(
       collection(db, "transactions"),
-      where("userId", "==", userId),
+      where("userId", "==", userId.value),
       orderBy("createdAt", "desc")
     )
-    unsubscribe = onSnapshot(transactionsQuery, (snapshot) => {
+    const budgetQuery = query(
+      collection(db, "budgets"),
+      where("userId", "==", userId.value)
+    )
+
+    unsubscribeTransactions = onSnapshot(transactionsQuery, (snapshot) => {
       transactions.value = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }))
     })
+
+    unsubscribeBudgets = onSnapshot(budgetQuery, (snapshot) => {
+      budgets.value = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }))
+    })
+
   })
 })
 
+
 onUnmounted(() => {
-  unsubscribe();
+  if (unsubscribeTransactions) {
+    unsubscribeTransactions();
+  }
+  if (unsubscribeBudgets) {
+    unsubscribeBudgets();
+  }
 })
+
+
+
 const showModal = () => {
   const modal = document.getElementById("add_transaction");
   if (modal) {
     modal.showModal();
-  } else {
-    console.error("Modal element not found");
   }
 };
 
 const fiveRecentTransactions = computed(() => {
   return transactions.value.slice(0, 5);
+})
+
+const overview = computed(() => {
+
+  const totalIncomes = transactions.value
+    .filter(transaction => transaction.type === "income")
+    .reduce((sum, transaction) => sum + transaction.amount, 0)
+
+  const totalExpenses = transactions.value
+    .filter(transaction => transaction.type === "expense")
+    .reduce((sum, transaction) => sum + transaction.amount, 0)
+
+
+  const currentBalance = totalIncomes - totalExpenses;
+
+  const savingRate = totalIncomes > 0 ? ((currentBalance / totalIncomes) * 100).toFixed(2) : 0;
+
+  return {
+    totalIncome: totalIncomes,
+    totalExpense: totalExpenses,
+    currentBalance: currentBalance,
+    savingRate: savingRate,
+  }
 })
 // navigation composable
 const { goTo } = useNavigation();
@@ -84,7 +132,7 @@ const { goTo } = useNavigation();
     <DashboardCharts />
     <div class="mt-4 p-6 ring-1 ring-inset ring-base-300 bg-white rounded-md">
       <div class="flex justify-between items-center pb-6">
-        <div> 
+        <div>
           <h1 class="text-2xl font-bold">Recent Transactions</h1>
           <p class="text-gray-500">Your latest 5 recent transactions</p>
         </div>

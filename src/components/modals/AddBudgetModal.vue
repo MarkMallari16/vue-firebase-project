@@ -54,6 +54,7 @@ onMounted(() => {
       return {
         id: doc.id,
         ...doc.data(),
+        userId: userId
       }
     })
   })
