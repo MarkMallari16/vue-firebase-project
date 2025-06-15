@@ -51,7 +51,7 @@ const scrollIndicator = {
           <Hero />
         </motion.div>
         <motion.div ref="features" :initial="{ y: -50, opacity: 0 }" :whileInView="{ y: 0, opacity: 1 }"
-          :transition="{ delay: 0.2, ease: 'easeInOut' }" class="container mx-auto px-4">
+          :transition="{ delay: 0.3, ease: 'easeInOut' }" class="container mx-auto px-4">
           <Features />
         </motion.div>
         <div>

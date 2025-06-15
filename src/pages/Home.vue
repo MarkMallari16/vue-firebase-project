@@ -84,7 +84,7 @@ const { goTo } = useNavigation();
     <DashboardCharts />
     <div class="mt-4 p-6 ring-1 ring-inset ring-base-300 bg-white rounded-md">
       <div class="flex justify-between items-center pb-6">
-        <div>
+        <div> 
           <h1 class="text-2xl font-bold">Recent Transactions</h1>
           <p class="text-gray-500">Your latest 5 recent transactions</p>
         </div>

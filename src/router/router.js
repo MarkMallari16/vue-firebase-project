@@ -9,6 +9,7 @@ import Categories from '@/pages/Categories.vue';
 import Budget from '@/pages/Budget.vue';
 import Settings from '@/pages/Profile/Settings.vue';
 import Support from '@/pages/Support.vue';
+import Reports from '@/pages/Reports.vue';
 
 
 const routes = [
@@ -83,6 +84,15 @@ const routes = [
         component: Support,
         meta: {
             title: 'Support',
+            requiresAuth: true,
+            showSidebar: true
+        }
+    }, {
+        path: '/reports',
+        name: 'Reports',
+        component: Reports,
+        meta: {
+            title: 'Reports',
             requiresAuth: true,
             showSidebar: true
         }

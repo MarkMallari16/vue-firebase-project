@@ -2,7 +2,7 @@
 import { db } from '@/firebase/firebase';
 import { getAuth } from 'firebase/auth';
 import { collection, doc, getDoc, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
 
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
@@ -31,9 +31,9 @@ const queryCategories = query(
 
 let unsubscribeCategories = null;
 
-watch(() => props.budgetId, async (id) => {
-    if (id) {
-        const docRef = doc(db, "budgets", id);
+watchEffect(async () => {
+    if (props.budgetId) {
+        const docRef = doc(db, "budgets", props.budgetId);
 
         console.log(docRef)
         const docSnap = await getDoc(docRef);
@@ -43,8 +43,8 @@ watch(() => props.budgetId, async (id) => {
                 ...docSnap.data()
             }
         }
-    }
-}, { immediate: true });
+    };
+})
 
 onMounted(() => {
     unsubscribeCategories = onSnapshot(queryCategories, (snapshot) => {
