@@ -12,9 +12,9 @@ import UpdateTransactionModal from "@/components/modals/UpdateTransactionModal.v
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
 
+// Reactive references for categories and transactions
 const categories = ref([]);
 const transactions = ref([]);
-
 
 //selectedTransaction
 const selectedTransactionId = ref(null);
@@ -62,6 +62,7 @@ onMounted(() => {
     });
   });
 })
+
 // Clean up the listeners when the component is unmounted
 onUnmounted(() => {
   if (unsubscribeTransactions) {
@@ -75,7 +76,6 @@ onUnmounted(() => {
 // This computed property filters transactions based on the search input
 const filteredTransactions = computed(() => {
   const { search, type, category } = transactionFilterings.value;
-
   return transactions.value
     .filter((transaction) => {
       const matchesType = !type || transaction.type.toLowerCase() === type;
@@ -95,6 +95,8 @@ const filteredTransactions = computed(() => {
       );
     });
 });
+
+
 // This computed property filters categories based on the selected type
 const filteredCategories = computed(() => {
   const { type } = transactionFilterings.value;
@@ -126,12 +128,12 @@ const showAddModal = () => {
 
 const showUpdateModal = (id) => {
   selectedTransactionId.value = id;
-
   const modal = document.getElementById("update_transaction");
-  if (modal) {
+  if (modal && selectedTransactionId.value) {
     modal.showModal();
   }
 }
+
 </script>
 
 <template>
@@ -211,7 +213,7 @@ const showUpdateModal = (id) => {
           </thead>
           <tbody>
             <tr v-for="transaction in transactions ? filteredTransactions : transactions" :key="transaction.id"
-              v-if="transactions" class="hover:bg-gray-100 transition-colors duration-200" >
+              v-if="transactions" class="hover:bg-gray-100 transition-colors duration-200">
               <td class="flex justify-start items-center gap-3 p-5">
                 <div v-html="transaction.categoryIcon"
                   class="size-[44px] lg:size-10 rounded-full badge rind-1 bg-gray-100"></div>

@@ -1,7 +1,7 @@
 <script setup>
 const overviews = [
   {
-    subtext: "Total Balance",
+    subtext: "Current Balance",
     value: "20040",
     icon: "₱",
 

@@ -45,6 +45,7 @@ watch(() => props.transactionId, async (id) => {
     if (id) {
         const docRef = doc(db, "transactions", id);
         const docSnap = await getDoc(docRef);
+
         if (docSnap.exists) {
             form.value = {
                 ...docSnap.data()
