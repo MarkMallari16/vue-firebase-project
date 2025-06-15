@@ -12,7 +12,6 @@ const { goTo } = useNavigation();
 // Injected properties for sidebar state
 const isSidebarOpen = inject("isSidebarOpen");
 
-
 const goToDashboardLink = () => {
   goTo("/home");
 
@@ -352,7 +351,6 @@ const settingsSupportLinks = [
               </h2>
             </button>
           </div>
-
           <!-- User Profile Dropdown -->
           <div class="dropdown dropdown-top w-full hover:bg-base-200 p-1 rounded-lg">
             <div role="button" class="w-full flex items-center justify-between" tabindex="0">
@@ -385,7 +383,6 @@ const settingsSupportLinks = [
                     <path stroke-linecap="round" stroke-linejoin="round"
                       d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
                   </svg>
-
                   <p>Sign out</p>
                 </button>
               </li>

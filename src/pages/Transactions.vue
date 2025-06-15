@@ -49,7 +49,6 @@ onMounted(() => {
         ...doc.data(),
       };
     });
-    console.log("transactions", transactions.value);
   });
 
   //Fetch categories from the "categories" collection

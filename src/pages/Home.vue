@@ -9,10 +9,12 @@ import { useNavigation } from "@/composables/useNavigation";
 import { collection, getDocs, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { db } from "@/firebase/firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const auth = getAuth();
-const userId = ref(null);
+const userId = auth.currentUser ? auth.currentUser.uid : null;
+
+console.log("User ID:", userId);
 
 const transactions = ref([]);
 const budgets = ref([]);
@@ -20,40 +22,33 @@ const budgets = ref([]);
 let unsubscribeTransactions = null;
 let unsubscribeBudgets = null;
 
+const transactionsQuery = query(
+  collection(db, "transactions"),
+  where("userId", "==", userId),
+  orderBy("createdAt", "desc")
+)
+const budgetQuery = query(
+  collection(db, "budgets"),
+  where("userId", "==", userId)
+)
+
 onMounted(() => {
-  onAuthStateChanged(auth, (user) => {
-    if (user == null) {
-      return;
-    }
-    userId.value = user.uid;
-
-    const transactionsQuery = query(
-      collection(db, "transactions"),
-      where("userId", "==", userId.value),
-      orderBy("createdAt", "desc")
-    )
-    const budgetQuery = query(
-      collection(db, "budgets"),
-      where("userId", "==", userId.value)
-    )
-
-    unsubscribeTransactions = onSnapshot(transactionsQuery, (snapshot) => {
-      transactions.value = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-    })
-
-    unsubscribeBudgets = onSnapshot(budgetQuery, (snapshot) => {
-      budgets.value = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }))
-    })
-
+  unsubscribeTransactions = onSnapshot(transactionsQuery, (snapshot) => {
+    transactions.value = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))
   })
-})
+  unsubscribeBudgets = onSnapshot(budgetQuery, (snapshot) => {
+    budgets.value = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))
 
+    console.log("Budgets:", budgets.value);
+  })
+
+})
 
 onUnmounted(() => {
   if (unsubscribeTransactions) {
@@ -63,7 +58,6 @@ onUnmounted(() => {
     unsubscribeBudgets();
   }
 })
-
 
 
 const showModal = () => {
@@ -81,22 +75,21 @@ const overview = computed(() => {
 
   const totalIncomes = transactions.value
     .filter(transaction => transaction.type === "income")
-    .reduce((sum, transaction) => sum + transaction.amount, 0)
-
+    .reduce((sum, transaction) => sum + transaction.amount || 0, 0)
+  console.log("Total Incomes:", totalIncomes);
   const totalExpenses = transactions.value
     .filter(transaction => transaction.type === "expense")
-    .reduce((sum, transaction) => sum + transaction.amount, 0)
-
+    .reduce((sum, transaction) => sum + transaction.amount || 0, 0)
 
   const currentBalance = totalIncomes - totalExpenses;
 
   const savingRate = totalIncomes > 0 ? ((currentBalance / totalIncomes) * 100).toFixed(2) : 0;
 
   return {
-    totalIncome: totalIncomes,
-    totalExpense: totalExpenses,
+    totalIncomes: totalIncomes,
+    totalExpenses: totalExpenses,
     currentBalance: currentBalance,
-    savingRate: savingRate,
+    savingsRate: savingRate,
   }
 })
 // navigation composable
@@ -111,15 +104,6 @@ const { goTo } = useNavigation();
     <DashboardNav>
       <!--Right-->
       <DashboardNavBarRightSlot>
-        <!-- <div class="w-full relative -z-10 lg:z-10">
-          <input type="text" class="input input-bordered pl-12 w-full" placeholder="Search..." />
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-            class="size-5 absolute left-4 top-4 text-gray-500">
-            <path fill-rule="evenodd"
-              d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-              clip-rule="evenodd" />
-          </svg>
-        </div> -->
         <!--Add Transaction Button-->
         <AddButtonModal @click="showModal">Add Transaction</AddButtonModal>
         <AddTransactionModal />
@@ -127,7 +111,8 @@ const { goTo } = useNavigation();
     </DashboardNav>
 
     <!--Overview---->
-    <DashboardOverview />
+    <DashboardOverview :current-balance="overview.currentBalance" :total-incomes="overview.totalIncomes"
+      :total-expenses="overview.totalExpenses" :savings-rate="overview.savingsRate" />
     <!--Chart-->
     <DashboardCharts />
     <div class="mt-4 p-6 ring-1 ring-inset ring-base-300 bg-white rounded-md">
