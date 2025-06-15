@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import DashboardNav from "@/components/DashboardNav.vue";
-import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/firebase/firebase";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
