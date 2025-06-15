@@ -84,7 +84,7 @@ const updateTransaction = async () => {
             userId: userId,
             categoryIcon: categories.value.find((c) => c.name === form.value.category)?.icon || null,
             categoryId: categories.value.find((c) => c.name === form.value.category)?.id || null,
-            updatedAt: new Date(),
+            updatedAt: new Date().toISOString(),
         }
 
 

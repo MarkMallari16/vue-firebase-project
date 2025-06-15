@@ -8,11 +8,13 @@ import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/f
 import { computed, onMounted, onUnmounted, ref, watchEffect } from "vue";
 import { db } from "@/firebase/firebase";
 import { getStatusIcon, getStatusClass } from "@/helpers/statusHelper";
+import UpdateBudgetModal from "@/components/modals/UpdateBudgetModal.vue";
 
 const auth = getAuth();
 const userId = auth.currentUser ? auth.currentUser.uid : null;
 const transactions = ref([]);
 const budgets = ref([]);
+const selectedBudgetId = ref(null);
 
 const transactionsqQuery = query(
   collection(db, "transactions"),
@@ -117,14 +119,28 @@ const showModal = () => {
     modal.showModal();
   }
 };
+
+const showUpdateModal = (id) => {
+  selectedBudgetId.value = id;
+  const modal = document.getElementById("update_budget");
+  if (modal && selectedBudgetId.value) {
+    modal.showModal();
+  }
+}
+
+console.log(selectedBudgetId.value)
 </script>
 <template>
-  <AddBudgetModal />
+
   <section
     class="min-h-screen mx-4 my-2 px-4 lg:px-12 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl">
     <DashboardNav>
       <DashboardNavBarRightSlot>
         <OpenAddModalButton @click="showModal">Create Budget</OpenAddModalButton>
+        <!-- Add Budget Modal -->
+        <AddBudgetModal />
+        <!-- Update Budget Modal -->
+        <UpdateBudgetModal :budgetId="selectedBudgetId" />
       </DashboardNavBarRightSlot>
     </DashboardNav>
 
@@ -181,15 +197,14 @@ const showModal = () => {
                 </button>
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                   <li>
-                    <div>
+                    <button @click="showUpdateModal(summary.id)">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
                           d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                       </svg>
-
                       Edit
-                    </div>
+                    </button>
                   </li>
                   <li class="text-red-600">
                     <button @click="deleteBudget(summary.id)">
@@ -206,8 +221,8 @@ const showModal = () => {
             </div>
           </div>
 
-          <progress class="progress w-full h-4 rounded-full " :class="summary.progressStatusClass" :value="summary.totalSpent"
-            :max="summary.amount"></progress>
+          <progress class="progress w-full h-4 rounded-full " :class="summary.progressStatusClass"
+            :value="summary.totalSpent" :max="summary.amount"></progress>
 
           <div class="text-gray-600 flex justify-between">
             <p>{{ summary.percentageUsed }}% used</p>

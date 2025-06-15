@@ -145,6 +145,7 @@ const showUpdateModal = (id) => {
         <OpenAddModalButton @click="showAddModal">Add Transaction</OpenAddModalButton>
         <!--Modal-->
         <AddTransactionModal />
+        <!--Update Transaction Modal-->
         <UpdateTransactionModal :transactionId="selectedTransactionId" />
 
       </DashboardNavBarRightSlot>
