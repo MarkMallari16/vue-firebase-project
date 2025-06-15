@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import DashboardNav from "@/components/DashboardNav.vue";
-import { collection, deleteDoc, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "@/firebase/firebase";
 import DashboardNavBarRightSlot from "@/components/DashboardNavBarRightSlot.vue";
@@ -29,7 +29,8 @@ const transactionFilterings = ref({
 //Fetch transactions from the "transactions" collection
 const transactionQuery = query(
   collection(db, "transactions"),
-  where("userId", "==", userId)
+  where("userId", "==", userId),
+  orderBy("createdAt", "desc")
 );
 // Fetch transactions from the "categories" collection
 const categoriesQuery = query(

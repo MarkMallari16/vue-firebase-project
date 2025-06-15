@@ -1,7 +1,5 @@
 <script setup>
 import DashboardNav from '@/components/DashboardNav.vue';
-import DashboardNavBarRightSlot from '@/components/DashboardNavBarRightSlot.vue';
-
 
 </script>
 <template>

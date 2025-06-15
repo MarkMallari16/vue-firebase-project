@@ -100,7 +100,7 @@ const { goTo } = useNavigation();
 <template>
   <!--Overview-->
   <div
-    class="lg:min-h-screen mx-4 my-2 px-4 lg:px-12 pb-20 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl">
+    class="lg:min-h-screen mx-4 my-2 px-4 lg:px-12 pb-10 transition-all duration-300 ease-in-out ring-1 ring-gray-200 shadow-inner rounded-2xl">
     <DashboardNav>
       <!--Right-->
       <DashboardNavBarRightSlot>
