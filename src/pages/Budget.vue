@@ -60,9 +60,9 @@ const budgetSummaries = computed(() => {
     const totalSpent = relatedTransactions.reduce((sum, t) => sum + t.amount, 0);
     const percentageUsed = ((totalSpent / budget.amount) * 100).toFixed(2);
     const amountLeft = budget.amount - totalSpent;
+    const progressStatusClass = totalSpent > budget.amount ? 'text-red-600' : '';
 
     let statusMessasge = "No budget set";
-
     if (totalSpent > budget.amount) {
       statusMessasge = "Over Budget";
     } else if (totalSpent === budget.amount) {
@@ -71,12 +71,15 @@ const budgetSummaries = computed(() => {
       statusMessasge = "On Track";
     }
 
+
+
     return {
       ...budget,
       totalSpent,
       percentageUsed,
       amountLeft,
       status: statusMessasge,
+      progressStatusClass: progressStatusClass
     };
   });
 });
@@ -203,7 +206,7 @@ const showModal = () => {
             </div>
           </div>
 
-          <progress class="progress w-full h-4 rounded-full" :value="summary.totalSpent"
+          <progress class="progress w-full h-4 rounded-full " :class="summary.progressStatusClass" :value="summary.totalSpent"
             :max="summary.amount"></progress>
 
           <div class="text-gray-600 flex justify-between">

@@ -56,7 +56,7 @@ const categoryExpenseSummaries = computed(() => {
       totalSpent: totalSpent,
       totalBudget: totalBudget,
       percentageBudgetUsed: percentageBudgetUsed,
-      amountLeft: amountLeft
+      amountLeft: amountLeft,
     }
   })
 })
@@ -231,7 +231,7 @@ const showModal = () => {
                 <p>Budget: ₱{{ category.totalBudget }}</p>
               </div>
               <div>
-                <progress class="progress" :value="category.totalSpent" :max="category.totalBudget"></progress>
+                <progress class="progress" :class="progressStatusClass" :value="category.totalSpent" :max="category.totalBudget"></progress>
                 <div class="pt-1 flex justify-between text-sm text-gray-500">
                   <p>{{ category.percentageBudgetUsed }}% of budget used</p>
                   <p>₱{{ category.amountLeft }} remaining</p>
